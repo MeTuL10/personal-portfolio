@@ -28,11 +28,10 @@ export default function DevAbout() {
         <h2 className={styles.role}>Software Developer focused on <span>AI/ML</span></h2>
 
         <p className={styles.bio}>
-          I have a strong interest in the fields of Artificial Intelligence, Data Analytics and
-          DevOps. Seeking opportunities to apply my knowledge and skills in a professional setting
-          and contribute to the growth of the organization. I have worked on multiple projects on AI
-          and data analytics using machine learning, deep learning and reinforcement learning. I am
-          also experienced in DevOps technologies and have used them in the development and
+          I'm Software Developer focusing on AI and ML, contributing to the development 
+          of large-scale, data-driven AI/ML applications. Experienced in building projects 
+          across ML, DL and RL during my undergraduate studies.
+          I'm also experienced in DevOps technologies and have used them in the development and
           deployment of applications.
         </p>
 
@@ -43,14 +42,14 @@ export default function DevAbout() {
           <a href="https://github.com/MeTuL10" className={styles.socialIcon} target="_blank" rel="noreferrer" title="GitHub">
             <i className="fa-brands fa-github"></i>
           </a>
-          <a
+          {/* <a
             href="https://drive.google.com/file/d/1nHz0HTdBZUi6g8yrbY6nPtVBtkZQDTvE/view?usp=sharing"
             className={styles.resumeBtn}
             target="_blank"
             rel="noreferrer"
           >
             <i className="fa-solid fa-file-arrow-down"></i> View Resume
-          </a>
+          </a> */}
         </div>
       </div>
 

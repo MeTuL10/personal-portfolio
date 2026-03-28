@@ -2,12 +2,12 @@ export const skills = {
   languages: {
     label: 'Programming Languages',
     icon: 'fa-solid fa-code',
-    items: ['Python', 'Java', 'C', 'C++', 'C#', 'HTML', 'CSS', 'Javascript', 'R'],
+    items: ['Python', 'Java', 'C', 'C++', 'C#', 'HTML', 'CSS', 'JS', 'R'],
   },
   frameworks: {
     label: 'Libraries & Frameworks',
     icon: 'fa-solid fa-cubes',
-    items: ['Sklearn', 'TensorFlow', 'Gym', 'Pandas', 'Stable Baselines', 'Flask', 'Rasa'],
+    items: ['Sklearn', 'TensorFlow', 'Gym', 'Pandas', 'Stable Baselines', 'Flask', 'Rasa', 'Hera', 'Pyspark', 'React'],
   },
   tools: {
     label: 'Tools & Platforms',
@@ -100,10 +100,10 @@ export const projects = [
   {
     id: 11,
     title: 'Personal Portfolio',
-    description: 'Personal portfolio website developed using HTML and CSS and deployed through GitHub.',
+    description: 'Personal portfolio website originally developed using HTML and CSS, enhanced into react.',
     image: 'images/website.jpg',
     github: 'https://github.com/MeTuL10/personal-portfolio',
-    tags: ['HTML', 'CSS'],
+    tags: ['React', 'AI assisted'],
   },
 ];
 
