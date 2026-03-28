@@ -1,0 +1,202 @@
+.about {
+  position: relative;
+  padding: 12rem 8vw 8rem;
+  overflow: hidden;
+  min-height: 100vh;
+}
+
+.glowOrb {
+  position: absolute;
+  top: -10rem;
+  right: -10rem;
+  width: 50rem;
+  height: 50rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(104, 4, 186, 0.25) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.intro {
+  position: relative;
+  z-index: 1;
+  max-width: 80rem;
+}
+
+.greeting {
+  font-family: var(--font-mono);
+  font-size: 1.6rem;
+  color: var(--main-bright);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: clamp(5rem, 9vw, 9rem);
+  font-weight: 800;
+  line-height: 1;
+  background: linear-gradient(135deg, #fff 0%, var(--main-bright) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1.6rem;
+  will-change: opacity, transform;
+}
+
+.role {
+  font-size: 2.2rem;
+  font-weight: 400;
+  color: var(--text-color);
+  opacity: 0.75;
+  margin-bottom: 3rem;
+}
+
+.role span {
+  color: var(--main-bright);
+  font-weight: 700;
+  opacity: 1;
+}
+
+.bio {
+  font-size: 1.6rem;
+  line-height: 1.8;
+  color: rgba(236, 227, 227, 0.75);
+  max-width: 70rem;
+  margin-bottom: 3.5rem;
+}
+
+.socialRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+}
+
+.socialIcon {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 4.4rem;
+  height: 4.4rem;
+  border: 2px solid var(--main-color);
+  border-radius: 50%;
+  font-size: 2rem;
+  color: var(--main-bright);
+  transition: all 0.3s ease;
+}
+
+.socialIcon:hover {
+  background: var(--main-color);
+  color: #fff;
+  box-shadow: 0 0 1.5rem var(--main-color);
+  transform: translateY(-2px);
+}
+
+.resumeBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1.1rem 2.4rem;
+  border: 2px solid var(--main-color);
+  border-radius: 5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--main-bright);
+  font-family: var(--font-display);
+  transition: all 0.3s ease;
+  letter-spacing: 0.05em;
+}
+
+.resumeBtn:hover {
+  background: var(--main-color);
+  color: #fff;
+  box-shadow: 0 0 2rem var(--main-color);
+  transform: translateY(-2px);
+}
+
+/* Skills */
+.skillsSection {
+  position: relative;
+  z-index: 1;
+  margin-top: 7rem;
+}
+
+.sectionLabel {
+  font-size: 3.5rem;
+  font-weight: 800;
+  font-family: var(--font-display);
+  margin-bottom: 3rem;
+  display: inline-block;
+  position: relative;
+}
+
+.sectionLabel::after {
+  content: '';
+  display: block;
+  height: 3px;
+  width: 100%;
+  background: linear-gradient(90deg, var(--main-color), transparent);
+  margin-top: 0.6rem;
+  border-radius: 2px;
+}
+
+.skillsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.4rem;
+}
+
+@media (max-width: 900px) {
+  .skillsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.skillCard {
+  background: rgba(21, 0, 80, 0.5);
+  border: 1px solid rgba(104, 4, 186, 0.35);
+  border-radius: 1.6rem;
+  padding: 2.8rem 2.4rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.skillCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 2.5rem rgba(104, 4, 186, 0.4);
+}
+
+.skillTitle {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--main-bright);
+  margin-bottom: 1.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.skillList {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+}
+
+.skillTag {
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  padding: 0.4rem 1.2rem;
+  border-radius: 3rem;
+  border: 1px solid rgba(104, 4, 186, 0.5);
+  color: rgba(236, 227, 227, 0.8);
+  transition: all 0.2s ease;
+  cursor: default;
+}
+
+.skillTag:hover {
+  background: var(--main-color);
+  border-color: var(--main-color);
+  color: #fff;
+}

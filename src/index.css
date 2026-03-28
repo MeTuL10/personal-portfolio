@@ -1,0 +1,48 @@
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  border: none;
+  outline: none;
+}
+
+:root {
+  --text-color: #ece3e3;
+  --bg-color: #0d031d;
+  --second-bg-color: #150050;
+  --main-color: #6804ba;
+  --main-bright: #9b3fff;
+  --box-color: #410164;
+  --font-display: 'Syne', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+}
+
+html {
+  font-size: 10px;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-display);
+}
+
+::selection {
+  background: var(--main-color);
+  color: var(--text-color);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--main-color);
+  border-radius: 3px;
+}
