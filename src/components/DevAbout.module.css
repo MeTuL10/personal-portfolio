@@ -26,7 +26,7 @@
 .greeting {
   font-family: var(--font-mono);
   font-size: 1.6rem;
-  color: var(--main-bright);
+  color: var(--dev-bright);
   letter-spacing: 0.15em;
   text-transform: uppercase;
   margin-bottom: 0.8rem;
@@ -37,7 +37,7 @@
   font-size: clamp(5rem, 9vw, 9rem);
   font-weight: 800;
   line-height: 1;
-  background: linear-gradient(135deg, #fff 0%, var(--main-bright) 100%);
+  background: linear-gradient(135deg, #fff 0%, var(--dev-bright) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -54,7 +54,7 @@
 }
 
 .role span {
-  color: var(--main-bright);
+  color: var(--dev-bright);
   font-weight: 700;
   opacity: 1;
 }
@@ -80,17 +80,17 @@
   align-items: center;
   width: 4.4rem;
   height: 4.4rem;
-  border: 2px solid var(--main-color);
+  border: 2px solid var(--dev-color);
   border-radius: 50%;
   font-size: 2rem;
-  color: var(--main-bright);
+  color: var(--dev-bright);
   transition: all 0.3s ease;
 }
 
 .socialIcon:hover {
-  background: var(--main-color);
+  background: var(--dev-color);
   color: #fff;
-  box-shadow: 0 0 1.5rem var(--main-color);
+  box-shadow: 0 0 1.5rem var(--dev-color);
   transform: translateY(-2px);
 }
 
@@ -99,24 +99,23 @@
   align-items: center;
   gap: 0.8rem;
   padding: 1.1rem 2.4rem;
-  border: 2px solid var(--main-color);
+  border: 2px solid var(--dev-color);
   border-radius: 5rem;
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--main-bright);
+  color: var(--dev-bright);
   font-family: var(--font-display);
   transition: all 0.3s ease;
   letter-spacing: 0.05em;
 }
 
 .resumeBtn:hover {
-  background: var(--main-color);
+  background: var(--dev-color);
   color: #fff;
-  box-shadow: 0 0 2rem var(--main-color);
+  box-shadow: 0 0 2rem var(--dev-color);
   transform: translateY(-2px);
 }
 
-/* Skills */
 .skillsSection {
   position: relative;
   z-index: 1;
@@ -126,7 +125,6 @@
 .sectionLabel {
   font-size: 3.5rem;
   font-weight: 800;
-  font-family: var(--font-display);
   margin-bottom: 3rem;
   display: inline-block;
   position: relative;
@@ -137,7 +135,7 @@
   display: block;
   height: 3px;
   width: 100%;
-  background: linear-gradient(90deg, var(--main-color), transparent);
+  background: linear-gradient(90deg, var(--dev-color), transparent);
   margin-top: 0.6rem;
   border-radius: 2px;
 }
@@ -149,9 +147,7 @@
 }
 
 @media (max-width: 900px) {
-  .skillsGrid {
-    grid-template-columns: 1fr;
-  }
+  .skillsGrid { grid-template-columns: 1fr; }
 }
 
 .skillCard {
@@ -170,7 +166,7 @@
 .skillTitle {
   font-size: 1.7rem;
   font-weight: 700;
-  color: var(--main-bright);
+  color: var(--dev-bright);
   margin-bottom: 1.8rem;
   display: flex;
   align-items: center;
@@ -196,7 +192,7 @@
 }
 
 .skillTag:hover {
-  background: var(--main-color);
-  border-color: var(--main-color);
+  background: var(--dev-color);
+  border-color: var(--dev-color);
   color: #fff;
 }

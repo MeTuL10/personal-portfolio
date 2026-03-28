@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { skills } from '../data.js';
-import styles from './About.module.css';
+import styles from './DevAbout.module.css';
 
-export default function About() {
+export default function DevAbout() {
   const nameRef = useRef(null);
 
   useEffect(() => {
@@ -10,11 +10,12 @@ export default function About() {
     if (!el) return;
     el.style.opacity = '0';
     el.style.transform = 'translateY(20px)';
-    setTimeout(() => {
+    const t = setTimeout(() => {
       el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
       el.style.opacity = '1';
       el.style.transform = 'translateY(0)';
-    }, 300);
+    }, 100);
+    return () => clearTimeout(t);
   }, []);
 
   return (
@@ -36,32 +37,11 @@ export default function About() {
         </p>
 
         <div className={styles.socialRow}>
-          <a
-            href="https://www.linkedin.com/in/metul-prabhu-215187202/"
-            className={styles.socialIcon}
-            target="_blank"
-            rel="noreferrer"
-            title="LinkedIn"
-          >
+          <a href="https://www.linkedin.com/in/metul-prabhu-215187202/" className={styles.socialIcon} target="_blank" rel="noreferrer" title="LinkedIn">
             <i className="fa-brands fa-linkedin"></i>
           </a>
-          <a
-            href="https://github.com/MeTuL10"
-            className={styles.socialIcon}
-            target="_blank"
-            rel="noreferrer"
-            title="GitHub"
-          >
+          <a href="https://github.com/MeTuL10" className={styles.socialIcon} target="_blank" rel="noreferrer" title="GitHub">
             <i className="fa-brands fa-github"></i>
-          </a>
-          <a
-            href="https://www.deviantart.com/metalex10"
-            className={styles.socialIcon}
-            target="_blank"
-            rel="noreferrer"
-            title="DeviantArt"
-          >
-            <i className="fa-brands fa-deviantart"></i>
           </a>
           <a
             href="https://drive.google.com/file/d/1nHz0HTdBZUi6g8yrbY6nPtVBtkZQDTvE/view?usp=sharing"

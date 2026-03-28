@@ -1,48 +1,25 @@
-import { useState, useEffect } from 'react';
 import styles from './Header.module.css';
 
-export default function Header() {
-  const [scrolled, setScrolled] = useState(false);
-  const [active, setActive] = useState('about');
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-
-      const sections = ['about', 'projects', 'artworks'];
-      for (const id of sections) {
-        const el = document.getElementById(id);
-        if (!el) continue;
-        const rect = el.getBoundingClientRect();
-        if (rect.top <= 120 && rect.bottom >= 120) {
-          setActive(id);
-        }
-      }
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const links = [
-    { id: 'about', icon: 'fa-solid fa-user', label: 'About' },
-    { id: 'projects', icon: 'fa-solid fa-laptop', label: 'Projects' },
-    { id: 'artworks', icon: 'fa-solid fa-palette', label: 'Artworks' },
-  ];
+export default function Header({ profile, onSwitch }) {
+  const isDev = profile === 'dev';
 
   return (
-    <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
+    <header className={`${styles.header} ${isDev ? styles.dev : styles.artist}`}>
       <nav className={styles.navbar}>
-        {links.map(({ id, icon, label }) => (
-          <a
-            key={id}
-            href={`#${id}`}
-            className={`${styles.navLink} ${active === id ? styles.active : ''}`}
-            title={label}
-          >
-            <i className={icon}></i>
-            <span className={styles.navLabel}>{label}</span>
-          </a>
-        ))}
+        <a href="#about" className={styles.navLink} title="Profile">
+          <i className="fa-solid fa-user"></i>
+          <span className={styles.navLabel}>Profile</span>
+        </a>
+
+        <a href="#projects" className={styles.navLink} title={isDev ? 'Projects' : 'Artworks'}>
+          <i className={isDev ? 'fa-solid fa-laptop' : 'fa-solid fa-palette'}></i>
+          <span className={styles.navLabel}>{isDev ? 'Projects' : 'Artworks'}</span>
+        </a>
+
+        <button className={styles.flipBtn} onClick={onSwitch} title="Switch profile">
+          <i className="fa-solid fa-repeat"></i>
+          <span className={styles.navLabel}>{isDev ? 'Artist view' : 'Dev view'}</span>
+        </button>
       </nav>
     </header>
   );

@@ -3,7 +3,7 @@ import styles from './Artworks.module.css';
 
 export default function Artworks() {
   return (
-    <section className={styles.artworks} id="artworks">
+    <section className={styles.artworks} id="projects">
       <div className={styles.sectionHeader}>
         <span className={styles.sectionEyebrow}>— creative side</span>
         <h2 className={styles.sectionTitle}>My Artwork</h2>

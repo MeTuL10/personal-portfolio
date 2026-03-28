@@ -1,0 +1,161 @@
+.about {
+  position: relative;
+  padding: 12rem 8vw 8rem;
+  overflow: hidden;
+  min-height: 100vh;
+}
+
+.glowOrb {
+  position: absolute;
+  top: -10rem;
+  right: -10rem;
+  width: 55rem;
+  height: 55rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(24, 95, 165, 0.22) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glowOrb2 {
+  position: absolute;
+  bottom: 5rem;
+  left: -15rem;
+  width: 45rem;
+  height: 45rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(55, 138, 221, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.intro {
+  position: relative;
+  z-index: 1;
+  max-width: 80rem;
+}
+
+.greeting {
+  font-family: var(--font-mono);
+  font-size: 1.6rem;
+  color: var(--art-bright);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: clamp(5rem, 9vw, 9rem);
+  font-weight: 800;
+  line-height: 1;
+  background: linear-gradient(135deg, #fff 0%, var(--art-bright) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1.6rem;
+  will-change: opacity, transform;
+}
+
+.role {
+  font-size: 2.2rem;
+  font-weight: 400;
+  color: var(--text-color);
+  opacity: 0.75;
+  margin-bottom: 3rem;
+}
+
+.role span {
+  color: var(--art-bright);
+  font-weight: 700;
+  opacity: 1;
+}
+
+.bio {
+  font-size: 1.6rem;
+  line-height: 1.8;
+  color: rgba(236, 227, 227, 0.75);
+  max-width: 70rem;
+  margin-bottom: 3.5rem;
+}
+
+.socialRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  margin-bottom: 5rem;
+}
+
+.daBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1.2rem 2.8rem;
+  border: 2px solid var(--art-color);
+  border-radius: 5rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--art-bright);
+  font-family: var(--font-display);
+  transition: all 0.3s ease;
+  letter-spacing: 0.05em;
+}
+
+.daBtn:hover {
+  background: var(--art-color);
+  color: #fff;
+  box-shadow: 0 0 2.5rem var(--art-color);
+  transform: translateY(-2px);
+}
+
+.daBtn i {
+  font-size: 1.8rem;
+}
+
+.learningSection {
+  margin-top: 2rem;
+}
+
+.sectionLabel {
+  font-size: 2.8rem;
+  font-weight: 800;
+  margin-bottom: 2rem;
+  display: inline-block;
+  position: relative;
+}
+
+.sectionLabel::after {
+  content: '';
+  display: block;
+  height: 3px;
+  width: 100%;
+  background: linear-gradient(90deg, var(--art-color), transparent);
+  margin-top: 0.6rem;
+  border-radius: 2px;
+}
+
+.pillRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+}
+
+.pill {
+  font-family: var(--font-mono);
+  font-size: 1.4rem;
+  padding: 0.8rem 2rem;
+  border-radius: 3rem;
+  border: 1px solid rgba(24, 95, 165, 0.5);
+  background: rgba(24, 95, 165, 0.12);
+  color: var(--art-bright);
+  transition: all 0.25s ease;
+  cursor: default;
+}
+
+.pill:hover {
+  background: var(--art-color);
+  border-color: var(--art-color);
+  color: #fff;
+  box-shadow: 0 0 1.5rem var(--art-color);
+}

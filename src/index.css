@@ -9,11 +9,19 @@
 
 :root {
   --text-color: #ece3e3;
-  --bg-color: #0d031d;
-  --second-bg-color: #150050;
-  --main-color: #6804ba;
-  --main-bright: #9b3fff;
-  --box-color: #410164;
+
+  /* Developer — purple */
+  --dev-bg: #0d031d;
+  --dev-second-bg: #150050;
+  --dev-color: #6804ba;
+  --dev-bright: #9b3fff;
+
+  /* Artist — blue */
+  --art-bg: #030a1d;
+  --art-second-bg: #001035;
+  --art-color: #185fa5;
+  --art-bright: #60aaec;
+
   --font-display: 'Syne', sans-serif;
   --font-mono: 'Space Mono', monospace;
 }
@@ -28,6 +36,19 @@ body {
   background: var(--bg-color);
   color: var(--text-color);
   font-family: var(--font-display);
+}
+
+/* Active theme vars — driven by .devTheme / .artistTheme on .app */
+.devTheme {
+  --main-color: var(--dev-color);
+  --main-bright: var(--dev-bright);
+  --bg-color: var(--dev-bg);
+}
+
+.artistTheme {
+  --main-color: var(--art-color);
+  --main-bright: var(--art-bright);
+  --bg-color: var(--art-bg);
 }
 
 ::selection {
