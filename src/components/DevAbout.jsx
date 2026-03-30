@@ -28,7 +28,7 @@ export default function DevAbout() {
         <h2 className={styles.role}>Software Developer focused on <span>AI/ML</span></h2>
 
         <p className={styles.bio}>
-          I'm Software Developer focusing on AI and ML, contributing to the development 
+          I'm a Software Developer, contributing to the development 
           of large-scale, data-driven AI/ML applications. Experienced in building projects 
           across ML, DL and RL during my undergraduate studies.
           I'm also experienced in DevOps technologies and have used them in the development and
