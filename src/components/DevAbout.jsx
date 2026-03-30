@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { skills } from '../data.js';
-import styles from './DevAbout.module.css';
+import styles from '../styles/DevAbout.module.css';
 
 export default function DevAbout() {
   const nameRef = useRef(null);

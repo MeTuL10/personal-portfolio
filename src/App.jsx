@@ -4,7 +4,7 @@ import DevAbout from './components/DevAbout.jsx';
 import Projects from './components/Projects.jsx';
 import ArtAbout from './components/ArtAbout.jsx';
 import Artworks from './components/Artworks.jsx';
-import styles from './App.module.css';
+import styles from './styles/App.module.css';
 
 export default function App() {
   const [profile, setProfile] = useState('dev'); // 'dev' | 'artist'

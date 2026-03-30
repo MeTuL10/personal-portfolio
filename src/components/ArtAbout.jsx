@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import styles from './ArtAbout.module.css';
+import styles from '../styles/ArtAbout.module.css';
 
 export default function ArtAbout() {
   const nameRef = useRef(null);

@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { artworks } from '../data.js';
-import styles from './Artworks.module.css';
+import styles from '../styles/Artworks.module.css';
 
 function groupByYearFromDate(items) {
   const yearMap = new Map();

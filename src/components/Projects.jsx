@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { projects } from '../data.js';
-import styles from './Projects.module.css';
+import styles from '../styles/Projects.module.css';
 
 export default function Projects() {
   const [hoveredId, setHoveredId] = useState(null);
