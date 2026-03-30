@@ -240,12 +240,14 @@
   height: 100%;
   gap: 1.4rem;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .artFrame {
   flex: 1;
   width: 100%;
   min-height: 0;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -253,6 +255,11 @@
   border: 1px solid rgba(24, 95, 165, 0.55);
   border-radius: 0.9rem;
   background: rgba(2, 10, 27, 0.88);
+  overflow: hidden;
+}
+
+.artFrameLoading {
+  border-color: rgba(24, 95, 165, 0.35);
 }
 
 .artImg {
@@ -262,6 +269,58 @@
   object-position: center;
   border-radius: 0.6rem;
   background: rgba(7, 13, 29, 0.95);
+  transition: opacity 0.25s ease;
+}
+
+.artImgHidden {
+  opacity: 0;
+}
+
+.artImgVisible {
+  opacity: 1;
+}
+
+.imgLoader {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  color: rgba(96, 170, 236, 0.8);
+  letter-spacing: 0.05em;
+}
+
+.imgError {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.2rem;
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  color: rgba(236, 145, 145, 0.95);
+  letter-spacing: 0.03em;
+}
+
+.imgLoaderDot {
+  width: 0.95rem;
+  height: 0.95rem;
+  border-radius: 50%;
+  border: 2px solid rgba(96, 170, 236, 0.28);
+  border-top-color: var(--art-color);
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .artCaption {
@@ -288,12 +347,10 @@
   align-items: center;
   gap: 0.5rem;
   flex-shrink: 0;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-
-.artLink:hover .artDa {
-  opacity: 1;
+  border: 1.5px solid rgba(24, 95, 165, 0.45);
+  border-radius: 4rem;
+  padding: 0.5rem 1.2rem;
+  background: rgba(3, 14, 35, 0.62);
 }
 
 .bookNav {
