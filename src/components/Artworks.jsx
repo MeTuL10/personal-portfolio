@@ -1,6 +1,11 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { artworks } from '../data.js';
 import styles from '../styles/Artworks.module.css';
+
+const FLIP_OUT_MS = 220;
+const FLIP_IN_MS = 220;
+const WHEEL_THRESHOLD = 26;
+const SWIPE_THRESHOLD = 48;
 
 function groupByYearFromDate(items) {
   const yearMap = new Map();
@@ -38,15 +43,20 @@ function groupByYearFromDate(items) {
   return sketchbooks;
 }
 
-export default function Artworks() {
+export default function Artworks({ align = 'left' }) {
   const sketchbooks = useMemo(() => groupByYearFromDate(artworks), []);
 
   const [pageByYear, setPageByYear] = useState(() =>
     Object.fromEntries(sketchbooks.map(({ year }) => [year, 0])),
   );
+  const [flipPhaseByYear, setFlipPhaseByYear] = useState(() =>
+    Object.fromEntries(sketchbooks.map(({ year }) => [year, null])),
+  );
   const [selectedYear, setSelectedYear] = useState(sketchbooks[0]?.year ?? null);
   const [loadedImages, setLoadedImages] = useState({});
   const [imageErrors, setImageErrors] = useState({});
+  const flipTimersRef = useRef({});
+  const touchStartXRef = useRef({});
 
   const markImageReady = (artId) => {
     setLoadedImages((prev) => {
@@ -55,18 +65,91 @@ export default function Artworks() {
     });
   };
 
-  const goTo = (year, dir, maxArtworkPage) => {
-    setPageByYear((prev) => {
-      const current = prev[year] ?? 0;
-      const next = dir === 'next' ? current + 1 : current - 1;
+  const clearFlipTimers = (year) => {
+    const timers = flipTimersRef.current[year];
+    if (!timers) return;
+    if (timers.out) clearTimeout(timers.out);
+    if (timers.in) clearTimeout(timers.in);
+    delete flipTimersRef.current[year];
+  };
 
-      if (next < 0 || next > maxArtworkPage) return prev;
-      return { ...prev, [year]: next };
-    });
+  useEffect(() => {
+    return () => {
+      Object.keys(flipTimersRef.current).forEach((yearKey) => {
+        clearFlipTimers(yearKey);
+      });
+    };
+  }, []);
+
+  const goTo = (year, dir, maxArtworkPage) => {
+    if (flipPhaseByYear[year]) return;
+
+    const current = pageByYear[year] ?? 0;
+    const next = dir === 'next' ? current + 1 : current - 1;
+
+    if (next < 0 || next > maxArtworkPage) return;
+
+    clearFlipTimers(year);
+
+    const outPhase = dir === 'next' ? 'out-next' : 'out-prev';
+    const inPhase = dir === 'next' ? 'in-next' : 'in-prev';
+
+    setFlipPhaseByYear((prev) => ({ ...prev, [year]: outPhase }));
+
+    const outTimer = setTimeout(() => {
+      setPageByYear((prev) => ({ ...prev, [year]: next }));
+      setFlipPhaseByYear((prev) => ({ ...prev, [year]: inPhase }));
+
+      const inTimer = setTimeout(() => {
+        setFlipPhaseByYear((prev) => ({ ...prev, [year]: null }));
+        delete flipTimersRef.current[year];
+      }, FLIP_IN_MS);
+
+      flipTimersRef.current[year] = { ...flipTimersRef.current[year], in: inTimer };
+    }, FLIP_OUT_MS);
+
+    flipTimersRef.current[year] = { out: outTimer };
+  };
+
+  const handleBookWheel = (event, year, totalArtworks) => {
+    if (flipPhaseByYear[year]) return;
+
+    const horizontalDelta =
+      Math.abs(event.deltaX) >= Math.abs(event.deltaY)
+        ? event.deltaX
+        : event.shiftKey
+          ? event.deltaY
+          : 0;
+
+    if (Math.abs(horizontalDelta) < WHEEL_THRESHOLD) return;
+
+    event.preventDefault();
+    goTo(year, horizontalDelta > 0 ? 'next' : 'prev', totalArtworks);
+  };
+
+  const handleTouchStart = (event, year) => {
+    touchStartXRef.current[year] = event.changedTouches[0]?.clientX ?? null;
+  };
+
+  const handleTouchEnd = (event, year, totalArtworks) => {
+    if (flipPhaseByYear[year]) return;
+
+    const startX = touchStartXRef.current[year];
+    const endX = event.changedTouches[0]?.clientX;
+    if (startX == null || endX == null) return;
+
+    const deltaX = startX - endX;
+    if (Math.abs(deltaX) < SWIPE_THRESHOLD) return;
+
+    goTo(year, deltaX > 0 ? 'next' : 'prev', totalArtworks);
+    touchStartXRef.current[year] = null;
   };
 
   return (
-    <section className={styles.artworks} id="projects">
+    <section
+      className={`${styles.artworks} ${align === 'right' ? styles.artworksRight : ''}`}
+      id="projects"
+    >
       <div className={styles.sectionHeader}>
         <span className={styles.sectionEyebrow}>- sketchbook</span>
         <h2 className={styles.sectionTitle}>My Artwork</h2>
@@ -88,6 +171,8 @@ export default function Artworks() {
       <div className={styles.booksColumn}>
         {sketchbooks.map(({ year, items }) => {
           const pageIdx = pageByYear[year] ?? 0;
+          const flipPhase = flipPhaseByYear[year];
+          const isTurning = Boolean(flipPhase);
           const currentArt = pageIdx > 0 ? items[pageIdx - 1] : null;
           const totalArtworks = items.length;
           const isCover = pageIdx === 0;
@@ -101,9 +186,26 @@ export default function Artworks() {
                 <span className={styles.spineYear}>{year}</span>
               </div>
 
-              <div className={styles.bookBody}>
+              <div
+                className={`${styles.bookBody} ${isTurning ? styles.bookBodyTurning : ''}`}
+                onWheel={(event) => handleBookWheel(event, year, totalArtworks)}
+                onTouchStart={(event) => handleTouchStart(event, year)}
+                onTouchEnd={(event) => handleTouchEnd(event, year, totalArtworks)}
+              >
                 {isCover ? (
-                  <div className={`${styles.page} ${styles.coverPage}`}>
+                  <div
+                    className={`${styles.page} ${styles.coverPage} ${
+                      flipPhase === 'out-next'
+                        ? styles.pageTurnOutNext
+                        : flipPhase === 'out-prev'
+                          ? styles.pageTurnOutPrev
+                          : flipPhase === 'in-next'
+                            ? styles.pageTurnInNext
+                            : flipPhase === 'in-prev'
+                              ? styles.pageTurnInPrev
+                              : ''
+                    }`}
+                  >
                     <span className={styles.coverYear}>{year}</span>
                     <span className={styles.coverSub}>
                       {totalArtworks} piece{totalArtworks !== 1 ? 's' : ''}
@@ -118,13 +220,20 @@ export default function Artworks() {
                     </button>
                   </div>
                 ) : (
-                  <div className={`${styles.page} ${styles.artPage}`}>
-                    <a
-                      href={currentArt.link}
-                      target="_blank"
-                      rel="noreferrer"
-                      className={styles.artLink}
-                    >
+                  <div
+                    className={`${styles.page} ${styles.artPage} ${
+                      flipPhase === 'out-next'
+                        ? styles.pageTurnOutNext
+                        : flipPhase === 'out-prev'
+                          ? styles.pageTurnOutPrev
+                          : flipPhase === 'in-next'
+                            ? styles.pageTurnInNext
+                            : flipPhase === 'in-prev'
+                              ? styles.pageTurnInPrev
+                              : ''
+                    }`}
+                  >
+                    <div className={styles.artContent}>
                       <div
                         className={`${styles.artFrame} ${
                           imageReady ? '' : styles.artFrameLoading
@@ -159,11 +268,16 @@ export default function Artworks() {
 
                       <div className={styles.artCaption}>
                         <span className={styles.artTitle}>{currentArt.title}</span>
-                        <span className={styles.artDa}>
+                        <a
+                          href={currentArt.link}
+                          target="_blank"
+                          rel="noreferrer"
+                          className={styles.artDa}
+                        >
                           <i className="fa-brands fa-deviantart"></i> View on DeviantArt
-                        </span>
+                        </a>
                       </div>
-                    </a>
+                    </div>
                   </div>
                 )}
 
@@ -173,9 +287,11 @@ export default function Artworks() {
 
               <div className={styles.bookNav}>
                 <button
-                  className={`${styles.navBtn} ${pageIdx === 0 ? styles.navBtnDisabled : ''}`}
+                  className={`${styles.navBtn} ${
+                    pageIdx === 0 || isTurning ? styles.navBtnDisabled : ''
+                  }`}
                   onClick={() => goTo(year, 'prev', totalArtworks)}
-                  disabled={pageIdx === 0}
+                  disabled={pageIdx === 0 || isTurning}
                   title="Previous"
                 >
                   <i className="fa-solid fa-chevron-left"></i>
@@ -186,9 +302,11 @@ export default function Artworks() {
                 </span>
 
                 <button
-                  className={`${styles.navBtn} ${pageIdx >= totalArtworks ? styles.navBtnDisabled : ''}`}
+                  className={`${styles.navBtn} ${
+                    pageIdx >= totalArtworks || isTurning ? styles.navBtnDisabled : ''
+                  }`}
                   onClick={() => goTo(year, 'next', totalArtworks)}
-                  disabled={pageIdx >= totalArtworks}
+                  disabled={pageIdx >= totalArtworks || isTurning}
                   title="Next"
                 >
                   <i className="fa-solid fa-chevron-right"></i>

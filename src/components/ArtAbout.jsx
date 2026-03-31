@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import styles from '../styles/ArtAbout.module.css';
 
-export default function ArtAbout() {
+export default function ArtAbout({ align = 'left' }) {
   const nameRef = useRef(null);
 
   useEffect(() => {
@@ -18,7 +18,10 @@ export default function ArtAbout() {
   }, []);
 
   return (
-    <section className={styles.about} id="about">
+    <section
+      className={`${styles.about} ${align === 'right' ? styles.aboutRight : ''}`}
+      id="about"
+    >
       <div className={styles.glowOrb} />
       <div className={styles.glowOrb2} />
 

@@ -118,7 +118,20 @@
 .flipBtn:hover i {
   transform: rotate(180deg);
 }
+.flipBtn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
 
+.flipBtnBusy i {
+  animation: spinSwitch 0.9s linear infinite;
+}
+
+@keyframes spinSwitch {
+  to {
+    transform: rotate(360deg);
+  }
+}
 .navLabel {
   font-size: 1.3rem;
 }
@@ -132,3 +145,4 @@
     padding: 0.8rem 1.2rem;
   }
 }
+

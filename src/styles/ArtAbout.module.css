@@ -5,6 +5,10 @@
   min-height: 100vh;
 }
 
+.aboutRight {
+  text-align: right;
+}
+
 .glowOrb {
   position: absolute;
   top: -10rem;
@@ -33,6 +37,10 @@
   position: relative;
   z-index: 1;
   max-width: 80rem;
+}
+
+.aboutRight .intro {
+  margin-left: auto;
 }
 
 .greeting {
@@ -85,6 +93,11 @@
   flex-wrap: wrap;
   gap: 1.2rem;
   margin-bottom: 5rem;
+}
+
+.aboutRight .socialRow,
+.aboutRight .pillRow {
+  justify-content: flex-end;
 }
 
 .daBtn {
@@ -159,3 +172,4 @@
   color: #fff;
   box-shadow: 0 0 1.5rem var(--art-color);
 }
+
