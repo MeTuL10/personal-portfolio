@@ -3,6 +3,7 @@
   padding: 12rem 8vw 8rem;
   overflow: hidden;
   min-height: 100vh;
+  text-align: left;
 }
 
 .aboutRight {
@@ -172,4 +173,5 @@
   color: #fff;
   box-shadow: 0 0 1.5rem var(--art-color);
 }
+
 

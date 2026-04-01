@@ -1,6 +1,6 @@
 .app {
   min-height: 100vh;
-  transition: background 0.7s ease;
+  transition: background 0.65s ease;
 }
 
 /* Theme backgrounds */
@@ -18,34 +18,26 @@
     var(--art-bg);
 }
 
-/* Flip scene */
+/* Scene */
 .scene {
   position: relative;
   width: 100%;
-  perspective: 2400px;
-  transform-style: preserve-3d;
-  overflow: hidden;
+  overflow: visible;
+  isolation: isolate;
+}
+
+.sceneLocked {
+  pointer-events: none;
+  user-select: none;
 }
 
 .page {
   width: 100%;
-  transform-origin: left center;
-  backface-visibility: hidden;
-  will-change: transform, opacity, filter;
 }
 
-.pageFront {
+.pageCurrent {
   position: relative;
   z-index: 1;
-}
-
-.pageBack {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 2;
-  transform-origin: right center;
 }
 
 .pageContent {
@@ -57,50 +49,60 @@
 }
 
 .viewArtist {
-  text-align: right;
+  text-align: left;
 }
 
-@keyframes flipOut {
-  0% {
-    transform: perspective(2400px) rotateY(0deg) translateX(0) scale(1);
-    opacity: 1;
-    filter: blur(0);
-  }
-  45% {
-    transform: perspective(2400px) rotateY(-32deg) translateX(-1%) scale(0.995);
-    opacity: 0.7;
-    filter: blur(0.6px);
-  }
-  100% {
-    transform: perspective(2400px) rotateY(-78deg) translateX(-6%) scale(0.985);
-    opacity: 0;
-    filter: blur(1px);
-  }
+/* Icon-driven transition (viewport anchored) */
+.viewportTransitionLayer {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  pointer-events: none;
+  overflow: hidden;
 }
 
-@keyframes flipIn {
-  0% {
-    transform: perspective(2400px) rotateY(78deg) translateX(6%) scale(0.985);
-    opacity: 0;
-    filter: blur(1px);
-  }
-  55% {
-    transform: perspective(2400px) rotateY(18deg) translateX(1.2%) scale(0.995);
-    opacity: 0.74;
-    filter: blur(0.5px);
-  }
-  100% {
-    transform: perspective(2400px) rotateY(0deg) translateX(0) scale(1);
-    opacity: 1;
-    filter: blur(0);
-  }
+.blackCurtain {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(1, 3, 10, 0.97);
+  will-change: opacity;
 }
 
-.flipOut {
-  animation: flipOut 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+.transitionIncomingPage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  will-change: clip-path, opacity, transform;
 }
 
-.flipIn {
-  animation: flipIn 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
-  animation-delay: 0.06s;
+.iconTransitionOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.iconTransitionGlyph {
+  position: relative;
+  z-index: 3;
+  font-size: clamp(4.5rem, 10vw, 8rem);
+  line-height: 1;
+  will-change: transform, opacity, filter;
+}
+
+.iconDev {
+  color: rgba(190, 124, 255, 0.96);
+  filter: drop-shadow(0 0 1.5rem rgba(104, 4, 186, 0.8));
+}
+
+.iconArtist {
+  color: rgba(121, 191, 252, 0.96);
+  filter: drop-shadow(0 0 1.5rem rgba(24, 95, 165, 0.8));
 }

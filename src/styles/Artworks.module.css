@@ -1,5 +1,6 @@
 .artworks {
   padding: 10rem 8vw 14rem;
+  text-align: left;
 }
 
 .artworksRight {
@@ -519,6 +520,7 @@
     align-items: flex-end;
   }
 }
+
 
 
 

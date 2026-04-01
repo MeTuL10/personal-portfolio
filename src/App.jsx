@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
 import Header from './components/Header.jsx';
 import DevAbout from './components/DevAbout.jsx';
 import Projects from './components/Projects.jsx';
@@ -6,103 +7,145 @@ import ArtAbout from './components/ArtAbout.jsx';
 import Artworks from './components/Artworks.jsx';
 import styles from './styles/App.module.css';
 
-const FLIP_DURATION_MS = 900;
-const MAX_SCROLL_WAIT_MS = 900;
+const BLACKOUT_MS = 240;
+const REVEAL_MS = 1150;
+const OVERLAY_RELEASE_MS = 120;
+const ICON_TRANSITION_MS = BLACKOUT_MS + REVEAL_MS;
 
 export default function App() {
   const [profile, setProfile] = useState('dev'); // 'dev' | 'artist'
-  const [flipping, setFlipping] = useState(false);
   const [switching, setSwitching] = useState(false);
-  const [next, setNext] = useState(null);
-  const bookRef = useRef(null);
-  const flipTimerRef = useRef(null);
-  const scrollRafRef = useRef(null);
+  const [transitioning, setTransitioning] = useState(false);
+  const [transitionData, setTransitionData] = useState(null);
+
+  const transitionTimerRef = useRef(null);
+  const releaseTimerRef = useRef(null);
 
   useEffect(() => {
     return () => {
-      if (flipTimerRef.current) clearTimeout(flipTimerRef.current);
-      if (scrollRafRef.current) cancelAnimationFrame(scrollRafRef.current);
+      if (transitionTimerRef.current) clearTimeout(transitionTimerRef.current);
+      if (releaseTimerRef.current) clearTimeout(releaseTimerRef.current);
     };
   }, []);
 
-  const waitForScrollTop = () =>
-    new Promise((resolve) => {
-      const startedAt = performance.now();
-      const poll = () => {
-        const reachedTop = window.scrollY <= 2;
-        const timedOut = performance.now() - startedAt >= MAX_SCROLL_WAIT_MS;
+  useEffect(() => {
+    if (!transitioning) return;
 
-        if (reachedTop || timedOut) {
-          scrollRafRef.current = null;
-          resolve();
-          return;
-        }
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
 
-        scrollRafRef.current = requestAnimationFrame(poll);
-      };
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [transitioning]);
 
-      poll();
-    });
+  const renderProfile = (mode) => {
+    if (mode === 'dev') {
+      return (
+        <>
+          <DevAbout />
+          <Projects />
+        </>
+      );
+    }
 
-  const handleSwitch = async () => {
-    if (flipping || switching) return;
+    return (
+      <>
+        <ArtAbout />
+        <Artworks />
+      </>
+    );
+  };
+
+  const handleSwitch = () => {
+    if (switching || transitioning) return;
 
     setSwitching(true);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    await waitForScrollTop();
 
     const incoming = profile === 'dev' ? 'artist' : 'dev';
-    setNext(incoming);
-    setFlipping(true);
+    setTransitionData({
+      next: incoming,
+      scrollY: window.scrollY,
+    });
+    setTransitioning(true);
 
-    // After flip animation completes, commit the new profile.
-    flipTimerRef.current = setTimeout(() => {
+    transitionTimerRef.current = setTimeout(() => {
       setProfile(incoming);
-      setNext(null);
-      setFlipping(false);
-      setSwitching(false);
-      window.scrollTo({ top: 0, behavior: 'auto' });
-      flipTimerRef.current = null;
-    }, FLIP_DURATION_MS);
+      transitionTimerRef.current = null;
+
+      releaseTimerRef.current = setTimeout(() => {
+        setTransitioning(false);
+        setTransitionData(null);
+        setSwitching(false);
+        releaseTimerRef.current = null;
+      }, OVERLAY_RELEASE_MS);
+    }, ICON_TRANSITION_MS);
   };
 
   const isDev = profile === 'dev';
 
   return (
     <div className={`${styles.app} ${isDev ? styles.devTheme : styles.artistTheme}`}>
-      <Header profile={profile} onSwitch={handleSwitch} isSwitching={switching || flipping} />
+      <Header profile={profile} onSwitch={handleSwitch} isSwitching={switching || transitioning} />
 
-      <div className={styles.scene} ref={bookRef}>
-        <div className={`${styles.page} ${styles.pageFront} ${flipping ? styles.flipOut : ''}`}>
+      <div className={`${styles.scene} ${transitioning ? styles.sceneLocked : ''}`}>
+        <div className={`${styles.page} ${styles.pageCurrent}`}>
           <div className={`${styles.pageContent} ${isDev ? styles.viewDev : styles.viewArtist}`}>
-            {isDev ? (
-              <>
-                <DevAbout />
-                <Projects />
-              </>
-            ) : (
-              <>
-                <ArtAbout align="right" />
-                <Artworks align="right" />
-              </>
-            )}
+            {renderProfile(profile)}
           </div>
         </div>
 
-        {flipping && next && (
-          <div className={`${styles.page} ${styles.pageBack} ${styles.flipIn}`}>
-            <div className={`${styles.pageContent} ${next === 'dev' ? styles.viewDev : styles.viewArtist}`}>
-              {next === 'dev' ? (
-                <>
-                  <DevAbout />
-                  <Projects />
-                </>
-              ) : (
-                <>
-                  <ArtAbout align="right" />
-                  <Artworks align="right" />
-                </>
-              )}
+        {transitioning && transitionData && (
+          <div className={styles.viewportTransitionLayer}>
+            <motion.div
+              className={styles.blackCurtain}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: BLACKOUT_MS / 1000, ease: [0.33, 1, 0.68, 1] }}
+            />
+            <motion.div
+              className={styles.transitionIncomingPage}
+              style={{ transform: `translateY(-${transitionData.scrollY}px)` }}
+              initial={{
+                clipPath: 'circle(0% at 50% 50%)',
+                opacity: 0,
+              }}
+              animate={{
+                clipPath: 'circle(155% at 50% 50%)',
+                opacity: 1,
+              }}
+              transition={{
+                delay: BLACKOUT_MS / 1000,
+                duration: REVEAL_MS / 1000,
+                ease: [0.2, 0.68, 0.2, 1],
+              }}
+            >
+              <div
+                className={`${styles.pageContent} ${
+                  transitionData.next === 'dev' ? styles.viewDev : styles.viewArtist
+                }`}
+              >
+                {renderProfile(transitionData.next)}
+              </div>
+            </motion.div>
+
+            <div className={styles.iconTransitionOverlay}>
+              <motion.i
+                className={`${
+                  transitionData.next === 'dev'
+                    ? 'fa-solid fa-laptop'
+                    : 'fa-solid fa-palette'
+                } ${styles.iconTransitionGlyph} ${
+                  transitionData.next === 'dev' ? styles.iconDev : styles.iconArtist
+                }`}
+                initial={{ scale: 1, opacity: 0.96 }}
+                animate={{ scale: 30, opacity: 0 }}
+                transition={{
+                  delay: BLACKOUT_MS / 1000,
+                  duration: REVEAL_MS / 1000,
+                  ease: [0.18, 0.84, 0.44, 1],
+                }}
+              />
             </div>
           </div>
         )}
