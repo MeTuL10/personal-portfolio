@@ -2,17 +2,17 @@ export const skills = {
   languages: {
     label: 'Programming Languages',
     icon: 'fa-solid fa-code',
-    items: ['Python', 'Java', 'C', 'C++', 'C#', 'HTML', 'CSS', 'Javascript', 'R'],
+    items: ['Python', 'Java', 'C', 'C++', 'C#', 'HTML', 'CSS', 'JS', 'R'],
   },
   frameworks: {
     label: 'Libraries & Frameworks',
     icon: 'fa-solid fa-cubes',
-    items: ['Sklearn', 'TensorFlow', 'Gym', 'Pandas', 'Stable Baselines', 'Flask', 'Rasa'],
+    items: ['Sklearn', 'TensorFlow', 'Gym', 'Pandas', 'Stable Baselines', 'Flask', 'Rasa', 'FastAPI', 'React', 'Hera'],
   },
   tools: {
     label: 'Tools & Platforms',
     icon: 'fa-solid fa-gears',
-    items: ['MySQL', 'Unity', 'Docker', 'Kubernetes', 'AWS', 'Azure', 'GitHub Actions', 'Redis', 'UIPath'],
+    items: ['MySQL', 'Unity', 'Docker', 'Kubernetes', 'AWS', 'Azure', 'GitHub Actions', 'Redis', 'UIPath', 'Databricks', "Argo"],
   },
 };
 
