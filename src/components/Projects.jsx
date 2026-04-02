@@ -4,9 +4,9 @@ import styles from '../styles/Projects.module.css';
 export default function Projects() {
   return (
     <section className={styles.projects} id="projects">
-      <div className={styles.sectionHeader}>
-        <span className={styles.sectionEyebrow}>- what I've built</span>
-        <h2 className={styles.sectionTitle}>My Projects</h2>
+      <div className={styles.projectsHeader}>
+        <span className={styles.projectsEyebrow}>- what I've built</span>
+        <h2 className={styles.projectsTitle}>My Projects</h2>
       </div>
 
       <div className={styles.grid}>
@@ -55,3 +55,4 @@ export default function Projects() {
     </section>
   );
 }
+

@@ -30,27 +30,6 @@
   padding: 0 1.2rem;
 }
 
-.skillsCarousel::before,
-.skillsCarousel::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0.7rem;
-  width: clamp(2.8rem, 7vw, 7rem);
-  pointer-events: none;
-  z-index: 3;
-}
-
-.skillsCarousel::before {
-  left: 0;
-  background: linear-gradient(90deg, rgba(18, 3, 48, 0.98) 0%, rgba(18, 3, 48, 0) 100%);
-}
-
-.skillsCarousel::after {
-  right: 0;
-  background: linear-gradient(270deg, rgba(18, 3, 48, 0.98) 0%, rgba(18, 3, 48, 0) 100%);
-}
-
 .skillsGrid {
   display: grid;
   grid-template-columns: repeat(3, var(--skills-card-width));
@@ -58,7 +37,10 @@
   gap: 1.2rem;
   align-items: stretch;
   padding: 0 0 0.7rem;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.45) 8%, #000 18%, #000 82%, rgba(0, 0, 0, 0.45) 92%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.45) 8%, #000 18%, #000 82%, rgba(0, 0, 0, 0.45) 92%, transparent 100%);
 }
+
 
 .skillCard {
   position: relative;
@@ -101,11 +83,12 @@
 }
 
 .skillCardSide {
-  opacity: 0.32;
-  transform: scale(0.94);
+  opacity: 0.27;
+  transform: scale(0.95);
   pointer-events: none;
-  filter: saturate(0.84);
+  filter: saturate(0.8) brightness(0.8);
 }
+
 
 .skillCardPrev {
   transform-origin: right center;
@@ -289,15 +272,12 @@
     gap: 0;
     justify-items: center;
     padding: 0 0 0.7rem;
+    -webkit-mask-image: none;
+    mask-image: none;
   }
 
   .skillsCarousel {
     padding: 0;
-  }
-
-  .skillsCarousel::before,
-  .skillsCarousel::after {
-    display: none;
   }
 
   .skillCardSide {
@@ -332,6 +312,8 @@
   .skillsGrid {
     grid-template-columns: minmax(0, 1fr);
     padding: 0 0 0.7rem;
+    -webkit-mask-image: none;
+    mask-image: none;
   }
 
   .skillList {
