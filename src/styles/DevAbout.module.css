@@ -94,6 +94,139 @@
   transform: translateY(-2px);
 }
 
+.timelineSection {
+  position: relative;
+  z-index: 1;
+  margin-top: 7rem;
+}
+
+.timeline {
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+.timeline :global(.MuiTimelineItem-root::before) {
+  flex: 0;
+  padding: 0;
+}
+
+.timelineItem {
+  min-height: 18.6rem;
+  align-items: flex-start;
+  margin-bottom: 1.25rem;
+}
+
+.timelineItem:last-child {
+  margin-bottom: 0;
+}
+
+.timelinePeriod {
+  flex: 0 0 21rem;
+  font-family: var(--font-display);
+  font-size: clamp(2.1rem, 2.8vw, 3.2rem) !important;
+  font-weight: 900 !important;
+  line-height: 1.02 !important;
+  letter-spacing: 0.01em;
+  color: rgba(238, 220, 255, 0.52);
+  padding-top: 0.45rem;
+  text-shadow:
+    0 0 1rem rgba(163, 112, 255, 0.3),
+    0 0 2.2rem rgba(119, 58, 214, 0.22);
+}
+
+.timelineSeparator {
+  position: relative;
+  margin: 0.55rem 1.3rem 0 0.5rem;
+}
+
+.timelineDot {
+  width: 1.45rem;
+  height: 1.45rem;
+  margin: 0;
+  background: radial-gradient(circle, #dfc4ff 0%, #a962ff 46%, #7b2de2 100%);
+  border: 2px solid rgba(187, 140, 255, 0.95);
+  box-shadow:
+    0 0 0 0.5rem rgba(143, 90, 232, 0.18),
+    0 0 1.8rem rgba(164, 103, 255, 0.72);
+}
+
+.timelineConnector {
+  width: 0.48rem;
+  min-height: 11.6rem;
+  background: linear-gradient(
+    180deg,
+    rgba(183, 135, 255, 0.95) 0%,
+    rgba(126, 62, 223, 0.86) 55%,
+    rgba(94, 42, 172, 0.2) 100%
+  );
+  border-radius: 999px;
+  box-shadow:
+    0 0 1.1rem rgba(139, 74, 224, 0.58),
+    0 0 2.6rem rgba(124, 58, 214, 0.34);
+}
+
+.timelineContent {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: 0.95rem;
+  padding-top: 0.4rem;
+  padding-bottom: 4rem;
+  padding-left: 1.3rem;
+}
+
+.timelineContent::before {
+  content: none;
+}
+
+.timelineMobilePeriod {
+  display: none;
+  font-family: var(--font-mono);
+  font-size: 1.04rem;
+  letter-spacing: 0.08em;
+  color: rgba(213, 183, 255, 0.84);
+  margin-bottom: 0.75rem;
+}
+
+.timelineRole {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 2.35vw, 2.6rem) !important;
+  font-weight: 800 !important;
+  color: rgba(239, 224, 255, 0.98);
+  line-height: 1.12 !important;
+  margin: 0;
+  text-shadow: 0 0 1rem rgba(148, 93, 243, 0.34);
+}
+
+.timelineCompany {
+  font-family: var(--font-mono);
+  display: inline-flex;
+  align-items: center;
+  padding: 0.34rem 0.95rem;
+  border: 1px solid rgba(188, 144, 255, 0.62);
+  border-radius: 999px;
+  background: rgba(92, 43, 164, 0.35);
+  box-shadow:
+    0 0 0 1px rgba(154, 98, 241, 0.2) inset,
+    0 0 1rem rgba(137, 79, 229, 0.25);
+  font-size: 1.16rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.1em;
+  color: rgba(226, 201, 255, 0.96);
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.timelineDesc {
+  margin: 0;
+  font-size: 1.36rem !important;
+  line-height: 1.8;
+  color: rgba(232, 220, 246, 0.76);
+  max-width: 40rem;
+}
+
 .skillsSection {
   position: relative;
   z-index: 1;
@@ -121,36 +254,50 @@
 }
 
 .skillsCarousel {
+  position: relative;
   overflow: hidden;
+  padding: 0 1.2rem;
+}
+
+.skillsCarousel::before,
+.skillsCarousel::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0.7rem;
+  width: clamp(2.8rem, 7vw, 7rem);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.skillsCarousel::before {
+  left: 0;
+  background: linear-gradient(90deg, rgba(18, 3, 48, 0.98) 0%, rgba(18, 3, 48, 0) 100%);
+}
+
+.skillsCarousel::after {
+  right: 0;
+  background: linear-gradient(270deg, rgba(18, 3, 48, 0.98) 0%, rgba(18, 3, 48, 0) 100%);
 }
 
 .skillsGrid {
-  display: flex;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-snap-type: x mandatory;
-  scroll-padding-inline: calc((100% - var(--skills-card-width)) / 2);
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  gap: 1.4rem;
-  align-items: flex-start;
-  padding: 0 calc((100% - var(--skills-card-width)) / 2) 0.7rem;
-}
-
-.skillsGrid::-webkit-scrollbar {
-  display: none;
+  display: grid;
+  grid-template-columns: repeat(3, var(--skills-card-width));
+  justify-content: center;
+  gap: 1.2rem;
+  align-items: stretch;
+  padding: 0 0 0.7rem;
 }
 
 .skillCard {
   position: relative;
-  flex: 0 0 var(--skills-card-width);
   width: var(--skills-card-width);
+  max-width: var(--skills-card-width);
   min-height: var(--skills-card-height);
   height: var(--skills-card-height);
   max-height: var(--skills-card-height);
   display: flex;
   flex-direction: column;
-  scroll-snap-align: center;
   border: 1px solid rgba(131, 79, 245, 0.46);
   border-radius: 0 0 1.6rem 0;
   background:
@@ -175,6 +322,7 @@
   opacity: 1;
   transform: scale(1);
   border-color: rgba(193, 153, 255, 0.82);
+  animation: skillCardReveal 280ms cubic-bezier(0.2, 0.8, 0.2, 1);
   box-shadow:
     0 1.2rem 3rem rgba(9, 5, 23, 0.72),
     0 0 0 1px rgba(175, 121, 255, 0.28) inset,
@@ -183,7 +331,17 @@
 
 .skillCardSide {
   opacity: 0.32;
-  transform: scale(0.92);
+  transform: scale(0.94);
+  pointer-events: none;
+  filter: saturate(0.84);
+}
+
+.skillCardPrev {
+  transform-origin: right center;
+}
+
+.skillCardNext {
+  transform-origin: left center;
 }
 
 .skillCardHeader {
@@ -264,7 +422,6 @@
     background 240ms ease;
   cursor: default;
 }
-
 .skillTag::before {
   content: '';
   position: absolute;
@@ -308,7 +465,7 @@
   border: 1px solid rgba(176, 126, 255, 0.65);
   background: rgba(61, 31, 128, 0.56);
   color: rgba(237, 220, 255, 0.95);
-  font-size: 1.45rem;
+  font-size: 1.28rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -338,16 +495,72 @@
     0 0 0.9rem rgba(156, 104, 255, 0.36);
 }
 
+@keyframes skillCardReveal {
+  from {
+    opacity: 0.72;
+    transform: translateY(0.45rem) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 @media (max-width: 900px) {
+  .timelineItem {
+    min-height: 17.3rem;
+    margin-bottom: 1rem;
+  }
+
+  .timelineConnector {
+    min-height: 10.4rem;
+  }
+
+  .timelineContent {
+    row-gap: 0.82rem;
+    padding-bottom: 3.4rem;
+  }
+
+  .timelinePeriod {
+    flex: 0 0 16rem;
+    font-size: clamp(1.7rem, 2.8vw, 2.25rem) !important;
+  }
+
+  .timelineRole {
+    font-size: 1.85rem !important;
+  }
+
+  .timelineCompany {
+    font-size: 1.02rem !important;
+  }
+
+  .timelineDesc {
+    font-size: 1.2rem !important;
+  }
+
   .skillsSection {
     --skills-card-width: min(56rem, calc(100vw - 16vw - 0.8rem));
     --skills-card-height: clamp(24rem, 56vw, 28rem);
   }
 
   .skillsGrid {
-    gap: 1rem;
-    scroll-padding-inline: calc((100% - var(--skills-card-width)) / 2);
-    padding: 0 calc((100% - var(--skills-card-width)) / 2) 0.7rem;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    justify-items: center;
+    padding: 0 0 0.7rem;
+  }
+
+  .skillsCarousel {
+    padding: 0;
+  }
+
+  .skillsCarousel::before,
+  .skillsCarousel::after {
+    display: none;
+  }
+
+  .skillCardSide {
+    display: none;
   }
 
   .skillCardHeader {
@@ -357,7 +570,7 @@
 
   .skillHeaderIcon {
     right: 0.95rem;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
 
   .skillTitle {
@@ -368,16 +581,58 @@
     padding: 0 1.6rem 1.8rem;
   }
 }
-
 @media (max-width: 560px) {
+  .timeline :global(.MuiTimelineItem-root::before) {
+    display: none;
+  }
+
+  .timeline :global(.MuiTimelineOppositeContent-root) {
+    display: none;
+  }
+
+  .timelineItem {
+    min-height: 15.2rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .timelineSeparator {
+    margin-left: 0;
+  }
+
+  .timelineConnector {
+    min-height: 9rem;
+  }
+
+  .timelineContent {
+    row-gap: 0.72rem;
+    padding-left: 0.9rem;
+    padding-bottom: 2.8rem;
+  }
+
+  .timelineMobilePeriod {
+    display: block;
+  }
+
+  .timelineCompany {
+    font-size: 1.05rem !important;
+  }
+
+  .timelineRole {
+    font-size: 1.58rem !important;
+  }
+
+  .timelineDesc {
+    font-size: 1.16rem !important;
+  }
+
   .skillsSection {
     --skills-card-width: calc(100vw - 16vw - 1rem);
     --skills-card-height: 23rem;
   }
 
   .skillsGrid {
-    gap: 0.8rem;
-    padding: 0 calc((100% - var(--skills-card-width)) / 2) 0.7rem;
+    grid-template-columns: minmax(0, 1fr);
+    padding: 0 0 0.7rem;
   }
 
   .skillList {
@@ -392,6 +647,6 @@
   }
 
   .skillsNav {
-    margin-top: 1.1rem;
+    margin-top: 1.55rem;
   }
 }

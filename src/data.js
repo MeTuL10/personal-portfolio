@@ -16,6 +16,37 @@ export const skills = {
   },
 };
 
+export const devTimeline = [
+  {
+    range: 'Mar 2026 - Present',
+    role: 'Software Developer 1, ML',
+    company: 'Kinaxis',
+    description:
+      'Contributing to development of multiple features in the Enterprise Demand Forecasting product',
+  },
+  {
+    range: 'Jul 2024 - Mar - 2026',
+    role: 'Associate Software Developer, ML',
+    company: 'Kinaxis',
+    description:
+      'Lead developer of multiple features in Enterprise Demand Forecasting. Contributing to development of the web application and enhancements to modules of the ML pipeline ',
+  },
+  {
+    range: 'Jan 2024 - Jun 2024',
+    role: 'Associate Software Developer Intern',
+    company: 'Kinaxis',
+    description:
+      'Research and experiments of data and package feasibility. Contributed to the frontend development of the Enteprise demand forecating web application.',
+  },
+  {
+    range: 'May 2023 - Jun 2023',
+    role: 'Intern',
+    company: 'Logic, part of Accenture',
+    description:
+      'Contributed to the POC of a chatbot application using Rasa framework, Azure and github actions',
+  },
+];
+
 export const projects = [
   {
     id: 1,

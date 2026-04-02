@@ -1,24 +1,21 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { skills } from '../data.js';
+import {
+  Timeline,
+  TimelineItem,
+  TimelineSeparator,
+  TimelineDot,
+  TimelineConnector,
+  TimelineContent,
+  TimelineOppositeContent,
+} from '@mui/lab';
+import { Typography } from '@mui/material';
+import { skills, devTimeline } from '../data.js';
 import styles from '../styles/DevAbout.module.css';
 
 export default function DevAbout() {
   const nameRef = useRef(null);
-  const skillsTrackRef = useRef(null);
-  const scrollRafRef = useRef(null);
   const skillGroups = useMemo(() => Object.values(skills), []);
-  const loopedGroups = useMemo(() => {
-    if (!skillGroups.length) return [];
-    return [skillGroups[skillGroups.length - 1], ...skillGroups, skillGroups[0]];
-  }, [skillGroups]);
   const [activeSkillIdx, setActiveSkillIdx] = useState(0);
-  const [activeLoopIdx, setActiveLoopIdx] = useState(1);
-
-  const getLoopCard = (loopIndex) => {
-    const track = skillsTrackRef.current;
-    if (!track) return 0;
-    return track.querySelector(`[data-loop-index="${loopIndex}"]`);
-  };
 
   useEffect(() => {
     const el = nameRef.current;
@@ -33,88 +30,27 @@ export default function DevAbout() {
     return () => clearTimeout(t);
   }, []);
 
-  const scrollToLoopIndex = (loopIndex, behavior = 'smooth') => {
-    const track = skillsTrackRef.current;
-    if (!track) return;
-    const target = getLoopCard(loopIndex);
-    if (!target) return;
-    const centeredLeft = target.offsetLeft - (track.clientWidth - target.offsetWidth) / 2;
-
-    track.scrollTo({
-      left: centeredLeft,
-      behavior,
-    });
-  };
-
   const rotateSkills = (delta) => {
     if (!skillGroups.length) return;
-    const nextLoopIdx = activeLoopIdx + delta;
-    setActiveLoopIdx(nextLoopIdx);
-    scrollToLoopIndex(nextLoopIdx);
+    setActiveSkillIdx((prev) => (prev + delta + skillGroups.length) % skillGroups.length);
   };
 
-  const handleSkillsScroll = () => {
-    if (scrollRafRef.current) return;
-    scrollRafRef.current = requestAnimationFrame(() => {
-      const track = skillsTrackRef.current;
-      if (!track) {
-        scrollRafRef.current = null;
-        return;
-      }
+  const visibleSkillCards = useMemo(() => {
+    const total = skillGroups.length;
+    if (!total) return [];
+    if (total === 1) {
+      return [{ slot: 'active', group: skillGroups[0], key: `active-${skillGroups[0].label}-0` }];
+    }
 
-      if (!skillGroups.length || !loopedGroups.length) {
-        scrollRafRef.current = null;
-        return;
-      }
+    const prevIdx = (activeSkillIdx - 1 + total) % total;
+    const nextIdx = (activeSkillIdx + 1) % total;
 
-      const trackCenter = track.scrollLeft + track.clientWidth / 2;
-      let nearestLoopIdx = activeLoopIdx;
-      let nearestDistance = Number.POSITIVE_INFINITY;
-      loopedGroups.forEach((_, idx) => {
-        const card = getLoopCard(idx);
-        if (!card) return;
-        const cardCenter = card.offsetLeft + card.offsetWidth / 2;
-        const distance = Math.abs(cardCenter - trackCenter);
-        if (distance < nearestDistance) {
-          nearestDistance = distance;
-          nearestLoopIdx = idx;
-        }
-      });
-
-      const maxLoopIdx = skillGroups.length + 1;
-
-      if (nearestLoopIdx <= 0) {
-        nearestLoopIdx = skillGroups.length;
-        scrollToLoopIndex(nearestLoopIdx, 'auto');
-      } else if (nearestLoopIdx >= maxLoopIdx) {
-        nearestLoopIdx = 1;
-        scrollToLoopIndex(nearestLoopIdx, 'auto');
-      }
-
-      setActiveLoopIdx(nearestLoopIdx);
-      const mappedActiveIdx = nearestLoopIdx - 1;
-      if (mappedActiveIdx !== activeSkillIdx) setActiveSkillIdx(mappedActiveIdx);
-      scrollRafRef.current = null;
-    });
-  };
-
-  const handleSkillsWheel = (event) => {
-    const track = skillsTrackRef.current;
-    if (!track) return;
-    if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
-    event.preventDefault();
-    track.scrollBy({ left: event.deltaY, behavior: 'auto' });
-  };
-
-  useEffect(() => {
-    if (!skillGroups.length) return undefined;
-    scrollToLoopIndex(1, 'auto');
-    return () => {
-      if (scrollRafRef.current) {
-        cancelAnimationFrame(scrollRafRef.current);
-      }
-    };
-  }, [skillGroups.length, loopedGroups.length]);
+    return [
+      { slot: 'prev', group: skillGroups[prevIdx], key: `prev-${skillGroups[prevIdx].label}-${prevIdx}` },
+      { slot: 'active', group: skillGroups[activeSkillIdx], key: `active-${skillGroups[activeSkillIdx].label}-${activeSkillIdx}` },
+      { slot: 'next', group: skillGroups[nextIdx], key: `next-${skillGroups[nextIdx].label}-${nextIdx}` },
+    ];
+  }, [activeSkillIdx, skillGroups]);
 
   return (
     <section className={styles.about} id="about">
@@ -143,27 +79,52 @@ export default function DevAbout() {
         </div>
       </div>
 
+      <div className={styles.timelineSection}>
+        <h2 className={styles.sectionLabel}>Experience Timeline</h2>
+        <Timeline className={styles.timeline} position="right">
+          {devTimeline.map((entry, idx) => (
+            <TimelineItem key={`${entry.range}-${entry.role}`} className={styles.timelineItem}>
+              <TimelineOppositeContent className={styles.timelinePeriod}>
+                {entry.range}
+              </TimelineOppositeContent>
+              <TimelineSeparator className={styles.timelineSeparator}>
+                <TimelineDot className={styles.timelineDot} />
+                {idx < devTimeline.length - 1 ? (
+                  <TimelineConnector className={styles.timelineConnector} />
+                ) : null}
+              </TimelineSeparator>
+              <TimelineContent className={styles.timelineContent}>
+                <Typography component="p" className={styles.timelineMobilePeriod}>
+                  {entry.range}
+                </Typography>
+                <Typography component="h3" className={styles.timelineRole}>
+                  {entry.role}
+                </Typography>
+                <Typography component="p" className={styles.timelineCompany}>
+                  {entry.company}
+                </Typography>
+                <Typography component="p" className={styles.timelineDesc}>
+                  {entry.description}
+                </Typography>
+              </TimelineContent>
+            </TimelineItem>
+          ))}
+        </Timeline>
+      </div>
+
       <div className={styles.skillsSection}>
         <h2 className={styles.sectionLabel}>Skill Set</h2>
 
         <div className={styles.skillsCarousel}>
-          <div
-            className={styles.skillsGrid}
-            ref={skillsTrackRef}
-            onScroll={handleSkillsScroll}
-            onWheel={handleSkillsWheel}
-          >
-            {loopedGroups.map((group, idx) => {
-              let realIdx = idx - 1;
-              if (idx === 0) realIdx = skillGroups.length - 1;
-              if (idx === loopedGroups.length - 1) realIdx = 0;
-              return (
+          <div className={styles.skillsGrid}>
+            {visibleSkillCards.map(({ slot, group, key }) => (
               <div
                 className={`${styles.skillCard} ${
-                  realIdx === activeSkillIdx ? styles.skillCardActive : styles.skillCardSide
+                  slot === 'active' ? styles.skillCardActive : styles.skillCardSide
+                } ${
+                  slot === 'prev' ? styles.skillCardPrev : slot === 'next' ? styles.skillCardNext : ''
                 }`}
-                key={`${group.label}-${idx}`}
-                data-loop-index={idx}
+                key={key}
               >
                 <div className={styles.skillCardHeader}>
                   <h3 className={styles.skillTitle}>{group.label}</h3>
@@ -176,8 +137,7 @@ export default function DevAbout() {
                   ))}
                 </ul>
               </div>
-            );
-            })}
+            ))}
           </div>
         </div>
 
