@@ -12,6 +12,7 @@ const REVEAL_MS = 1150;
 const OVERLAY_RELEASE_MS = 260;
 const ICON_TRANSITION_MS = BLACKOUT_MS + REVEAL_MS;
 const ThreeSwitchOverlay = lazy(() => import('./components/ThreeSwitchOverlay.jsx'));
+const AmbientFieldLayer = lazy(() => import('./components/AmbientFieldLayer.jsx'));
 
 export default function App() {
   const [profile, setProfile] = useState('dev'); // 'dev' | 'artist'
@@ -101,6 +102,10 @@ export default function App() {
       <Header profile={profile} onSwitch={handleSwitch} isSwitching={switching || transitioning} />
 
       <div className={`${styles.scene} ${transitioning ? styles.sceneLocked : ''}`}>
+        <Suspense fallback={null}>
+          <AmbientFieldLayer theme={isDev ? 'dev' : 'artist'} />
+        </Suspense>
+
         <div
           className={`${styles.shaderViewportLayer} ${
             transitioning ? styles.shaderViewportLayerActive : ''

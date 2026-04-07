@@ -31,13 +31,27 @@
   user-select: none;
 }
 
+.ambientFieldLayer {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.92;
+  mix-blend-mode: screen;
+}
+
+.ambientFieldCanvas {
+  position: absolute;
+  inset: 0;
+}
+
 .page {
   width: 100%;
 }
 
 .pageCurrent {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .pageContent {
