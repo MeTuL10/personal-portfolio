@@ -40,6 +40,8 @@
 }
 
 .card {
+  --tilt-rotate-x: 0deg;
+  --tilt-rotate-y: 0deg;
   position: relative;
   min-height: 42rem;
   border-radius: 0 0 2.1rem 0;
@@ -55,6 +57,9 @@
     rgba(8, 7, 24, 0.96);
   overflow: hidden;
   isolation: isolate;
+  transform-style: preserve-3d;
+  will-change: transform, box-shadow, filter;
+  transform: perspective(1200px) rotateX(var(--tilt-rotate-x)) rotateY(var(--tilt-rotate-y));
   transition:
     transform 500ms cubic-bezier(0.16, 0.85, 0.22, 1),
     border-color 360ms ease,
@@ -100,13 +105,29 @@
 }
 
 .card:hover {
-  transform: translateY(-10px) scale(1.012);
+  transform: perspective(1200px) rotateX(var(--tilt-rotate-x)) rotateY(var(--tilt-rotate-y)) translateY(-10px) scale(1.012);
   border-color: rgba(195, 144, 255, 0.85);
   box-shadow:
     0 1.8rem 3.6rem rgba(6, 4, 19, 0.78),
     0 0 0 1px rgba(177, 121, 255, 0.26) inset,
     0 0 2.6rem rgba(138, 96, 255, 0.48);
   filter: saturate(1.08);
+}
+
+.cardTiltActive {
+  border-color: rgba(195, 144, 255, 0.85);
+  box-shadow:
+    0 1.8rem 3.6rem rgba(6, 4, 19, 0.78),
+    0 0 0 1px rgba(177, 121, 255, 0.26) inset,
+    0 0 2.6rem rgba(138, 96, 255, 0.48);
+  filter: saturate(1.08);
+}
+
+.cardFx {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
 }
 
 .cardTab {
@@ -160,7 +181,8 @@
   transition: transform 760ms cubic-bezier(0.2, 0.72, 0.25, 1), filter 700ms ease;
 }
 
-.card:hover .img {
+.card:hover .img,
+.cardTiltActive .img {
   transform: scale(1.12);
   filter: saturate(1.08) contrast(1.04);
 }
@@ -328,11 +350,6 @@
     margin-left: auto;
   }
 }
-
-
-
-
-
 
 .projectsHeader {
   margin-bottom: 5rem;

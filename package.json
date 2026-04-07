@@ -14,9 +14,11 @@
     "@emotion/styled": "^11.14.1",
     "@mui/lab": "^7.0.1-beta.23",
     "@mui/material": "^7.3.9",
+    "@react-three/fiber": "^8.17.10",
     "framer-motion": "^12.38.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "three": "^0.183.2"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.4",

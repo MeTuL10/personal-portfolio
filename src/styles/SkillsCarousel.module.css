@@ -41,8 +41,10 @@
   mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.45) 8%, #000 18%, #000 82%, rgba(0, 0, 0, 0.45) 92%, transparent 100%);
 }
 
-
 .skillCard {
+  --skill-base-scale: 1;
+  --skill-tilt-x: 0deg;
+  --skill-tilt-y: 0deg;
   position: relative;
   width: var(--skills-card-width);
   max-width: var(--skills-card-width);
@@ -63,17 +65,20 @@
     ) right bottom / 1.3rem 1.3rem no-repeat,
     linear-gradient(155deg, rgba(36, 16, 96, 0.9), rgba(10, 8, 30, 0.98));
   overflow: hidden;
+  transform-style: preserve-3d;
+  transform: perspective(1200px) rotateX(var(--skill-tilt-x)) rotateY(var(--skill-tilt-y)) scale(var(--skill-base-scale));
   transition:
     opacity 260ms ease,
     transform 340ms cubic-bezier(0.2, 0.8, 0.2, 1),
     box-shadow 340ms cubic-bezier(0.2, 0.8, 0.2, 1),
-    border-color 240ms ease;
+    border-color 240ms ease,
+    filter 240ms ease;
   will-change: transform, opacity;
 }
 
 .skillCardActive {
+  --skill-base-scale: 1;
   opacity: 1;
-  transform: scale(1);
   border-color: rgba(193, 153, 255, 0.82);
   animation: skillCardReveal 280ms cubic-bezier(0.2, 0.8, 0.2, 1);
   box-shadow:
@@ -83,12 +88,11 @@
 }
 
 .skillCardSide {
+  --skill-base-scale: 0.95;
   opacity: 0.27;
-  transform: scale(0.95);
   pointer-events: none;
   filter: saturate(0.8) brightness(0.8);
 }
-
 
 .skillCardPrev {
   transform-origin: right center;
@@ -100,6 +104,7 @@
 
 .skillCardHeader {
   position: relative;
+  z-index: 2;
   flex-shrink: 0;
   margin: 1.8rem 1.8rem 1.35rem;
   padding: 0.95rem 4rem 0.95rem 1rem;
@@ -111,9 +116,36 @@
     0 0 1.3rem rgba(121, 70, 213, 0.22);
 }
 
-.skillCard::after,
 .skillCardHeader::after {
   content: none !important;
+}
+
+.skillCard::before {
+  content: none !important;
+}
+
+.skillCard::after {
+  content: none !important;
+}
+
+.skillCardFx {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.skillCardInteractive {
+  will-change: transform, box-shadow, border-color, opacity;
+}
+
+.skillCardHovering {
+  border-color: rgba(216, 181, 255, 0.88);
+  box-shadow:
+    0 1.5rem 3rem rgba(7, 5, 20, 0.78),
+    0 0 0 1px rgba(180, 130, 255, 0.32) inset,
+    0 0 2.6rem rgba(150, 101, 249, 0.44);
+  filter: saturate(1.06);
 }
 
 .skillHeaderIcon {
@@ -138,6 +170,8 @@
 
 .skillList {
   list-style: none;
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
@@ -253,11 +287,11 @@
 @keyframes skillCardReveal {
   from {
     opacity: 0.72;
-    transform: translateY(0.45rem) scale(0.97);
+    filter: saturate(0.94);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    filter: saturate(1);
   }
 }
 
@@ -331,3 +365,9 @@
     margin-top: 1.55rem;
   }
 }
+
+
+
+
+
+

@@ -1,21 +1,39 @@
 import { useEffect, useRef } from 'react';
 import styles from '../styles/ArtAbout.module.css';
 
-export default function ArtAbout({ align = 'left' }) {
+export default function ArtAbout({ align = 'left', animateIntro = true }) {
   const nameRef = useRef(null);
+  const introHandledRef = useRef(false);
 
   useEffect(() => {
     const el = nameRef.current;
     if (!el) return;
+
+    if (!animateIntro) {
+      introHandledRef.current = true;
+      el.style.transition = 'none';
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+      return;
+    }
+
+    if (introHandledRef.current) {
+      el.style.transition = 'none';
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+      return;
+    }
+
     el.style.opacity = '0';
     el.style.transform = 'translateY(20px)';
     const t = setTimeout(() => {
       el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
       el.style.opacity = '1';
       el.style.transform = 'translateY(0)';
+      introHandledRef.current = true;
     }, 100);
     return () => clearTimeout(t);
-  }, []);
+  }, [animateIntro]);
 
   return (
     <section
