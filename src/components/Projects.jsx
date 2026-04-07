@@ -2,7 +2,7 @@ import { Suspense, lazy, useMemo, useState } from 'react';
 import { projects } from '../data.js';
 import styles from '../styles/Projects.module.css';
 
-const ProjectHoverFx = lazy(() => import('./ProjectHoverFx.jsx'));
+const ProjectHoverFx = lazy(() => import('../animations/ProjectHoverFx.jsx'));
 
 function ProjectCard({ project }) {
   const [isHovered, setIsHovered] = useState(false);
