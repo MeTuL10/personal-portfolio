@@ -1,15 +1,47 @@
-import { useMemo, useState } from 'react';
+import { Suspense, lazy, useMemo, useState } from 'react';
 import { skills } from '../data.js';
 import styles from '../styles/SkillsCarousel.module.css';
+
+const SkillGlossFx = lazy(() => import('../animations/SkillGlossFx.jsx'));
 
 export default function SkillsCarousel() {
   const skillGroups = useMemo(() => Object.values(skills), []);
   const [activeSkillIdx, setActiveSkillIdx] = useState(0);
+  const [isCardHovered, setIsCardHovered] = useState(false);
+  const [pointer, setPointer] = useState({ x: 0.5, y: 0.5 });
 
   const rotateSkills = (delta) => {
     if (!skillGroups.length) return;
     setActiveSkillIdx((prev) => (prev + delta + skillGroups.length) % skillGroups.length);
+    setIsCardHovered(false);
+    setPointer({ x: 0.5, y: 0.5 });
   };
+
+  const handleCardPointerMove = (event) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width;
+    const y = (event.clientY - rect.top) / rect.height;
+    setPointer({
+      x: Math.min(Math.max(x, 0), 1),
+      y: Math.min(Math.max(y, 0), 1),
+    });
+  };
+
+  const activeCardStyle = useMemo(() => {
+    if (!isCardHovered) {
+      return {
+        '--skill-tilt-x': '0deg',
+        '--skill-tilt-y': '0deg',
+      };
+    }
+
+    const rotateX = (0.5 - pointer.y) * 5.8;
+    const rotateY = (pointer.x - 0.5) * 8.2;
+    return {
+      '--skill-tilt-x': `${rotateX.toFixed(2)}deg`,
+      '--skill-tilt-y': `${rotateY.toFixed(2)}deg`,
+    };
+  }, [isCardHovered, pointer.x, pointer.y]);
 
   const visibleSkillCards = useMemo(() => {
     const total = skillGroups.length;
@@ -40,9 +72,30 @@ export default function SkillsCarousel() {
                 slot === 'active' ? styles.skillCardActive : styles.skillCardSide
               } ${
                 slot === 'prev' ? styles.skillCardPrev : slot === 'next' ? styles.skillCardNext : ''
+              } ${slot === 'active' ? styles.skillCardInteractive : ''} ${
+                slot === 'active' && isCardHovered ? styles.skillCardHovering : ''
               }`}
               key={key}
+              style={slot === 'active' ? activeCardStyle : undefined}
+              onPointerEnter={slot === 'active' ? () => setIsCardHovered(true) : undefined}
+              onPointerMove={slot === 'active' ? handleCardPointerMove : undefined}
+              onPointerLeave={
+                slot === 'active'
+                  ? () => {
+                      setIsCardHovered(false);
+                      setPointer({ x: 0.5, y: 0.5 });
+                    }
+                  : undefined
+              }
             >
+              {slot === 'active' && (
+                <div className={styles.skillCardFx} aria-hidden="true">
+                  <Suspense fallback={null}>
+                    <SkillGlossFx active={isCardHovered} pointer={pointer} />
+                  </Suspense>
+                </div>
+              )}
+
               <div className={styles.skillCardHeader}>
                 <h3 className={styles.skillTitle}>{group.label}</h3>
                 <i className={`${group.icon} ${styles.skillHeaderIcon}`} aria-hidden="true"></i>

@@ -1,3 +1,4 @@
+import { Suspense, lazy, useState } from 'react';
 import {
   Timeline,
   TimelineItem,
@@ -11,17 +12,35 @@ import { Typography } from '@mui/material';
 import { devTimeline } from '../data.js';
 import styles from '../styles/DevTimeline.module.css';
 
+const TimelineConnectorFx = lazy(() => import('../animations/TimelineConnectorFx.jsx'));
+
 export default function DevTimeline() {
+  const [hoveredConnectorIdx, setHoveredConnectorIdx] = useState(null);
+
   return (
     <div className={styles.timelineSection}>
       <h2 className={styles.sectionLabel}>Experience Timeline</h2>
       <Timeline className={styles.timeline} position="right">
         {devTimeline.map((entry, idx) => (
-          <TimelineItem key={`${entry.range}-${entry.role}`} className={styles.timelineItem}>
+          <TimelineItem
+            key={`${entry.range}-${entry.role}`}
+            className={`${styles.timelineItem} ${
+              hoveredConnectorIdx === idx ? styles.timelineItemConnectorActive : ''
+            }`}
+          >
             <TimelineOppositeContent className={styles.timelinePeriod}>
               {entry.range}
             </TimelineOppositeContent>
-            <TimelineSeparator className={styles.timelineSeparator}>
+            <TimelineSeparator
+              className={styles.timelineSeparator}
+              onPointerEnter={() => setHoveredConnectorIdx(idx)}
+              onPointerLeave={() => setHoveredConnectorIdx((current) => (current === idx ? null : current))}
+            >
+              <span className={styles.timelineSeparatorFx} aria-hidden="true">
+                <Suspense fallback={null}>
+                  <TimelineConnectorFx active={hoveredConnectorIdx === idx} />
+                </Suspense>
+              </span>
               <TimelineDot className={styles.timelineDot} />
               {idx < devTimeline.length - 1 ? (
                 <TimelineConnector className={styles.timelineConnector} />
