@@ -52,7 +52,25 @@
   text-align: left;
 }
 
-/* Icon-driven transition (viewport anchored) */
+/* Persistent shader canvas layer */
+.shaderViewportLayer {
+  position: fixed;
+  inset: 0;
+  z-index: 903;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 220ms cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.shaderViewportLayerActive {
+  opacity: 1;
+}
+
+.shaderViewportLayerReleasing {
+  opacity: 0;
+}
+
+/* Transition content layer */
 .viewportTransitionLayer {
   position: fixed;
   inset: 0;
@@ -78,31 +96,19 @@
   will-change: clip-path, opacity, transform;
 }
 
-.iconTransitionOverlay {
+.threeTransitionLayerWrap {
   position: absolute;
   inset: 0;
-  z-index: 3;
   display: flex;
   align-items: center;
   justify-content: center;
   pointer-events: none;
-  will-change: transform, opacity;
 }
 
-.iconTransitionGlyph {
-  position: relative;
-  z-index: 3;
-  font-size: clamp(4.5rem, 10vw, 8rem);
-  line-height: 1;
-  will-change: transform, opacity, filter;
-}
-
-.iconDev {
-  color: rgba(190, 124, 255, 0.96);
-  filter: drop-shadow(0 0 1.5rem rgba(104, 4, 186, 0.8));
-}
-
-.iconArtist {
-  color: rgba(121, 191, 252, 0.96);
-  filter: drop-shadow(0 0 1.5rem rgba(24, 95, 165, 0.8));
+.threeTransitionLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.94;
 }
