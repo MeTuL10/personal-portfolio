@@ -6,15 +6,15 @@
 /* Theme backgrounds */
 .devTheme {
   background:
-    radial-gradient(ellipse at 80% 10%, rgba(104, 4, 186, 0.18) 0%, transparent 50%),
-    radial-gradient(ellipse at 10% 90%, rgba(21, 0, 80, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 10%, rgba(85, 3, 160, 0.22) 0%, transparent 50%),
+    radial-gradient(ellipse at 10% 90%, rgba(12, 0, 56, 0.6) 0%, transparent 50%),
     var(--dev-bg);
 }
 
 .artistTheme {
   background:
-    radial-gradient(ellipse at 80% 10%, rgba(24, 95, 165, 0.2) 0%, transparent 50%),
-    radial-gradient(ellipse at 10% 90%, rgba(0, 16, 53, 0.5) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 10%, rgba(19, 77, 135, 0.25) 0%, transparent 50%),
+    radial-gradient(ellipse at 10% 90%, rgba(0, 13, 40, 0.65) 0%, transparent 50%),
     var(--art-bg);
 }
 
@@ -34,10 +34,8 @@
 .ambientFieldLayer {
   position: fixed;
   inset: 0;
-  z-index: 1;
+  z-index: 0;
   pointer-events: none;
-  opacity: 0.92;
-  mix-blend-mode: screen;
 }
 
 .ambientFieldCanvas {
@@ -91,13 +89,14 @@
   z-index: 900;
   pointer-events: none;
   overflow: hidden;
+  background: #000;
 }
 
 .blackCurtain {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: rgba(1, 3, 10, 0.97);
+  background: #000;
   will-change: opacity;
 }
 

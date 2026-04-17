@@ -1,0 +1,37 @@
+/* BorderGlow — ReactBits.dev */
+.rb-border-glow {
+  position: relative;
+  border-radius: inherit;
+  isolation: isolate;
+}
+
+/* Pointer-tracked radial glow — sits below the border */
+.rb-bg-glow-layer {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Thin inner mask that reveals the border by punching through */
+.rb-bg-border {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: transparent;
+  border: 1px solid transparent;
+  pointer-events: none;
+  z-index: 1;
+  /* The border colour becomes visible from the glow beneath */
+}
+
+/* Children sit on top */
+.rb-bg-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  border-radius: inherit;
+}

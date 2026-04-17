@@ -11,16 +11,16 @@
   --text-color: #ece3e3;
 
   /* Developer — purple */
-  --dev-bg: #0d031d;
-  --dev-second-bg: #150050;
-  --dev-color: #6804ba;
-  --dev-bright: #9b3fff;
+  --dev-bg: #060110;
+  --dev-second-bg: #0c0038;
+  --dev-color: #5503a0;
+  --dev-bright: #8030e8;
 
   /* Artist — blue */
-  --art-bg: #030a1d;
-  --art-second-bg: #001035;
-  --art-color: #185fa5;
-  --art-bright: #60aaec;
+  --art-bg: #020817;
+  --art-second-bg: #000d28;
+  --art-color: #134d87;
+  --art-bright: #4d96db;
 
   --font-display: 'Syne', sans-serif;
   --font-mono: 'Space Mono', monospace;
@@ -32,8 +32,12 @@ html {
   scroll-behavior: smooth;
 }
 
+html, body {
+  background: #060110;
+}
+
 body {
-  background: var(--bg-color);
+  background: var(--bg-color, #060110);
   color: var(--text-color);
   font-family: var(--font-display);
 }
@@ -66,4 +70,18 @@ body {
 ::-webkit-scrollbar-thumb {
   background: var(--main-color);
   border-radius: 3px;
+}
+
+/* ── Framer-motion: ensure clip-path wipes work correctly ── */
+[data-framer-component-type] {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* ── Smooth scroll for anchor links ── */
+html { scroll-behavior: smooth; }
+
+/* ── Performance: promote animated elements ── */
+.will-animate {
+  will-change: transform, opacity;
 }

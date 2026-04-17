@@ -12,7 +12,8 @@ const REVEAL_MS = 1150;
 const OVERLAY_RELEASE_MS = 260;
 const ICON_TRANSITION_MS = BLACKOUT_MS + REVEAL_MS;
 const ThreeSwitchOverlay = lazy(() => import('./animations/ThreeSwitchOverlay.jsx'));
-const AmbientFieldLayer = lazy(() => import('./animations/AmbientFieldLayer.jsx'));
+const DarkVeil = lazy(() => import('./reactbits/DarkVeil.jsx'));
+const CursorGlow         = lazy(() => import('./animations/CursorGlow.jsx'));
 
 export default function App() {
   const [profile, setProfile] = useState('dev'); // 'dev' | 'artist'
@@ -103,7 +104,7 @@ export default function App() {
 
       <div className={`${styles.scene} ${transitioning ? styles.sceneLocked : ''}`}>
         <Suspense fallback={null}>
-          <AmbientFieldLayer theme={isDev ? 'dev' : 'artist'} />
+          <DarkVeil theme={isDev ? 'dev' : 'artist'} />
         </Suspense>
 
         <div
@@ -169,6 +170,10 @@ export default function App() {
           </motion.div>
         )}
       </div>
+      {/* Theme-reactive cursor glow */}
+      <Suspense fallback={null}>
+        <CursorGlow theme={isDev ? 'dev' : 'artist'} />
+      </Suspense>
     </div>
   );
 }

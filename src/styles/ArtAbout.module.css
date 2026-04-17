@@ -6,42 +6,49 @@
   text-align: left;
 }
 
-.aboutRight {
-  text-align: right;
-}
+.aboutRight { text-align: right; }
+.aboutRight .intro { margin-left: auto; }
+.aboutRight .socialRow,
+.aboutRight .pillRow { justify-content: flex-end; }
 
 .glowOrb {
   position: absolute;
-  top: -10rem;
-  right: -10rem;
-  width: 55rem;
-  height: 55rem;
+  top: -10rem; right: -10rem;
+  width: 55rem; height: 55rem;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(24, 95, 165, 0.22) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
+  pointer-events: none; z-index: 0;
+  animation: orbDriftA 14s ease-in-out infinite alternate;
 }
 
 .glowOrb2 {
   position: absolute;
-  bottom: 5rem;
-  left: -15rem;
-  width: 45rem;
-  height: 45rem;
+  bottom: 5rem; left: -15rem;
+  width: 45rem; height: 45rem;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(55, 138, 221, 0.15) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
+  pointer-events: none; z-index: 0;
+  animation: orbDriftB 10s ease-in-out infinite alternate;
+}
+
+@keyframes orbDriftA {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(-5rem, 4rem) scale(1.1); }
+}
+@keyframes orbDriftB {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(4rem, -3rem) scale(1.05); }
 }
 
 .intro {
-  position: relative;
-  z-index: 1;
+  position: relative; z-index: 1;
   max-width: 80rem;
 }
 
-.aboutRight .intro {
-  margin-left: auto;
+.nameWrapper {
+  display: block;
+  overflow: visible;
+  position: relative;
 }
 
 .greeting {
@@ -56,103 +63,77 @@
 .name {
   font-family: var(--font-display);
   font-size: clamp(5rem, 9vw, 9rem);
-  font-weight: 800;
-  line-height: 1;
-  background: linear-gradient(135deg, #fff 0%, var(--art-bright) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-weight: 800; line-height: 1;
+  /* gradient handled by ShinyText animation */
   margin-bottom: 1.6rem;
-  will-change: opacity, transform;
 }
 
 .role {
-  font-size: 2.2rem;
-  font-weight: 400;
-  color: var(--text-color);
-  opacity: 0.75;
+  font-size: 2.2rem; font-weight: 400;
+  color: var(--text-color); opacity: 0.75;
   margin-bottom: 3rem;
 }
-
-.role span {
-  color: var(--art-bright);
-  font-weight: 700;
-  opacity: 1;
-}
+.role span { color: var(--art-bright); font-weight: 700; opacity: 1; }
 
 .bio {
-  font-size: 1.6rem;
-  line-height: 1.8;
+  font-size: 1.6rem; line-height: 1.8;
   color: rgba(236, 227, 227, 0.75);
-  /* max-width: 70rem; */
   margin-bottom: 3.5rem;
 }
 
 .socialRow {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1.2rem;
+  display: flex; align-items: center;
+  flex-wrap: wrap; gap: 1.2rem;
   margin-bottom: 5rem;
 }
 
-.aboutRight .socialRow,
-.aboutRight .pillRow {
-  justify-content: flex-end;
-}
-
 .daBtn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.8rem;
+  display: inline-flex; align-items: center; gap: 0.8rem;
   padding: 1.2rem 2.8rem;
   border: 2px solid var(--art-color);
   border-radius: 5rem;
-  font-size: 1.6rem;
-  font-weight: 700;
+  font-size: 1.6rem; font-weight: 700;
   color: var(--art-bright);
   font-family: var(--font-display);
-  transition: all 0.3s ease;
+  transition: background 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
   letter-spacing: 0.05em;
+  position: relative; overflow: hidden;
 }
-
-.daBtn:hover {
+.daBtn::after {
+  content: '';
+  position: absolute; inset: 0;
   background: var(--art-color);
-  color: #fff;
-  box-shadow: 0 0 2.5rem var(--art-color);
-  transform: translateY(-2px);
+  border-radius: inherit;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 0;
 }
+.daBtn:hover::after { transform: scaleX(1); }
+.daBtn:hover { color: #fff; box-shadow: 0 0 2.5rem var(--art-color); }
+.daBtn i { font-size: 1.8rem; position: relative; z-index: 1; }
+.daBtn span,
+.daBtn > * { position: relative; z-index: 1; }
 
-.daBtn i {
-  font-size: 1.8rem;
-}
-
-.learningSection {
-  margin-top: 2rem;
-}
+.learningSection { margin-top: 2rem; }
 
 .sectionLabel {
-  font-size: 2.8rem;
-  font-weight: 800;
-  margin-bottom: 2rem;
-  display: inline-block;
-  position: relative;
+  font-size: 2.8rem; font-weight: 800;
+  margin-bottom: 2rem; display: inline-block; position: relative;
+}
+.sectionLabel::after {
+  content: ''; display: block; height: 3px; width: 100%;
+  background: linear-gradient(90deg, var(--art-color), transparent);
+  margin-top: 0.6rem; border-radius: 2px;
 }
 
-.sectionLabel::after {
-  content: '';
-  display: block;
-  height: 3px;
-  width: 100%;
-  background: linear-gradient(90deg, var(--art-color), transparent);
-  margin-top: 0.6rem;
-  border-radius: 2px;
+.pillArea {
+  position: relative; padding: 1.6rem 0; overflow: visible;
 }
 
 .pillRow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.2rem;
+  display: flex; flex-wrap: wrap; gap: 1.2rem;
+  position: relative; z-index: 1;
 }
 
 .pill {
@@ -163,10 +144,12 @@
   border: 1px solid rgba(24, 95, 165, 0.5);
   background: rgba(24, 95, 165, 0.12);
   color: var(--art-bright);
-  transition: all 0.25s ease;
   cursor: default;
+  opacity: 0;
+  animation: pillIn 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation-delay: var(--pill-delay, 0s);
+  transition: background 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
 }
-
 .pill:hover {
   background: var(--art-color);
   border-color: var(--art-color);
@@ -174,4 +157,7 @@
   box-shadow: 0 0 1.5rem var(--art-color);
 }
 
-
+@keyframes pillIn {
+  from { opacity: 0; transform: translateY(12px) scale(0.92); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
