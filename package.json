@@ -19,8 +19,10 @@
     "@react-three/postprocessing": "^2.16.3",
     "framer-motion": "^12.38.0",
     "gsap": "^3.12.7",
+    "ogl": "^1.0.11",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-pageflip": "^2.0.3",
     "three": "^0.183.2"
   },
   "devDependencies": {

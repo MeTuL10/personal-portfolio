@@ -1,21 +1,20 @@
 .app {
+  position: relative;
   min-height: 100vh;
-  transition: background 0.65s ease;
+  isolation: isolate;
 }
 
-/* Theme backgrounds */
-.devTheme {
-  background:
-    radial-gradient(ellipse at 80% 10%, rgba(85, 3, 160, 0.22) 0%, transparent 50%),
-    radial-gradient(ellipse at 10% 90%, rgba(12, 0, 56, 0.6) 0%, transparent 50%),
-    var(--dev-bg);
+.darkVeilFixed {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
 }
 
-.artistTheme {
-  background:
-    radial-gradient(ellipse at 80% 10%, rgba(19, 77, 135, 0.25) 0%, transparent 50%),
-    radial-gradient(ellipse at 10% 90%, rgba(0, 13, 40, 0.65) 0%, transparent 50%),
-    var(--art-bg);
+.appForeground {
+  position: relative;
+  z-index: 1;
 }
 
 /* Scene */
@@ -29,18 +28,6 @@
 .sceneLocked {
   pointer-events: none;
   user-select: none;
-}
-
-.ambientFieldLayer {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.ambientFieldCanvas {
-  position: absolute;
-  inset: 0;
 }
 
 .page {

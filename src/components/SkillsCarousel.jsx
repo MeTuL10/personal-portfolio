@@ -57,7 +57,7 @@ export default function SkillsCarousel() {
             </div>
           </div>
 
-          {/* Active card — BorderGlow replaces SkillGlossFx canvas */}
+          {/* Active card with BorderGlow hover effect */}
           <div style={{ position: 'relative', width: 'var(--skills-card-width)' }}>
             <AnimatePresence custom={direction} mode="popLayout">
               <motion.div
