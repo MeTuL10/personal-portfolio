@@ -1,25 +1,30 @@
-import { useEffect, useRef } from 'react';
-import * as THREE from 'three';
-import styles from '../styles/App.module.css';
+import { useEffect, useRef } from "react";
+import * as THREE from "three";
+import styles from "../styles/App.module.css";
 
 const EXTRA_TAIL_MS = 220;
 const MAX_DPR = 1.8;
 
 const getThemePalette = (theme) => {
-  if (theme === 'artist') {
+  if (theme === "artist") {
     return {
-      base: '#2f77cf',
-      accent: '#87d4ff',
+      base: "#2f77cf",
+      accent: "#87d4ff",
     };
   }
 
   return {
-    base: '#702be2',
-    accent: '#d3b2ff',
+    base: "#702be2",
+    accent: "#d3b2ff",
   };
 };
 
-export default function ThreeSwitchOverlay({ theme, delayMs, durationMs, transitionKey }) {
+export default function ThreeSwitchOverlay({
+  theme,
+  delayMs,
+  durationMs,
+  transitionKey,
+}) {
   const mountRef = useRef(null);
   const rendererRef = useRef(null);
   const sceneRef = useRef(null);
@@ -49,12 +54,12 @@ export default function ThreeSwitchOverlay({ theme, delayMs, durationMs, transit
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
       antialias: true,
-      powerPreference: 'high-performance',
+      powerPreference: "high-performance",
     });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, MAX_DPR));
-    renderer.domElement.style.width = '100%';
-    renderer.domElement.style.height = '100%';
-    renderer.domElement.style.display = 'block';
+    renderer.domElement.style.width = "100%";
+    renderer.domElement.style.height = "100%";
+    renderer.domElement.style.display = "block";
     mountNode.appendChild(renderer.domElement);
     rendererRef.current = renderer;
 
@@ -63,7 +68,7 @@ export default function ThreeSwitchOverlay({ theme, delayMs, durationMs, transit
     sceneRef.current = scene;
     cameraRef.current = camera;
 
-    const { base, accent } = getThemePalette(theme);
+    const { base, accent } = getThemePalette("dev");
     const uniforms = {
       uTime: { value: 0 },
       uProgress: { value: 1 },
@@ -152,7 +157,8 @@ export default function ThreeSwitchOverlay({ theme, delayMs, durationMs, transit
     scene.add(mesh);
 
     const renderScene = () => {
-      if (!rendererRef.current || !sceneRef.current || !cameraRef.current) return;
+      if (!rendererRef.current || !sceneRef.current || !cameraRef.current)
+        return;
       rendererRef.current.render(sceneRef.current, cameraRef.current);
     };
 
@@ -171,7 +177,10 @@ export default function ThreeSwitchOverlay({ theme, delayMs, durationMs, transit
       const localDuration = durationRef.current;
 
       if (active) {
-        const progress = Math.min(Math.max((elapsed - localDelay) / localDuration, 0), 1);
+        const progress = Math.min(
+          Math.max((elapsed - localDelay) / localDuration, 0),
+          1,
+        );
         progressRef.current = progress;
 
         if (elapsed > localDelay + localDuration + EXTRA_TAIL_MS) {
@@ -203,10 +212,10 @@ export default function ThreeSwitchOverlay({ theme, delayMs, durationMs, transit
     };
 
     resize();
-    window.addEventListener('resize', resize);
+    window.addEventListener("resize", resize);
 
     return () => {
-      window.removeEventListener('resize', resize);
+      window.removeEventListener("resize", resize);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
 
       if (meshRef.current) {

@@ -7,18 +7,14 @@
  *
  * Props:
  *   items        array of { id, image, title, link, date }
- *   onCardClick  optional callback(item)
  *   theme        'dev' | 'artist'
  */
-import { useState, useRef } from 'react';
-import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
+import { useState } from "react";
+import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 
-const REDUCED = typeof window !== 'undefined' &&
-  window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-const CARD_OFFSET   = 12;   // px stack offset per card behind
-const SCALE_FACTOR  = 0.06; // scale reduction per card behind
-const MAX_VISIBLE   = 4;    // how many stacked cards visible
+const CARD_OFFSET = 12; // px stack offset per card behind
+const SCALE_FACTOR = 0.06; // scale reduction per card behind
+const MAX_VISIBLE = 4; // how many stacked cards visible
 
 function ArtCard({ item, index, total, onSwipe, theme }) {
   const isTop = index === 0;
@@ -26,12 +22,14 @@ function ArtCard({ item, index, total, onSwipe, theme }) {
   const rotate = useTransform(x, [-200, 200], [-18, 18]);
   const opacity = useTransform(x, [-200, -100, 0, 100, 200], [0, 1, 1, 1, 0]);
 
-  const accentColor = theme === 'artist' ? 'var(--art-color)' : 'var(--dev-color)';
-  const brightColor = theme === 'artist' ? 'var(--art-bright)' : 'var(--dev-bright)';
+  const accentColor =
+    theme === "artist" ? "var(--art-color)" : "var(--dev-color)";
+  const brightColor =
+    theme === "artist" ? "var(--art-bright)" : "var(--dev-bright)";
 
   const behind = Math.min(index, MAX_VISIBLE - 1);
-  const scale  = 1 - behind * SCALE_FACTOR;
-  const yOff   = behind * CARD_OFFSET;
+  const scale = 1 - behind * SCALE_FACTOR;
+  const yOff = behind * CARD_OFFSET;
   const zIndex = total - index;
 
   const handleDragEnd = (_, info) => {
@@ -39,14 +37,14 @@ function ArtCard({ item, index, total, onSwipe, theme }) {
       animate(x, info.offset.x > 0 ? 300 : -300, { duration: 0.3 });
       setTimeout(onSwipe, 280);
     } else {
-      animate(x, 0, { type: 'spring', stiffness: 300, damping: 24 });
+      animate(x, 0, { type: "spring", stiffness: 300, damping: 24 });
     }
   };
 
   return (
     <motion.div
       style={{
-        position: 'absolute',
+        position: "absolute",
         inset: 0,
         zIndex,
         scale,
@@ -54,33 +52,34 @@ function ArtCard({ item, index, total, onSwipe, theme }) {
         x: isTop ? x : 0,
         rotate: isTop ? rotate : 0,
         opacity: isTop ? opacity : 1,
-        cursor: isTop ? 'grab' : 'default',
-        borderRadius: '1.4rem',
-        overflow: 'hidden',
+        cursor: isTop ? "grab" : "default",
+        borderRadius: "1.4rem",
+        overflow: "hidden",
         boxShadow: isTop
           ? `0 2rem 5rem rgba(0,0,0,0.55), 0 0 1.5rem ${accentColor}40`
           : `0 1rem 2.5rem rgba(0,0,0,0.35)`,
         border: `1px solid ${accentColor}55`,
-        background: '#060110',
-        willChange: isTop ? 'transform' : undefined,
+        background: "#060110",
+        willChange: isTop ? "transform" : undefined,
       }}
-      drag={isTop ? 'x' : false}
+      drag={isTop ? "x" : false}
       dragConstraints={{ left: 0, right: 0 }}
       dragElastic={0.8}
       onDragEnd={isTop ? handleDragEnd : undefined}
-      whileTap={isTop ? { cursor: 'grabbing' } : {}}
+      whileTap={isTop ? { cursor: "grabbing" } : {}}
     >
       {/* Image */}
       <img
         src={item.image}
         alt={item.title}
         style={{
-          width: '100%', height: '100%',
-          objectFit: 'contain',
-          padding: '1.6rem',
-          display: 'block',
-          pointerEvents: 'none',
-          userSelect: 'none',
+          width: "100%",
+          height: "100%",
+          objectFit: "contain",
+          padding: "1.6rem",
+          display: "block",
+          pointerEvents: "none",
+          userSelect: "none",
         }}
         draggable={false}
       />
@@ -89,26 +88,31 @@ function ArtCard({ item, index, total, onSwipe, theme }) {
       {isTop && (
         <motion.div
           style={{
-            position: 'absolute',
-            bottom: 0, left: 0, right: 0,
-            padding: '1.2rem 1.8rem',
-            background: 'linear-gradient(to top, rgba(0,0,0,0.82), transparent)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: '1rem',
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            padding: "1.2rem 1.8rem",
+            background:
+              "linear-gradient(to top, rgba(0,0,0,0.82), transparent)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "1rem",
           }}
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15, duration: 0.35 }}
         >
-          <span style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: '1.5rem',
-            fontWeight: 700,
-            color: '#fff',
-            lineHeight: 1.2,
-          }}>
+          <span
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "1.5rem",
+              fontWeight: 700,
+              color: "#fff",
+              lineHeight: 1.2,
+            }}
+          >
             {item.title}
           </span>
           <a
@@ -117,22 +121,25 @@ function ArtCard({ item, index, total, onSwipe, theme }) {
             rel="noreferrer"
             style={{
               flexShrink: 0,
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              fontFamily: 'var(--font-mono)',
-              fontSize: '1.1rem',
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.5rem",
+              fontFamily: "var(--font-mono)",
+              fontSize: "1.1rem",
               color: brightColor,
-              padding: '0.4rem 0.9rem',
-              borderRadius: '3rem',
+              padding: "0.4rem 0.9rem",
+              borderRadius: "3rem",
               border: `1px solid ${accentColor}80`,
               background: `${accentColor}18`,
-              whiteSpace: 'nowrap',
-              transition: 'background 0.2s',
+              whiteSpace: "nowrap",
+              transition: "background 0.2s",
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            <i className="fa-brands fa-deviantart" style={{ fontSize: '1.2rem' }} />
+            <i
+              className="fa-brands fa-deviantart"
+              style={{ fontSize: "1.2rem" }}
+            />
             View
           </a>
         </motion.div>
@@ -141,7 +148,7 @@ function ArtCard({ item, index, total, onSwipe, theme }) {
   );
 }
 
-export default function Stack({ items = [], onCardClick, theme = 'artist' }) {
+export default function Stack({ items = [], theme = "artist" }) {
   const [cards, setCards] = useState([...items]);
   const [counter, setCounter] = useState(0);
 
@@ -157,18 +164,29 @@ export default function Stack({ items = [], onCardClick, theme = 'artist' }) {
     setCounter((c) => c + 1);
   };
 
-  const accentColor = theme === 'artist' ? 'var(--art-color)' : 'var(--dev-color)';
-  const brightColor = theme === 'artist' ? 'var(--art-bright)' : 'var(--dev-bright)';
+  const accentColor =
+    theme === "artist" ? "var(--art-color)" : "var(--dev-color)";
+  const brightColor =
+    theme === "artist" ? "var(--art-bright)" : "var(--dev-bright)";
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2.4rem' }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: "2.4rem",
+      }}
+    >
       {/* Stack container */}
-      <div style={{
-        position: 'relative',
-        width: '100%',
-        maxWidth: '56rem',
-        aspectRatio: '4 / 3',
-      }}>
+      <div
+        style={{
+          position: "relative",
+          width: "100%",
+          maxWidth: "56rem",
+          aspectRatio: "4 / 3",
+        }}
+      >
         {cards.slice(0, MAX_VISIBLE).map((item, i) => (
           <ArtCard
             key={`${item.id}-${counter}`}
@@ -182,43 +200,49 @@ export default function Stack({ items = [], onCardClick, theme = 'artist' }) {
       </div>
 
       {/* Controls */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '1.6rem' }}>
+      <div style={{ display: "flex", alignItems: "center", gap: "1.6rem" }}>
         <motion.button
           onClick={handleSwipe}
           whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.94 }}
-          transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+          transition={{ type: "spring", stiffness: 400, damping: 20 }}
           style={{
-            display: 'inline-flex', alignItems: 'center', gap: '0.7rem',
-            padding: '0.9rem 2rem',
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "0.7rem",
+            padding: "0.9rem 2rem",
             border: `1.5px solid ${accentColor}`,
-            borderRadius: '4rem',
-            background: 'transparent',
-            fontFamily: 'var(--font-display)',
-            fontSize: '1.4rem',
+            borderRadius: "4rem",
+            background: "transparent",
+            fontFamily: "var(--font-display)",
+            fontSize: "1.4rem",
             fontWeight: 700,
             color: brightColor,
-            cursor: 'pointer',
-            letterSpacing: '0.04em',
+            cursor: "pointer",
+            letterSpacing: "0.04em",
           }}
         >
           Next <i className="fa-solid fa-arrow-right" />
         </motion.button>
 
-        <span style={{
-          fontFamily: 'var(--font-mono)',
-          fontSize: '1.3rem',
-          color: `${brightColor}88`,
-          letterSpacing: '0.08em',
-        }}>
-          {counter % items.length + 1} / {items.length}
+        <span
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "1.3rem",
+            color: `${brightColor}88`,
+            letterSpacing: "0.08em",
+          }}
+        >
+          {(counter % items.length) + 1} / {items.length}
         </span>
 
-        <span style={{
-          fontFamily: 'var(--font-mono)',
-          fontSize: '1.1rem',
-          color: `${brightColor}55`,
-        }}>
+        <span
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "1.1rem",
+            color: `${brightColor}55`,
+          }}
+        >
           swipe or drag to cycle
         </span>
       </div>

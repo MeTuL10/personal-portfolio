@@ -1,35 +1,38 @@
-import { Suspense, lazy, useMemo, useState } from 'react';
-import { motion } from 'framer-motion';
-import { projects } from '../data.js';
-import FadeContent from '../reactbits/FadeContent.jsx';
-import BlurText from '../reactbits/BlurText.jsx';
-import styles from '../styles/Projects.module.css';
+import { Suspense, lazy, useMemo, useState } from "react";
+import { motion } from "framer-motion";
+import { projects } from "../data.js";
+import FadeContent from "../reactbits/FadeContent.jsx";
+import BlurText from "../reactbits/BlurText.jsx";
+import styles from "../styles/Projects.module.css";
 
-const ProjectHoverFx = lazy(() => import('../animations/ProjectHoverFx.jsx'));
+const ProjectHoverFx = lazy(() => import("../animations/ProjectHoverFx.jsx"));
 
 const CARD_VARIANTS = {
   hidden: { opacity: 0, y: 36, scale: 0.97 },
   visible: (i) => ({
-    opacity: 1, y: 0, scale: 1,
+    opacity: 1,
+    y: 0,
+    scale: 1,
     transition: { delay: i * 0.07, duration: 0.6, ease: [0.16, 1, 0.3, 1] },
   }),
 };
 
 function ProjectCard({ project, index }) {
   const [isHovered, setIsHovered] = useState(false);
-  const [pointer, setPointer]     = useState({ x: 0.5, y: 0.5 });
+  const [pointer, setPointer] = useState({ x: 0.5, y: 0.5 });
 
   const tiltStyle = useMemo(() => {
-    if (!isHovered) return { '--tilt-rotate-x': '0deg', '--tilt-rotate-y': '0deg' };
+    if (!isHovered)
+      return { "--tilt-rotate-x": "0deg", "--tilt-rotate-y": "0deg" };
     return {
-      '--tilt-rotate-x': `${((0.5 - pointer.y) * 8.5).toFixed(2)}deg`,
-      '--tilt-rotate-y': `${((pointer.x - 0.5) * 11).toFixed(2)}deg`,
+      "--tilt-rotate-x": `${((0.5 - pointer.y) * 8.5).toFixed(2)}deg`,
+      "--tilt-rotate-y": `${((pointer.x - 0.5) * 11).toFixed(2)}deg`,
     };
   }, [isHovered, pointer.x, pointer.y]);
 
   return (
     <motion.article
-      className={`${styles.card} ${isHovered ? styles.cardTiltActive : ''}`}
+      className={`${styles.card} ${isHovered ? styles.cardTiltActive : ""}`}
       style={tiltStyle}
       variants={CARD_VARIANTS}
       custom={index}
@@ -41,7 +44,10 @@ function ProjectCard({ project, index }) {
           y: Math.min(Math.max((e.clientY - r.top) / r.height, 0), 1),
         });
       }}
-      onPointerLeave={() => { setIsHovered(false); setPointer({ x: 0.5, y: 0.5 }); }}
+      onPointerLeave={() => {
+        setIsHovered(false);
+        setPointer({ x: 0.5, y: 0.5 });
+      }}
     >
       {isHovered && (
         <div className={styles.cardFx} aria-hidden="true">
@@ -58,7 +64,9 @@ function ProjectCard({ project, index }) {
       </div>
 
       <div className={styles.cardTab}>
-        <span className={styles.cardTabId}>ID-{String(project.id).padStart(2, '0')}</span>
+        <span className={styles.cardTabId}>
+          ID-{String(project.id).padStart(2, "0")}
+        </span>
       </div>
 
       <div className={styles.cardBody}>
@@ -68,23 +76,29 @@ function ProjectCard({ project, index }) {
           <div className={styles.tags}>
             {project.tags.map((tag) => (
               <motion.span
-                key={tag} className={styles.tag}
+                key={tag}
+                className={styles.tag}
                 whileHover={{ scale: 1.05 }}
-                transition={{ type: 'spring', stiffness: 400 }}
-              >{tag}</motion.span>
+                transition={{ type: "spring", stiffness: 400 }}
+              >
+                {tag}
+              </motion.span>
             ))}
           </div>
         </div>
         <p className={styles.cardDesc}>{project.description}</p>
         <div className={styles.cardFooter}>
           <motion.a
-            href={project.github} target="_blank" rel="noreferrer"
+            href={project.github}
+            target="_blank"
+            rel="noreferrer"
             className={styles.githubLink}
             whileHover={{ y: -2, scale: 1.04 }}
             whileTap={{ scale: 0.97 }}
-            transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+            transition={{ type: "spring", stiffness: 400, damping: 20 }}
           >
-            <i className="fa-brands fa-github" /><span>GitHub</span>
+            <i className="fa-brands fa-github" />
+            <span>GitHub</span>
           </motion.a>
         </div>
       </div>
@@ -113,7 +127,7 @@ export default function Projects() {
         className={styles.grid}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, margin: '-60px' }}
+        viewport={{ once: true, margin: "-60px" }}
       >
         {projects.map((project, i) => (
           <ProjectCard key={project.id} project={project} index={i} />

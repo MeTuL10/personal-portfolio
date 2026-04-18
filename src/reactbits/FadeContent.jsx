@@ -6,10 +6,11 @@
  * Optional blur for a modern frosted reveal effect.
  * Pure framer-motion, zero Three.js overhead.
  */
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
-const REDUCED = typeof window !== 'undefined' &&
-  window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const REDUCED =
+  typeof window !== "undefined" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 export default function FadeContent({
   children,
@@ -21,18 +22,23 @@ export default function FadeContent({
   className,
   style,
 }) {
-  if (REDUCED) return <div className={className} style={style}>{children}</div>;
+  if (REDUCED)
+    return (
+      <div className={className} style={style}>
+        {children}
+      </div>
+    );
 
   const initial = {
     opacity: initialOpacity,
     y: 18,
-    ...(blur ? { filter: 'blur(8px)' } : {}),
+    ...(blur ? { filter: "blur(8px)" } : {}),
   };
 
   const animate = {
     opacity: 1,
     y: 0,
-    ...(blur ? { filter: 'blur(0px)' } : {}),
+    ...(blur ? { filter: "blur(0px)" } : {}),
   };
 
   return (
@@ -41,7 +47,7 @@ export default function FadeContent({
       style={style}
       initial={initial}
       whileInView={animate}
-      viewport={{ once: true, margin: '-40px' }}
+      viewport={{ once: true, margin: "-40px" }}
       transition={{ duration, delay, ease: easing }}
     >
       {children}

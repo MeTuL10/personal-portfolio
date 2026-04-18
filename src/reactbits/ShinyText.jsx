@@ -5,27 +5,27 @@
  * Animated gradient sweep contained entirely within the text glyphs
  * via background-clip:text — no bleeding outside the characters.
  */
-import './ShinyText.css';
+import "./ShinyText.css";
 
 export default function ShinyText({
-  text = '',
+  text = "",
   disabled = false,
   speed = 3.5,
   // Gradient end colour — matches the theme's bright accent
-  colorA = '#ffffff',
-  colorB = 'var(--dev-bright, #8030e8)',
-  className = '',
+  colorA = "#ffffff",
+  colorB = "var(--dev-bright, #8030e8)",
+  className = "",
   style,
-  as: Tag = 'h1',
+  as: Tag = "h1",
 }) {
   return (
     <Tag
-      className={`rb-shiny${disabled ? ' rb-shiny-off' : ''} ${className}`}
+      className={`rb-shiny${disabled ? " rb-shiny-off" : ""} ${className}`}
       style={{
-        '--shiny-speed':   `${speed}s`,
-        '--rb-shiny-color-a': colorA,
-        '--rb-shiny-color-b': colorB,
-        '--rb-shiny-shine':   'rgba(255,255,255,0.92)',
+        "--shiny-speed": `${speed}s`,
+        "--rb-shiny-color-a": colorA,
+        "--rb-shiny-color-b": colorB,
+        "--rb-shiny-shine": "rgba(255,255,255,0.92)",
         ...style,
       }}
     >

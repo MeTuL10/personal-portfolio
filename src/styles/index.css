@@ -1,4 +1,6 @@
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -22,8 +24,8 @@
   --art-color: #134d87;
   --art-bright: #4d96db;
 
-  --font-display: 'Syne', sans-serif;
-  --font-mono: 'Space Mono', monospace;
+  --font-display: "Syne", sans-serif;
+  --font-mono: "Space Mono", monospace;
 }
 
 html {
@@ -32,7 +34,8 @@ html {
   scroll-behavior: smooth;
 }
 
-html, body {
+html,
+body {
   background: #060110;
 }
 
@@ -79,7 +82,9 @@ body {
 }
 
 /* ── Smooth scroll for anchor links ── */
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+}
 
 /* ── Performance: promote animated elements ── */
 .will-animate {

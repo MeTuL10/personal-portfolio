@@ -1,9 +1,9 @@
-import { useMemo } from 'react';
-import { artworks } from '../data.js';
-import FadeContent from '../reactbits/FadeContent.jsx';
-import BlurText from '../reactbits/BlurText.jsx';
-import Stack from '../reactbits/Stack.jsx';
-import styles from '../styles/Artworks.module.css';
+import { useMemo } from "react";
+import { artworks } from "../data.js";
+import FadeContent from "../reactbits/FadeContent.jsx";
+import BlurText from "../reactbits/BlurText.jsx";
+import Stack from "../reactbits/Stack.jsx";
+import styles from "../styles/Artworks.module.css";
 
 function groupByYear(items) {
   const map = new Map();
@@ -21,12 +21,12 @@ function groupByYear(items) {
   }));
 }
 
-export default function Artworks({ align = 'left' }) {
+export default function Artworks({ align = "left" }) {
   const groups = useMemo(() => groupByYear(artworks), []);
 
   return (
     <section
-      className={`${styles.artworks} ${align === 'right' ? styles.artworksRight : ''}`}
+      className={`${styles.artworks} ${align === "right" ? styles.artworksRight : ""}`}
       id="projects"
     >
       {/* Section heading */}
@@ -49,12 +49,11 @@ export default function Artworks({ align = 'left' }) {
         {groups.map(({ year, items }, i) => (
           <FadeContent key={year} blur delay={i * 0.1} duration={0.7}>
             <div className={styles.yearBlock}>
-
               {/* Year header — bold, prominent, above the stack */}
               <div className={styles.yearHeader}>
                 <span className={styles.yearHeading}>{year}</span>
                 <span className={styles.yearPill}>
-                  {items.length} piece{items.length !== 1 ? 's' : ''}
+                  {items.length} piece{items.length !== 1 ? "s" : ""}
                 </span>
               </div>
 

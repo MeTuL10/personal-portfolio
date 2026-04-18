@@ -3,21 +3,24 @@
  * Radial glow spotlight + animated sweep + edge pulse on project card hover.
  * Uses drei's ScreenQuad for a clean full-card fill without vertex math.
  */
-import { useMemo, useRef } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import * as THREE from 'three';
+import { useMemo, useRef } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import * as THREE from "three";
 
 function HoverPlane({ active, pointer }) {
   const matRef = useRef(null);
   const smoothPointer = useRef(new THREE.Vector2(0.5, 0.5));
 
-  const uniforms = useMemo(() => ({
-    uTime:    { value: 0 },
-    uPointer: { value: new THREE.Vector2(0.5, 0.5) },
-    uStrength:{ value: 0 },
-    uColorA:  { value: new THREE.Color('#6c2dd8') },
-    uColorB:  { value: new THREE.Color('#d0b0ff') },
-  }), []);
+  const uniforms = useMemo(
+    () => ({
+      uTime: { value: 0 },
+      uPointer: { value: new THREE.Vector2(0.5, 0.5) },
+      uStrength: { value: 0 },
+      uColorA: { value: new THREE.Color("#6c2dd8") },
+      uColorB: { value: new THREE.Color("#d0b0ff") },
+    }),
+    [],
+  );
 
   useFrame((_, delta) => {
     if (!matRef.current) return;
@@ -26,11 +29,16 @@ function HoverPlane({ active, pointer }) {
     // Smooth pointer
     smoothPointer.current.lerp(
       new THREE.Vector2(pointer.x, pointer.y),
-      1 - Math.exp(-delta * 14)
+      1 - Math.exp(-delta * 14),
     );
     u.uPointer.value.copy(smoothPointer.current);
     u.uTime.value += delta;
-    u.uStrength.value = THREE.MathUtils.damp(u.uStrength.value, active ? 1 : 0, 8, delta);
+    u.uStrength.value = THREE.MathUtils.damp(
+      u.uStrength.value,
+      active ? 1 : 0,
+      8,
+      delta,
+    );
   });
 
   return (
@@ -92,7 +100,11 @@ export default function ProjectHoverFx({ active, pointer }) {
       orthographic
       camera={{ position: [0, 0, 1], zoom: 1 }}
       dpr={[1, 1.5]}
-      gl={{ alpha: true, antialias: false, powerPreference: 'high-performance' }}
+      gl={{
+        alpha: true,
+        antialias: false,
+        powerPreference: "high-performance",
+      }}
     >
       <HoverPlane active={active} pointer={pointer} />
     </Canvas>

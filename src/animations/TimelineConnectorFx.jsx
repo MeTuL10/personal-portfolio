@@ -1,6 +1,6 @@
-import { useMemo, useRef } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import * as THREE from 'three';
+import { useMemo, useRef } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import * as THREE from "three";
 
 function ConnectorPlane({ active }) {
   const materialRef = useRef(null);
@@ -10,10 +10,10 @@ function ConnectorPlane({ active }) {
     () => ({
       uTime: { value: 0 },
       uStrength: { value: 0 },
-      uColorA: { value: new THREE.Color('#e4d0ff') },
-      uColorB: { value: new THREE.Color('#9d5cff') },
+      uColorA: { value: new THREE.Color("#e4d0ff") },
+      uColorB: { value: new THREE.Color("#9d5cff") },
     }),
-    []
+    [],
   );
 
   useFrame((_, delta) => {
@@ -23,7 +23,7 @@ function ConnectorPlane({ active }) {
       uniforms.uStrength.value,
       active ? 1 : 0.25,
       7,
-      delta
+      delta,
     );
   });
 
@@ -78,7 +78,7 @@ export default function TimelineConnectorFx({ active }) {
       orthographic
       camera={{ position: [0, 0, 1], zoom: 1 }}
       dpr={[1, 1.5]}
-      gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
+      gl={{ alpha: true, antialias: true, powerPreference: "high-performance" }}
     >
       <ConnectorPlane active={active} />
     </Canvas>

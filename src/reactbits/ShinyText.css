@@ -15,9 +15,9 @@
   /* Animated shine gradient — light streak moves left to right */
   background: linear-gradient(
     105deg,
-    var(--rb-shiny-color-a, #fff)  0%,
-    var(--rb-shiny-color-a, #fff)  35%,
-    var(--rb-shiny-shine, rgba(255,255,255,0.95)) 47%,
+    var(--rb-shiny-color-a, #fff) 0%,
+    var(--rb-shiny-color-a, #fff) 35%,
+    var(--rb-shiny-shine, rgba(255, 255, 255, 0.95)) 47%,
     var(--rb-shiny-color-b, var(--dev-bright, #8030e8)) 55%,
     var(--rb-shiny-color-b, var(--dev-bright, #8030e8)) 100%
   ) !important;
@@ -34,6 +34,10 @@
 }
 
 @keyframes rb-shiny-sweep {
-  0%   { background-position: 200% center; }
-  100% { background-position: -200% center; }
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
 }

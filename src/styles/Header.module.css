@@ -146,7 +146,6 @@
   }
 }
 
-
 /* Glow pulse on the flip button while switching */
 .flipBtnBusy {
   animation: flipBtnGlow 0.8s ease-in-out infinite alternate;
@@ -163,11 +162,19 @@
 }
 
 @keyframes flipBtnGlowDev {
-  from { box-shadow: 0 0 0.6rem rgba(104,4,186,0.3); }
-  to   { box-shadow: 0 0 2rem  rgba(155,63,255,0.65); }
+  from {
+    box-shadow: 0 0 0.6rem rgba(104, 4, 186, 0.3);
+  }
+  to {
+    box-shadow: 0 0 2rem rgba(155, 63, 255, 0.65);
+  }
 }
 
 @keyframes flipBtnGlowArt {
-  from { box-shadow: 0 0 0.6rem rgba(24,95,165,0.3); }
-  to   { box-shadow: 0 0 2rem  rgba(96,170,236,0.65); }
+  from {
+    box-shadow: 0 0 0.6rem rgba(24, 95, 165, 0.3);
+  }
+  to {
+    box-shadow: 0 0 2rem rgba(96, 170, 236, 0.65);
+  }
 }

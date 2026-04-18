@@ -24,7 +24,7 @@
 }
 
 .sectionTitle::after {
-  content: '';
+  content: "";
   display: block;
   height: 4px;
   width: 6rem;
@@ -48,18 +48,20 @@
   border: 1px solid rgba(136, 84, 255, 0.48);
   background:
     linear-gradient(
-      -45deg,
-      transparent 46%,
-      rgba(204, 165, 255, 0.88) 47%,
-      rgba(204, 165, 255, 0.88) 50%,
-      transparent 51%
-    ) right bottom / 1.4rem 1.4rem no-repeat,
+        -45deg,
+        transparent 46%,
+        rgba(204, 165, 255, 0.88) 47%,
+        rgba(204, 165, 255, 0.88) 50%,
+        transparent 51%
+      )
+      right bottom / 1.4rem 1.4rem no-repeat,
     rgba(8, 7, 24, 0.96);
   overflow: hidden;
   isolation: isolate;
   transform-style: preserve-3d;
   will-change: transform, box-shadow, filter;
-  transform: perspective(1200px) rotateX(var(--tilt-rotate-x)) rotateY(var(--tilt-rotate-y));
+  transform: perspective(1200px) rotateX(var(--tilt-rotate-x))
+    rotateY(var(--tilt-rotate-y));
   transition:
     transform 500ms cubic-bezier(0.16, 0.85, 0.22, 1),
     border-color 360ms ease,
@@ -68,7 +70,7 @@
 }
 
 .card::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 1rem;
   bottom: 0.75rem;
@@ -86,7 +88,7 @@
 }
 
 .card::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 1.4rem;
   right: 1.4rem;
@@ -105,7 +107,8 @@
 }
 
 .card:hover {
-  transform: perspective(1200px) rotateX(var(--tilt-rotate-x)) rotateY(var(--tilt-rotate-y)) translateY(-10px) scale(1.012);
+  transform: perspective(1200px) rotateX(var(--tilt-rotate-x))
+    rotateY(var(--tilt-rotate-y)) translateY(-10px) scale(1.012);
   border-color: rgba(195, 144, 255, 0.85);
   box-shadow:
     0 1.8rem 3.6rem rgba(6, 4, 19, 0.78),
@@ -142,13 +145,17 @@
   align-items: center;
   justify-content: center;
   border: 1px solid rgba(206, 161, 255, 0.8);
-  background: linear-gradient(180deg, rgba(29, 24, 63, 0.95), rgba(13, 10, 30, 0.98));
+  background: linear-gradient(
+    180deg,
+    rgba(29, 24, 63, 0.95),
+    rgba(13, 10, 30, 0.98)
+  );
   clip-path: polygon(0 0, 100% 0, 100% 76%, 92% 100%, 8% 100%, 0 76%);
   z-index: 5;
 }
 
 .cardTab::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -0.28rem;
   left: 50%;
@@ -178,7 +185,9 @@
   height: 100%;
   object-fit: cover;
   transform: scale(1.03);
-  transition: transform 760ms cubic-bezier(0.2, 0.72, 0.25, 1), filter 700ms ease;
+  transition:
+    transform 760ms cubic-bezier(0.2, 0.72, 0.25, 1),
+    filter 700ms ease;
 }
 
 .card:hover .img,
@@ -378,7 +387,7 @@
 }
 
 .projectsTitle::after {
-  content: '';
+  content: "";
   display: block;
   height: 3px;
   width: 100%;

@@ -12,15 +12,23 @@
   width: 60rem;
   height: 60rem;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(104, 4, 186, 0.22) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(104, 4, 186, 0.22) 0%,
+    transparent 70%
+  );
   pointer-events: none;
   z-index: 0;
   animation: orbDrift 12s ease-in-out infinite alternate;
 }
 
 @keyframes orbDrift {
-  from { transform: translate(0, 0) scale(1); }
-  to   { transform: translate(-4rem, 3rem) scale(1.08); }
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(-4rem, 3rem) scale(1.08);
+  }
 }
 
 .intro {
@@ -92,13 +100,16 @@
   border-radius: 50%;
   font-size: 2.1rem;
   color: var(--dev-bright);
-  transition: background 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+  transition:
+    background 0.3s ease,
+    box-shadow 0.3s ease,
+    color 0.3s ease;
   position: relative;
   overflow: hidden;
 }
 
 .socialIcon::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   border-radius: 50%;
@@ -108,8 +119,14 @@
   z-index: 0;
 }
 
-.socialIcon:hover::after { transform: scale(1); }
-.socialIcon:hover { color: #fff; box-shadow: 0 0 2rem var(--dev-color); }
-.socialIcon i { position: relative; z-index: 1; }
-
-
+.socialIcon:hover::after {
+  transform: scale(1);
+}
+.socialIcon:hover {
+  color: #fff;
+  box-shadow: 0 0 2rem var(--dev-color);
+}
+.socialIcon i {
+  position: relative;
+  z-index: 1;
+}
