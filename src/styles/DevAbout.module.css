@@ -57,7 +57,10 @@
   font-size: clamp(5rem, 9vw, 9rem);
   font-weight: 800;
   line-height: 1;
-  /* gradient handled by ShinyText animation */
+  color: #f4f1ff;
+  text-shadow:
+    0 0 1.4rem rgba(128, 48, 232, 0.2),
+    0 0 2.6rem rgba(94, 28, 188, 0.18);
   margin-bottom: 1.6rem;
 }
 

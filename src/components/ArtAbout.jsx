@@ -1,6 +1,6 @@
-import { motion } from "framer-motion";
 import BlurText from "../reactbits/BlurText.jsx";
-import ShinyText from "../reactbits/ShinyText.jsx";
+import GradientText from "../reactbits/GradientText.jsx";
+import CurvedLoop from "../reactbits/CurvedLoop.jsx";
 import FadeContent from "../reactbits/FadeContent.jsx";
 import Magnet from "../reactbits/Magnet.jsx";
 import styles from "../styles/ArtAbout.module.css";
@@ -33,12 +33,13 @@ export default function ArtAbout({ align = "left" }) {
         />
 
         {/* ShinyText for name — preserves art-profile gradient */}
-        <ShinyText
+        <GradientText
           text="Metul Prabhu"
           as="h1"
-          speed={3.5}
-          colorA="#ffffff"
+          speed={7.5}
+          colorA="#f5f8ff"
           colorB="var(--art-bright)"
+          colorC="var(--art-color)"
           className={styles.name}
         />
 
@@ -76,38 +77,8 @@ export default function ArtAbout({ align = "left" }) {
         <FadeContent blur delay={0.12} duration={0.7}>
           <div className={styles.learningSection}>
             <h2 className={styles.sectionLabel}>Currently learning</h2>
-            <div className={styles.pillArea}>
-              <motion.div
-                className={styles.pillRow}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-30px" }}
-                variants={{
-                  hidden: {},
-                  visible: {
-                    transition: { staggerChildren: 0.09, delayChildren: 0.1 },
-                  },
-                }}
-              >
-                {PILLS.map((item) => (
-                  <motion.span
-                    key={item}
-                    className={styles.pill}
-                    variants={{
-                      hidden: { opacity: 0, y: 14, scale: 0.9 },
-                      visible: {
-                        opacity: 1,
-                        y: 0,
-                        scale: 1,
-                        transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
-                      },
-                    }}
-                    whileHover={{ scale: 1.07, transition: { duration: 0.18 } }}
-                  >
-                    {item}
-                  </motion.span>
-                ))}
-              </motion.div>
+            <div className={styles.learningLoopWrap}>
+              <CurvedLoop items={PILLS} />
             </div>
           </div>
         </FadeContent>

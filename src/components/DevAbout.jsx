@@ -1,7 +1,7 @@
 import DevTimeline from "./DevTimeline";
 import SkillsCarousel from "./SkillsCarousel";
 import BlurText from "../reactbits/BlurText.jsx";
-import ShinyText from "../reactbits/ShinyText.jsx";
+import GlitchText from "../reactbits/GlitchText.jsx";
 import FadeContent from "../reactbits/FadeContent.jsx";
 import Magnet from "../reactbits/Magnet.jsx";
 import SectionDivider from "../animations/SectionDivider.jsx";
@@ -22,16 +22,7 @@ export default function DevAbout() {
           duration={0.55}
           className={styles.greeting}
         />
-
-        {/* Name — ShinyText preserves the gradient colour + Syne font via className */}
-        <ShinyText
-          text="Metul Prabhu"
-          as="h1"
-          speed={3.5}
-          colorA="#ffffff"
-          colorB="var(--dev-bright)"
-          className={styles.name}
-        />
+        <GlitchText>Metul Prabhu</GlitchText>
 
         {/* Role */}
         <FadeContent blur delay={0.18} duration={0.65}>

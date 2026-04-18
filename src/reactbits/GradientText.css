@@ -1,0 +1,30 @@
+.rb-gradient-text {
+  display: inline-block;
+  background: linear-gradient(
+    var(--rb-gradient-angle, 100deg),
+    var(--rb-gradient-a, #fff) 0%,
+    var(--rb-gradient-b, #73c8ff) 50%,
+    var(--rb-gradient-c, #2676bf) 100%
+  );
+  background-size: 220% 220%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rb-gradient-flow var(--rb-gradient-speed, 8s) ease infinite;
+}
+
+.rb-gradient-text-static {
+  animation: none;
+}
+
+@keyframes rb-gradient-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

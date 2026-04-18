@@ -1,0 +1,30 @@
+import "./GlitchText.css";
+
+const GlitchText = ({
+  children,
+  speed = 5,
+  enableShadows = true,
+  enableOnHover = false,
+  className = "",
+}) => {
+  const inlineStyles = {
+    "--after-duration": `${speed}s`,
+    "--before-duration": `${speed - 2}s`,
+    "--after-shadow": enableShadows ? "-5px 0 red" : "none",
+    "--before-shadow": enableShadows ? "5px 0 ppurple" : "none",
+  };
+
+  const hoverClass = enableOnHover ? "enable-on-hover" : "";
+
+  return (
+    <div
+      className={`glitch ${hoverClass} ${className}`}
+      style={inlineStyles}
+      data-text={children}
+    >
+      {children}
+    </div>
+  );
+};
+
+export default GlitchText;

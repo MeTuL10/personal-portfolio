@@ -94,7 +94,6 @@
   font-size: clamp(5rem, 9vw, 9rem);
   font-weight: 800;
   line-height: 1;
-  /* gradient handled by ShinyText animation */
   margin-bottom: 1.6rem;
 }
 
@@ -176,6 +175,19 @@
 
 .learningSection {
   margin-top: 2rem;
+}
+
+.learningLoopWrap {
+  width: min(84rem, 100%);
+}
+
+.aboutRight .learningLoopWrap {
+  margin-left: auto;
+}
+
+.learningLoopWrap :global(.rb-curved-loop) {
+  --rb-loop-accent: var(--art-color);
+  --rb-loop-bright: var(--art-bright);
 }
 
 .sectionLabel {
