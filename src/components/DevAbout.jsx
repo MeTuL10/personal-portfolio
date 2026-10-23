@@ -1,7 +1,6 @@
 import DevTimeline from "./DevTimeline";
 import SkillsCarousel from "./SkillsCarousel";
 import BlurText from "../reactbits/BlurText.jsx";
-import GlitchText from "../reactbits/GlitchText.jsx";
 import FadeContent from "../reactbits/FadeContent.jsx";
 import Magnet from "../reactbits/Magnet.jsx";
 import SectionDivider from "../animations/SectionDivider.jsx";
@@ -13,16 +12,15 @@ export default function DevAbout() {
       <div className={styles.glowOrb} />
 
       <div className={styles.intro}>
-        {/* Greeting */}
         <BlurText
-          text="Hi, I am"
+          text="The build log of"
           as="p"
           animateBy="words"
           delay={60}
           duration={0.55}
           className={styles.greeting}
         />
-        <GlitchText>Metul Prabhu</GlitchText>
+        <h1 className={styles.name}>Metul Prabhu</h1>
 
         {/* Role */}
         <FadeContent blur delay={0.18} duration={0.65}>
@@ -54,6 +52,8 @@ export default function DevAbout() {
                 title="LinkedIn"
               >
                 <i className="fa-brands fa-linkedin" />
+                <span>LinkedIn</span>
+                <i className="fa-solid fa-arrow-up-right-from-square" aria-hidden="true" />
               </a>
             </Magnet>
             <Magnet magnetStrength={0.42}>
@@ -65,6 +65,8 @@ export default function DevAbout() {
                 title="GitHub"
               >
                 <i className="fa-brands fa-github" />
+                <span>GitHub</span>
+                <i className="fa-solid fa-arrow-up-right-from-square" aria-hidden="true" />
               </a>
             </Magnet>
           </div>
