@@ -17,6 +17,239 @@
   z-index: 1;
 }
 
+/* Profile chooser */
+.profileChooser {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  background: #0b0710;
+}
+
+.chooserPrompt {
+  position: absolute;
+  z-index: 3;
+  top: clamp(2rem, 6vh, 6rem);
+  left: 50%;
+  width: min(48rem, calc(100% - 3rem));
+  padding: 1.4rem 2rem 1.55rem;
+  border: 1px solid rgba(246, 237, 222, 0.34);
+  border-radius: 0.7rem;
+  background: rgba(12, 7, 17, 0.84);
+  box-shadow: 0 1.2rem 4rem rgba(0, 0, 0, 0.28);
+  color: #fff9ef;
+  text-align: center;
+  transform: translateX(-50%);
+}
+
+.chooserPrompt p {
+  margin-bottom: 0.35rem;
+  color: #cdb4ff;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.chooserPrompt h1 {
+  font-family: var(--font-art-display);
+  font-size: clamp(2.7rem, 3.5vw, 4.2rem);
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  line-height: 0.95;
+}
+
+.chooserSplit {
+  display: grid;
+  min-height: 100svh;
+  grid-template-columns: 1fr 1fr;
+}
+
+.chooserPanel {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  min-height: 100%;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: clamp(3rem, 7vw, 10rem);
+  padding-top: 17rem;
+  overflow: hidden;
+  border: 0;
+  cursor: pointer;
+  isolation: isolate;
+  text-align: left;
+  transition: filter 220ms ease;
+}
+
+.chooserPanel:focus-visible {
+  z-index: 4;
+  outline: 3px solid #fff4d9;
+  outline-offset: -0.7rem;
+}
+
+.chooserPanel:disabled {
+  cursor: wait;
+}
+
+.chooserPanel::before,
+.chooserPanel::after {
+  position: absolute;
+  content: "";
+  pointer-events: none;
+}
+
+.chooserPanel::before {
+  z-index: -1;
+  inset: 0;
+  transition: opacity 280ms ease;
+}
+
+.chooserPanel::after {
+  z-index: -1;
+  width: min(57vw, 80rem);
+  height: min(57vw, 80rem);
+  opacity: 0.6;
+  transition: transform 650ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.chooserPanel:hover::after {
+  transform: scale(1.14) rotate(7deg);
+}
+
+.chooserDev {
+  color: #faf5ff;
+  background: #08020f;
+}
+
+.chooserDev::before {
+  background:
+    linear-gradient(120deg, rgba(131, 37, 220, 0.25), transparent 46%),
+    repeating-linear-gradient(90deg, transparent 0 3.8rem, rgba(189, 145, 255, 0.045) 3.9rem 4rem),
+    radial-gradient(circle at 25% 40%, rgba(143, 41, 239, 0.36), transparent 43%);
+}
+
+.chooserDev::after {
+  top: 24%;
+  left: -22%;
+  border: 1px solid rgba(203, 167, 255, 0.3);
+  border-radius: 50%;
+  box-shadow: inset 0 0 7rem rgba(138, 51, 233, 0.36), 0 0 7rem rgba(138, 51, 233, 0.24);
+}
+
+.chooserArtist {
+  color: var(--art-ink);
+  background: var(--art-paper);
+}
+
+.chooserArtist::before {
+  background:
+    radial-gradient(circle at 76% 26%, rgba(145, 79, 54, 0.16) 0 0.11rem, transparent 0.14rem),
+    radial-gradient(circle at 32% 64%, rgba(66, 69, 46, 0.11) 0 0.09rem, transparent 0.12rem),
+    linear-gradient(130deg, rgba(255, 255, 255, 0.6), transparent 47%);
+  background-size: 1.15rem 1.25rem, 0.9rem 1.05rem, auto;
+}
+
+.chooserArtist::after {
+  right: -20%;
+  bottom: 10%;
+  border: 2px solid rgba(140, 73, 53, 0.4);
+  border-radius: 44% 56% 62% 38% / 40% 42% 58% 60%;
+  rotate: -13deg;
+}
+
+.chooserLabel,
+.chooserDetail,
+.chooserAction {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+}
+
+.chooserLabel {
+  margin-bottom: 1.4rem;
+  color: inherit;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  opacity: 0.7;
+}
+
+.chooserPanel strong {
+  position: relative;
+  z-index: 1;
+  max-width: 9ch;
+  font-size: clamp(5rem, 7.7vw, 11rem);
+  font-weight: 700;
+  letter-spacing: -0.075em;
+  line-height: 0.78;
+}
+
+.chooserDev strong {
+  font-family: var(--font-dev-display);
+  text-transform: uppercase;
+}
+
+.chooserArtist strong {
+  font-family: var(--font-art-display);
+  font-weight: 600;
+}
+
+.chooserDetail {
+  margin-top: 2.3rem;
+  font-size: clamp(0.95rem, 1.1vw, 1.2rem);
+  font-weight: 700;
+  letter-spacing: 0.075em;
+  opacity: 0.7;
+}
+
+.chooserAction {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 1.3rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid currentColor;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+}
+
+.chooserDev .chooserAction {
+  color: var(--dev-accent);
+}
+
+.chooserArtist .chooserAction {
+  color: var(--art-color);
+}
+
+@media (max-width: 700px) {
+  .chooserSplit {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  .chooserPanel {
+    min-height: 50svh;
+    padding: 11rem 8vw 4rem;
+  }
+
+  .chooserPrompt {
+    top: 1.5rem;
+    padding: 1.1rem 1.5rem 1.25rem;
+  }
+
+  .chooserPanel strong {
+    font-size: clamp(4.8rem, 14vw, 7rem);
+  }
+
+  .chooserDetail {
+    margin-top: 1.5rem;
+  }
+}
+
 /* Scene */
 .scene {
   position: relative;

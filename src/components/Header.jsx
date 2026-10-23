@@ -2,16 +2,22 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import styles from "../styles/Header.module.css";
 
-export default function Header({ profile, onSwitch, isSwitching = false }) {
+export default function Header({
+  profile,
+  onSwitch,
+  onNavigateSection,
+  onBackToChooser,
+  isSwitching = false,
+}) {
   const isDev = profile === "dev";
-  const [activeSection, setActiveSection] = useState("about");
+  const [activeSection, setActiveSection] = useState("profile");
 
   useEffect(() => {
     const updateActiveSection = () => {
       const projects = document.getElementById("projects");
       const isViewingProjects =
         projects && projects.getBoundingClientRect().top <= window.innerHeight * 0.38;
-      setActiveSection(isViewingProjects ? "projects" : "about");
+      setActiveSection(isViewingProjects ? "content" : "profile");
     };
 
     updateActiveSection();
@@ -19,19 +25,30 @@ export default function Header({ profile, onSwitch, isSwitching = false }) {
     return () => window.removeEventListener("scroll", updateActiveSection);
   }, [profile]);
 
-  const sectionLink = (section, label, icon) => (
+  const sectionLink = (section, label, icon) => {
+    const routeSection = section === "content" ? (isDev ? "projects" : "artworks") : "profile";
+    const href = isDev
+      ? `/personal-portfolio/dev/${routeSection}`
+      : `/personal-portfolio/art/${routeSection}`;
+
+    return (
     <motion.a
-      href={`#${section}`}
+      href={href}
       className={styles.navLink}
       aria-current={activeSection === section ? "page" : undefined}
-      onClick={() => setActiveSection(section)}
+      onClick={(event) => {
+        event.preventDefault();
+        setActiveSection(section);
+        onNavigateSection(routeSection);
+      }}
       whileTap={{ scale: 0.97 }}
     >
       {activeSection === section && <motion.span layoutId="nav-active-pill" className={styles.navActive} />}
       <i className={icon} aria-hidden="true" />
       <span className={styles.navLinkText}>{label}</span>
     </motion.a>
-  );
+    );
+  };
 
   return (
     <motion.header
@@ -41,10 +58,21 @@ export default function Header({ profile, onSwitch, isSwitching = false }) {
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
     >
       <nav className={styles.navbar} aria-label="Primary navigation">
+        <motion.button
+          type="button"
+          className={styles.backButton}
+          onClick={onBackToChooser}
+          disabled={isSwitching}
+          aria-label="Return to profile chooser"
+          whileTap={isSwitching ? {} : { scale: 0.95 }}
+        >
+          <i className="fa-solid fa-arrow-left" aria-hidden="true" />
+          <span>Back to start</span>
+        </motion.button>
         <div className={styles.primaryNav}>
-          {sectionLink("about", "Profile", "fa-solid fa-user")}
+          {sectionLink("profile", "Profile", "fa-solid fa-user")}
           {sectionLink(
-            "projects",
+            "content",
             isDev ? "Projects" : "Artworks",
             isDev ? "fa-solid fa-laptop" : "fa-solid fa-palette",
           )}

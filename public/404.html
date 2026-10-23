@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting…</title>
+    <script>
+      const base = "/personal-portfolio/";
+      const path = window.location.pathname.startsWith(base)
+        ? window.location.pathname.slice(base.length)
+        : window.location.pathname.slice(1);
+      window.location.replace(`${base}?/${path}${window.location.hash}`);
+    </script>
+  </head>
+  <body></body>
+</html>

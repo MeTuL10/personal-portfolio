@@ -1,3 +1,5 @@
+const publicAsset = (path) => `${import.meta.env.BASE_URL}${path}`;
+
 export const skills = {
   languages: {
     label: "Programming Languages",
@@ -76,7 +78,7 @@ export const projects = [
     title: "Sentinel AI",
     description:
       "ML based threat detection system. Identify cyberattacks via email and messages.",
-    image: "images/cybersecurity.jpg",
+    image: publicAsset("images/cybersecurity.jpg"),
     github: "https://github.com/MeTuL10/Sentinel-AI",
     tags: ["ML", "Security"],
   },
@@ -85,7 +87,7 @@ export const projects = [
     title: "Portfolio Optimization",
     description:
       "Application of multiple RL models on a multi-stock trading environment to analyze performance and maximise profit.",
-    image: "images/rl.jpg",
+    image: publicAsset("images/rl.jpg"),
     github:
       "https://github.com/MeTuL10/Reinforcement_learning_portfolio_optimization",
     tags: ["RL", "Finance"],
@@ -95,7 +97,7 @@ export const projects = [
     title: "Early Suicide Prediction",
     description:
       "Prediction of suicidal ideation using deep learning models and preprocessing techniques for refinement of data.",
-    image: "images/dl.jpg",
+    image: publicAsset("images/dl.jpg"),
     github: "https://github.com/MeTuL10/TARP_early_suicide_prediction",
     tags: ["DL", "NLP"],
   },
@@ -104,7 +106,7 @@ export const projects = [
     title: "Online Streaming Analytics",
     description:
       "Analytics on Twitch streamers using supervised and unsupervised ML models to classify streamers and predict their growth.",
-    image: "images/eda.jpg",
+    image: publicAsset("images/eda.jpg"),
     github: "https://github.com/MeTuL10/online-streaming-analytics",
     tags: ["ML", "Analytics"],
   },
@@ -113,7 +115,7 @@ export const projects = [
     title: "Diabetes Prediction App",
     description:
       "Web application deployed to AWS for predicting diabetes using a DL model.",
-    image: "images/diabetes.jpg",
+    image: publicAsset("images/diabetes.jpg"),
     github: "https://github.com/MeTuL10/diabetes-predictor",
     tags: ["DL", "AWS"],
   },
@@ -122,7 +124,7 @@ export const projects = [
     title: "Maze Escape",
     description:
       "Game developed using Unity and C# for implementing pathfinding algorithms.",
-    image: "images/maze.jpg",
+    image: publicAsset("images/maze.jpg"),
     github: "https://github.com/MeTuL10/Maze-escape-Unity",
     tags: ["Unity", "C#"],
   },
@@ -131,7 +133,7 @@ export const projects = [
     title: "E-Waiter",
     description:
       "Python application created using Tkinter, speech to text and MySQL.",
-    image: "images/restaurant.jpg",
+    image: publicAsset("images/restaurant.jpg"),
     github: "https://github.com/MeTuL10/e-waiter",
     tags: ["Python", "NLP"],
   },
@@ -140,7 +142,7 @@ export const projects = [
     title: "Rasa Chatbot",
     description:
       "Chatbot developed using Rasa framework and deployed using Docker and GitHub Actions to Azure.",
-    image: "images/chat.jpg",
+    image: publicAsset("images/chat.jpg"),
     github: "https://github.com/MeTuL10/rasachatbot",
     tags: ["Rasa", "DevOps"],
   },
@@ -149,7 +151,7 @@ export const projects = [
     title: "IBM DevOps Capstone",
     description:
       "A customer account management application developed and deployed using DevOps practices, guided by IBM DevOps certification.",
-    image: "images/devops.jpg",
+    image: publicAsset("images/devops.jpg"),
     github: "https://github.com/MeTuL10/devops-capstone-project",
     tags: ["DevOps", "IBM"],
   },
@@ -157,7 +159,7 @@ export const projects = [
     id: 10,
     title: "EZ Ticket",
     description: "RPA for booking train and flight tickets using UIPath.",
-    image: "images/rpa.jpg",
+    image: publicAsset("images/rpa.jpg"),
     github: "https://github.com/MeTuL10/EZTicket",
     tags: ["RPA", "UIPath"],
   },
@@ -166,7 +168,7 @@ export const projects = [
     title: "Personal Portfolio",
     description:
       "Personal portfolio website developed using HTML and CSS and deployed through GitHub.",
-    image: "images/website.jpg",
+    image: publicAsset("images/website.jpg"),
     github: "https://github.com/MeTuL10/personal-portfolio",
     tags: ["HTML", "CSS"],
   },
