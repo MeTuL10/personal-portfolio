@@ -6,6 +6,7 @@ import DevAbout from "./components/DevAbout.jsx";
 import Projects from "./components/Projects.jsx";
 import ArtAbout from "./components/ArtAbout.jsx";
 import Artworks from "./components/Artworks.jsx";
+import Animations from "./components/Animations.jsx";
 import DarkVeil from "./reactbits/DarkVeil.jsx";
 import styles from "./styles/App.module.css";
 
@@ -29,12 +30,14 @@ function readRoute() {
   if (path === "/dev/projects") return { profile: "dev", section: "projects" };
   if (path === "/art" || path === "/art/profile") return { profile: "artist", section: "profile" };
   if (path === "/art/artworks") return { profile: "artist", section: "artworks" };
+  if (path === "/art/animations") return { profile: "artist", section: "animations" };
   return null;
 }
 
 function routeHref(profile, section = "profile") {
   if (profile === "dev") return `${basePath}/dev/${section === "projects" ? "projects" : "profile"}`;
-  return `${basePath}/art/${section === "artworks" ? "artworks" : "profile"}`;
+  if (section === "artworks" || section === "animations") return `${basePath}/art/${section}`;
+  return `${basePath}/art/profile`;
 }
 
 function scrollToRoute(route, behavior = "smooth") {
@@ -43,8 +46,9 @@ function scrollToRoute(route, behavior = "smooth") {
     return;
   }
 
+  const targetId = route.section === "animations" ? "animations" : "projects";
   window.requestAnimationFrame(() => {
-    document.getElementById("projects")?.scrollIntoView({ behavior, block: "start" });
+    document.getElementById(targetId)?.scrollIntoView({ behavior, block: "start" });
   });
 }
 
@@ -181,6 +185,7 @@ export default function App() {
       <>
         <ArtAbout animateIntro={animateIntro} />
         <Artworks />
+        <Animations />
       </>
     );
   };

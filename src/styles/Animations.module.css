@@ -1,0 +1,218 @@
+.animations {
+  position: relative;
+  padding: 10rem 8vw 14rem;
+  overflow: hidden;
+  scroll-margin-top: 9rem;
+  background:
+    radial-gradient(circle at 94% 12%, rgba(174, 92, 66, 0.15), transparent 24rem),
+    var(--art-second-bg);
+  color: var(--art-ink);
+}
+
+.animations::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+  opacity: 0.52;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(58, 44, 31, 0.16) 0.75px, transparent 0.8px);
+  background-size: 11px 11px;
+}
+
+.sectionHeader,
+.railToolbar,
+.animationRail {
+  position: relative;
+  z-index: 1;
+}
+
+.sectionHeader {
+  max-width: 72rem;
+  margin-bottom: 3.5rem;
+}
+
+.eyebrow,
+.cardFooter > span,
+.cardFooter p {
+  color: var(--art-color);
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.sectionHeader h2 {
+  margin: 0.75rem 0 1.2rem;
+  color: var(--art-ink);
+  font-family: var(--font-art-display);
+  font-size: clamp(4rem, 6vw, 6.7rem);
+  font-weight: 600;
+  letter-spacing: -0.06em;
+  line-height: 0.92;
+}
+
+.sectionHeader p {
+  max-width: 53rem;
+  margin: 0;
+  color: var(--art-ink-soft);
+  font-family: var(--font-art-display);
+  font-size: 1.8rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.railToolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.1rem 0;
+  border-top: 1px solid rgba(39, 32, 25, 0.32);
+  color: var(--art-ink-soft);
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.railControls {
+  display: flex;
+  gap: 0.65rem;
+}
+
+.railControls button {
+  display: grid;
+  width: 3.6rem;
+  height: 3.6rem;
+  place-items: center;
+  border: 1px solid rgba(39, 32, 25, 0.48);
+  border-radius: 50%;
+  background: rgba(255, 251, 240, 0.62);
+  color: var(--art-ink);
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.railControls button:hover,
+.railControls button:focus-visible {
+  background: var(--art-ink);
+  color: var(--art-paper);
+  outline: none;
+  transform: translateY(-2px);
+}
+
+.animationRail {
+  display: grid;
+  grid-auto-columns: clamp(30rem, 43vw, 54rem);
+  grid-auto-flow: column;
+  gap: clamp(1.6rem, 2.5vw, 3rem);
+  overflow-x: auto;
+  padding: 1rem 0 2.4rem;
+  scroll-padding-left: 0.25rem;
+  scroll-snap-type: x mandatory;
+  scrollbar-color: rgba(140, 73, 53, 0.58) rgba(39, 32, 25, 0.12);
+  scrollbar-width: thin;
+}
+
+.animationRail::-webkit-scrollbar {
+  height: 0.7rem;
+}
+
+.animationRail::-webkit-scrollbar-track {
+  background: rgba(39, 32, 25, 0.12);
+}
+
+.animationRail::-webkit-scrollbar-thumb {
+  background: rgba(140, 73, 53, 0.58);
+}
+
+.animationCard {
+  min-width: 0;
+  scroll-snap-align: start;
+  padding: 1rem;
+  border: 1px solid rgba(39, 32, 25, 0.42);
+  background: rgba(255, 251, 240, 0.78);
+  box-shadow: 0.55rem 0.65rem 0 rgba(39, 32, 25, 0.14);
+}
+
+.frame {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(39, 32, 25, 0.62);
+  background: #262019;
+  box-shadow: inset 0 0 0 0.45rem #f6ecd7;
+}
+
+.tape {
+  position: absolute;
+  z-index: 1;
+  top: -0.55rem;
+  left: 50%;
+  width: clamp(4.8rem, 7vw, 7rem);
+  height: 1.55rem;
+  border-right: 1px solid rgba(82, 63, 41, 0.1);
+  border-left: 1px solid rgba(82, 63, 41, 0.1);
+  background: rgba(199, 157, 81, 0.64);
+  pointer-events: none;
+  transform: translateX(-50%) rotate(-2deg);
+}
+
+.video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  background: #17120e;
+}
+
+.cardFooter {
+  padding: 1.45rem 0.6rem 0.55rem;
+}
+
+.cardFooter h3 {
+  margin: 0.55rem 0 0.65rem;
+  color: var(--art-ink);
+  font-family: var(--font-art-display);
+  font-size: clamp(2.2rem, 2.4vw, 3.2rem);
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  line-height: 0.98;
+}
+
+.cardFooter p {
+  margin: 0;
+  color: var(--art-ink-soft);
+  font-size: 0.95rem;
+}
+
+@media (max-width: 860px) {
+  .animationRail {
+    grid-auto-columns: minmax(32rem, 78vw);
+  }
+}
+
+@media (max-width: 560px) {
+  .animations {
+    padding: 8rem 6vw 10rem;
+  }
+
+  .railToolbar > span {
+    font-size: 0.9rem;
+  }
+
+  .animationRail {
+    grid-auto-columns: 88vw;
+    gap: 1.2rem;
+  }
+
+  .animationCard {
+    padding: 0.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animationCard {
+    rotate: none !important;
+  }
+}

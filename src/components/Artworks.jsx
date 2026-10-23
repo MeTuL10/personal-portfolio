@@ -187,7 +187,10 @@ export default function Artworks({ align = "left" }) {
     activeYear === "all"
       ? allArtworks
       : groups.find((group) => group.year === activeYear)?.items ?? [];
-  const featuredItems = groups[0]?.items.slice(0, 4) ?? [];
+  const featuredItems = useMemo(
+    () => allArtworks.filter((artwork) => artwork.favourite),
+    [allArtworks],
+  );
 
   return (
     <section
@@ -215,9 +218,9 @@ export default function Artworks({ align = "left" }) {
         <FadeContent blur delay={0.08} duration={0.7}>
           <section className={styles.featured} aria-labelledby="featured-artwork-title">
             <div className={styles.featuredCopy}>
-              <span>Latest sketchbook</span>
-              <h3 id="featured-artwork-title">{groups[0].year} highlights</h3>
-              <p>Swipe through a few recent pieces, then explore the complete archive below.</p>
+              <span>Selected works</span>
+              <h3 id="featured-artwork-title">Favourites</h3>
+              <p>A few pieces I keep returning to, from different chapters of the sketchbook.</p>
             </div>
             <div className={styles.featuredStack}>
               <Stack items={featuredItems} theme="artist" />

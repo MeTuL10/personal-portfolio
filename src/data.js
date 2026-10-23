@@ -1,3 +1,7 @@
+import sadoAnimation from "./files/Sado.mp4";
+import jjkAnimation from "./files/jjk.mp4";
+import natsuAnimation from "./files/natsu.mp4";
+
 const publicAsset = (path) => `${import.meta.env.BASE_URL}${path}`;
 
 export const skills = {
@@ -242,6 +246,7 @@ export const artworks = [
   // ── 2022 ──
   {
     id: 9,
+    favourite: true,
     date: "2023-06-01",
     title: "Demon Slayer – Tanjirou",
     image:
@@ -330,6 +335,7 @@ export const artworks = [
   },
   {
     id: 20,
+    favourite: true,
     date: "2026-02-22",
     title: "Fairy Tail – Natsu vs Ignia II",
     image:
@@ -363,6 +369,7 @@ export const artworks = [
   // ── 2025 ──
   {
     id: 24,
+    favourite: true,
     date: "2026-03-08",
     title: "Arcane – Jinx & Ekko",
     image:
@@ -417,4 +424,44 @@ export const artworks = [
       "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/6b2c4974-ca81-4587-b9c4-1f5fc20ca28f/dlraply-4ba6a17e-aa3a-4ea6-9c66-5caf0de5406a.jpg/v1/fit/w_600,h_1800,q_70,strp/fantasy_by_metalex10_dlraply-300w.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiIvZi82YjJjNDk3NC1jYTgxLTQ1ODctYjljNC0xZjVmYzIwY2EyOGYvZGxyYXBseS00YmE2YTE3ZS1hYTNhLTRlYTYtOWM2Ni01Y2FmMGRlNTQwNmEuanBnIiwiaGVpZ2h0IjoiPD0xMTEyIiwid2lkdGgiOiI8PTE2MDAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uud2F0ZXJtYXJrIl0sIndtayI6eyJwYXRoIjoiL3dtLzZiMmM0OTc0LWNhODEtNDU4Ny1iOWM0LTFmNWZjMjBjYTI4Zi9tZXRhbGV4MTAtNC5wbmciLCJvcGFjaXR5Ijo5NSwicHJvcG9ydGlvbnMiOjAuNDUsImdyYXZpdHkiOiJjZW50ZXIifX0.sHvvRbJmBWfv5j5-uO7fiN7HYqHfGUeoop6jB4pe9II",
     link: "https://www.deviantart.com/metalex10/art/Fantasy-1315639078",
   },
+  {
+    id: 31,
+    date: "2026-10-10",
+    title: "Spiderman Brand New Day",
+    image:
+      "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/6b2c4974-ca81-4587-b9c4-1f5fc20ca28f/dn08bac-cef3e36e-e052-43e8-85f7-261b4869d0a5.jpg/v1/fill/w_745,h_1072,q_70,strp/spiderman_brand_new_day_by_metalex10_dn08bac-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiIvZi82YjJjNDk3NC1jYTgxLTQ1ODctYjljNC0xZjVmYzIwY2EyOGYvZG4wOGJhYy1jZWYzZTM2ZS1lMDUyLTQzZTgtODVmNy0yNjFiNDg2OWQwYTUuanBnIiwiaGVpZ2h0IjoiPD0xODQyIiwid2lkdGgiOiI8PTEyODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uud2F0ZXJtYXJrIl0sIndtayI6eyJwYXRoIjoiL3dtLzZiMmM0OTc0LWNhODEtNDU4Ny1iOWM0LTFmNWZjMjBjYTI4Zi9tZXRhbGV4MTAtNC5wbmciLCJvcGFjaXR5Ijo5NSwicHJvcG9ydGlvbnMiOjAuNDUsImdyYXZpdHkiOiJjZW50ZXIifX0.STb1da8FeQQInAoObk_NweItvnbG_pNcJOJqkv_Q8Ck",
+    link: "https://www.deviantart.com/metalex10/art/Spiderman-brand-new-day-1391109924",
+    favourite: true,
+  },
+  {
+    id: 32,
+    date: "2020-04-10",
+    title: "Original character",
+    image: "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/6b2c4974-ca81-4587-b9c4-1f5fc20ca28f/dfxti6r-0ddc727e-2071-4dad-97d7-fae6dfd17491.png/v1/fill/w_632,h_1264,q_70,strp/first_oc_by_metalex10_dfxti6r-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiIvZi82YjJjNDk3NC1jYTgxLTQ1ODctYjljNC0xZjVmYzIwY2EyOGYvZGZ4dGk2ci0wZGRjNzI3ZS0yMDcxLTRkYWQtOTdkNy1mYWU2ZGZkMTc0OTEucG5nIiwiaGVpZ2h0IjoiPD0yMDQ4Iiwid2lkdGgiOiI8PTEwMjQifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uud2F0ZXJtYXJrIl0sIndtayI6eyJwYXRoIjoiL3dtLzZiMmM0OTc0LWNhODEtNDU4Ny1iOWM0LTFmNWZjMjBjYTI4Zi9tZXRhbGV4MTAtNC5wbmciLCJvcGFjaXR5Ijo5NSwicHJvcG9ydGlvbnMiOjAuNDUsImdyYXZpdHkiOiJjZW50ZXIifX0.hjLA3AQwyytcFYCNR2s5Uhs1QJdEPIuNzIq67OZGV1w",
+    link: "https://www.deviantart.com/metalex10/art/first-OC-963796563"
+  }
+].map((artwork) => ({
+  favourite: false,
+  ...artwork,
+}));
+
+export const animations = [
+  {
+    id: 1,
+    date: "2024-06-10",
+    title: "Fairy Tail - Natsu",
+    video: natsuAnimation,
+  },
+  {
+    id: 2,
+    date: "2025-05-10",
+    title: "Original character",
+    video: sadoAnimation,
+  },
+  {
+    id: 3,
+    date: "2026-04-12",
+    title: "Jujutsu Kaisen - Yuta",
+    video: jjkAnimation,
+  }
 ];

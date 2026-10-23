@@ -15,18 +15,21 @@ export default function Header({
   useEffect(() => {
     const updateActiveSection = () => {
       const projects = document.getElementById("projects");
+      const animations = document.getElementById("animations");
+      const isViewingAnimations =
+        !isDev && animations && animations.getBoundingClientRect().top <= window.innerHeight * 0.38;
       const isViewingProjects =
         projects && projects.getBoundingClientRect().top <= window.innerHeight * 0.38;
-      setActiveSection(isViewingProjects ? "content" : "profile");
+      setActiveSection(isViewingAnimations ? "animations" : isViewingProjects ? "content" : "profile");
     };
 
     updateActiveSection();
     window.addEventListener("scroll", updateActiveSection, { passive: true });
     return () => window.removeEventListener("scroll", updateActiveSection);
-  }, [profile]);
+  }, [isDev, profile]);
 
   const sectionLink = (section, label, icon) => {
-    const routeSection = section === "content" ? (isDev ? "projects" : "artworks") : "profile";
+    const routeSection = section === "content" ? (isDev ? "projects" : "artworks") : section;
     const href = isDev
       ? `/personal-portfolio/dev/${routeSection}`
       : `/personal-portfolio/art/${routeSection}`;
@@ -76,6 +79,7 @@ export default function Header({
             isDev ? "Projects" : "Artworks",
             isDev ? "fa-solid fa-laptop" : "fa-solid fa-palette",
           )}
+          {!isDev && sectionLink("animations", "Animations", "fa-solid fa-film")}
         </div>
 
         <motion.button
