@@ -49,6 +49,13 @@
 
 .viewArtist {
   text-align: left;
+  color: var(--art-ink);
+  background-color: var(--art-paper);
+  background-image:
+    radial-gradient(circle at 18% 12%, rgba(135, 76, 47, 0.1) 0 0.09rem, transparent 0.11rem),
+    radial-gradient(circle at 75% 66%, rgba(83, 59, 37, 0.08) 0 0.07rem, transparent 0.09rem),
+    linear-gradient(112deg, rgba(255, 255, 255, 0.38), transparent 42%);
+  background-size: 1.15rem 1.3rem, 0.9rem 1.05rem, auto;
 }
 
 /* Directional profile transitions */

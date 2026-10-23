@@ -20,14 +20,20 @@
   --dev-accent: #b992ff;
   --dev-action: #a855f7;
 
-  /* Artist — blue */
-  --art-bg: #020817;
-  --art-second-bg: #000d28;
-  --art-color: #134d87;
-  --art-bright: #4d96db;
+  /* Artist — gallery notebook */
+  --art-bg: #eee4d0;
+  --art-second-bg: #e4d5bb;
+  --art-ink: #272019;
+  --art-ink-soft: #685d51;
+  --art-paper: #f4eddd;
+  --art-paper-deep: #dfcdb0;
+  --art-color: #8c4935;
+  --art-bright: #ae5c42;
 
   --font-display: "Syne", sans-serif;
   --font-mono: "Space Mono", monospace;
+  --font-art-display: "Fraunces", Georgia, serif;
+  --font-art-note: "Caveat", cursive;
 }
 
 html {

@@ -1,16 +1,14 @@
 import BlurText from "../reactbits/BlurText.jsx";
-import GradientText from "../reactbits/GradientText.jsx";
-import CurvedLoop from "../reactbits/CurvedLoop.jsx";
 import FadeContent from "../reactbits/FadeContent.jsx";
 import Magnet from "../reactbits/Magnet.jsx";
 import styles from "../styles/ArtAbout.module.css";
 
-const PILLS = [
-  "Animation",
-  "Environment Art",
-  "Perspective & Depth",
-  "Character Design",
-  "Lighting & Shading",
+const STUDIO_NOTES = [
+  ["Animation", "bringing still drawings to life"],
+  ["Environment art", "building places with a story"],
+  ["Perspective & depth", "finding the space between lines"],
+  ["Character design", "chasing personality in silhouettes"],
+  ["Lighting & shading", "making a scene feel like a moment"],
 ];
 
 export default function ArtAbout({ align = "left" }) {
@@ -24,7 +22,7 @@ export default function ArtAbout({ align = "left" }) {
 
       <div className={styles.intro}>
         <BlurText
-          text="Hi, I'm also"
+          text="The sketchbook of"
           as="p"
           animateBy="words"
           delay={60}
@@ -32,20 +30,11 @@ export default function ArtAbout({ align = "left" }) {
           className={styles.greeting}
         />
 
-        {/* ShinyText for name — preserves art-profile gradient */}
-        <GradientText
-          text="Metul Prabhu"
-          as="h1"
-          speed={7.5}
-          colorA="#f5f8ff"
-          colorB="var(--art-bright)"
-          colorC="var(--art-color)"
-          className={styles.name}
-        />
+        <h1 className={styles.name}>Metul Prabhu</h1>
 
         <FadeContent blur delay={0.18} duration={0.65}>
           <h2 className={styles.role}>
-            Digital Artist &amp; <span>Animator in training</span>
+            Digital artist &amp; <span>animator in training</span>
           </h2>
         </FadeContent>
 
@@ -68,7 +57,7 @@ export default function ArtAbout({ align = "left" }) {
                 target="_blank"
                 rel="noreferrer"
               >
-                <i className="fa-brands fa-deviantart" /> Visit my DeviantArt
+                <i className="fa-brands fa-deviantart" /> Visit the studio
               </a>
             </Magnet>
           </div>
@@ -76,9 +65,17 @@ export default function ArtAbout({ align = "left" }) {
 
         <FadeContent blur delay={0.12} duration={0.7}>
           <div className={styles.learningSection}>
-            <h2 className={styles.sectionLabel}>Currently learning</h2>
-            <div className={styles.learningLoopWrap}>
-              <CurvedLoop items={PILLS} />
+            <h2 className={styles.sectionLabel}>On my worktable</h2>
+            <p className={styles.notesIntro}>Things I&apos;m currently exploring, one sketch at a time.</p>
+            <div className={styles.studioNotes}>
+              {STUDIO_NOTES.map(([title, note], index) => (
+                <article className={styles.studioNote} key={title}>
+                  <span className={styles.noteTape} aria-hidden="true" />
+                  <span className={styles.noteNumber}>{String(index + 1).padStart(2, "0")}</span>
+                  <h3>{title}</h3>
+                  <p>{note}</p>
+                </article>
+              ))}
             </div>
           </div>
         </FadeContent>

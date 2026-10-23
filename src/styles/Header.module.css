@@ -20,12 +20,12 @@
 }
 
 .artist {
-  --nav-accent: var(--art-bright);
-  --nav-action: #79b6ee;
-  --nav-surface: rgba(77, 150, 219, 0.14);
-  --nav-border: rgba(77, 150, 219, 0.3);
-  background: rgba(2, 8, 23, 0.68);
-  border-color: rgba(77, 150, 219, 0.16);
+  --nav-accent: var(--art-color);
+  --nav-action: var(--art-bright);
+  --nav-surface: rgba(140, 73, 53, 0.12);
+  --nav-border: rgba(39, 32, 25, 0.3);
+  background: rgba(244, 237, 221, 0.84);
+  border-color: rgba(39, 32, 25, 0.18);
 }
 
 .navbar {
@@ -138,6 +138,22 @@
 
 .modeToggleBusy > i {
   animation: spinSwitch 0.9s linear infinite;
+}
+
+.artist .primaryNav,
+.artist .modeToggle {
+  background: rgba(255, 252, 244, 0.54);
+}
+
+.artist .navLink,
+.artist .modeToggle {
+  color: rgba(39, 32, 25, 0.62);
+}
+
+.artist .navLink[aria-current="page"],
+.artist .navLink:hover,
+.artist .navLink:focus-visible {
+  color: var(--art-ink);
 }
 
 @keyframes spinSwitch {
