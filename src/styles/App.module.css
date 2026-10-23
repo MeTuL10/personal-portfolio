@@ -51,64 +51,158 @@
   text-align: left;
 }
 
-/* Persistent shader canvas layer */
-.shaderViewportLayer {
+/* Directional profile transitions */
+.transitionLayer {
   position: fixed;
   inset: 0;
-  z-index: 903;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 220ms cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.shaderViewportLayerActive {
-  opacity: 1;
-}
-
-.shaderViewportLayerReleasing {
-  opacity: 0;
-}
-
-/* Transition content layer */
-.viewportTransitionLayer {
-  position: fixed;
-  inset: 0;
-  z-index: 900;
-  pointer-events: none;
+  z-index: 2000;
+  pointer-events: all;
   overflow: hidden;
-  background: #000;
 }
 
-.blackCurtain {
+.transitionShade {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: #000;
-  will-change: opacity;
+  background:
+    radial-gradient(circle at 44% 50%, rgba(111, 38, 194, 0.38), transparent 55%),
+    rgba(2, 4, 12, 0.96);
 }
 
-.transitionIncomingPage {
+/* Artist → developer: a digital image resolving into interface blocks. */
+.pixelTransition {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.pixelLattice {
+  position: absolute;
+  inset: -10%;
+  background-image:
+    linear-gradient(rgba(218, 174, 255, 0.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(218, 174, 255, 0.14) 1px, transparent 1px),
+    radial-gradient(circle at center, rgba(159, 77, 241, 0.34), transparent 63%);
+  background-size: 12px 12px, 12px 12px, auto;
+  mask-image: radial-gradient(circle at center, black 0%, transparent 72%);
+  will-change: transform, opacity;
+}
+
+.pixelParticle {
+  position: absolute;
+  display: block;
+  background: #a855f7;
+  box-shadow: 0 0 0.85rem rgba(185, 127, 255, 0.78);
+  will-change: transform, opacity;
+}
+
+.pixelTone0 {
+  background: #a855f7;
+}
+
+.pixelTone1 {
+  background: #d5b4ff;
+  box-shadow: 0 0 1rem rgba(224, 193, 255, 0.9);
+}
+
+.pixelTone2 {
+  background: #7622c3;
+}
+
+.pixelTone3 {
+  background: #efdcff;
+}
+
+.pixelTone4 {
+  background: #50118d;
+  box-shadow: 0 0 0.75rem rgba(114, 35, 191, 0.82);
+}
+
+.transitionCaption,
+.paperCaption {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 3;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: clamp(0.76rem, 1.25vw, 1rem);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  translate: -50% -50%;
+  white-space: nowrap;
+}
+
+.transitionCaption {
+  color: #f1e5ff;
+  text-shadow: 0 0 1.8rem rgba(196, 128, 255, 0.9);
+}
+
+/* Developer → artist: an inked sheet opens, then lifts away to reveal the work. */
+.paperTransition {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  background-color: #e7ddc7;
+  background-image:
+    radial-gradient(circle at 18% 24%, rgba(115, 79, 49, 0.12) 0 0.08rem, transparent 0.1rem),
+    radial-gradient(circle at 76% 64%, rgba(98, 65, 37, 0.1) 0 0.06rem, transparent 0.08rem),
+    linear-gradient(115deg, rgba(255, 255, 255, 0.6), transparent 42%),
+    linear-gradient(145deg, #f3ecd9, #cfc09e);
+  background-size: 1.1rem 1.25rem, 0.85rem 0.95rem, auto, auto;
+  box-shadow: 1.1rem 0 2.4rem rgba(0, 0, 0, 0.5);
+  will-change: clip-path, transform;
+}
+
+.paperTransition::before {
   position: absolute;
   top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 2;
-  will-change: clip-path, opacity, transform;
+  right: -1.5rem;
+  bottom: 0;
+  width: 2.5rem;
+  content: "";
+  background: linear-gradient(90deg, rgba(55, 31, 17, 0.3), transparent);
+  filter: blur(0.45rem);
 }
 
-.threeTransitionLayerWrap {
+.paperTransition::after {
   position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  inset: 1.8rem;
+  content: "";
+  border: 1px solid rgba(50, 30, 17, 0.2);
   pointer-events: none;
 }
 
-.threeTransitionLayer {
+.paperGrain {
   position: absolute;
   inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0.94;
+  opacity: 0.23;
+  background: repeating-linear-gradient(
+    6deg,
+    transparent 0,
+    transparent 0.7rem,
+    rgba(91, 63, 39, 0.12) 0.75rem,
+    transparent 0.82rem
+  );
+  mix-blend-mode: multiply;
+}
+
+.paperCaption {
+  color: #24180f;
+  text-shadow: 0 0.08rem rgba(255, 255, 255, 0.45);
+}
+
+@media (max-width: 700px) {
+  .paperTransition::after {
+    inset: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pixelTransition,
+  .paperTransition {
+    display: none;
+  }
 }

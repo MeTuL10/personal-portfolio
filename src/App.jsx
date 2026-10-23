@@ -1,4 +1,5 @@
-import { Suspense, lazy, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
 import Header from "./components/Header.jsx";
 import DevAbout from "./components/DevAbout.jsx";
@@ -8,14 +9,33 @@ import Artworks from "./components/Artworks.jsx";
 import DarkVeil from "./reactbits/DarkVeil.jsx";
 import styles from "./styles/App.module.css";
 
-const BLACKOUT_MS = 240;
-const REVEAL_MS = 1150;
-const OVERLAY_RELEASE_MS = 260;
-const ICON_TRANSITION_MS = BLACKOUT_MS + REVEAL_MS;
+const COVER_MS = 410;
+const OVERLAY_RELEASE_MS = 560;
 
-const ThreeSwitchOverlay = lazy(
-  () => import("./animations/ThreeSwitchOverlay.jsx"),
-);
+function createRandom(seed) {
+  let value = seed >>> 0;
+  return () => {
+    value += 0x6d2b79f5;
+    let result = value;
+    result = Math.imul(result ^ (result >>> 15), result | 1);
+    result ^= result + Math.imul(result ^ (result >>> 7), result | 61);
+    return ((result ^ (result >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+const pixelRandom = createRandom(27041998);
+const pixelParticles = Array.from({ length: 360 }, (_, index) => ({
+  id: index,
+  x: pixelRandom() * 100,
+  y: pixelRandom() * 100,
+  size: 4 + pixelRandom() * 13,
+  delay: pixelRandom() * 0.19,
+  enterX: -90 - pixelRandom() * 160,
+  enterY: (pixelRandom() - 0.5) * 130,
+  exitX: 85 + pixelRandom() * 210,
+  exitY: (pixelRandom() - 0.5) * 110,
+  tone: index % 5,
+}));
 
 export default function App() {
   const [profile, setProfile] = useState("dev");
@@ -46,8 +66,8 @@ export default function App() {
     };
   }, [transitioning]);
 
-  const renderProfile = (mode, { forTransition = false } = {}) => {
-    const animateIntro = !(forTransition || suppressIntroFor === mode);
+  const renderProfile = (mode) => {
+    const animateIntro = suppressIntroFor !== mode;
     return mode === "dev" ? (
       <>
         <DevAbout animateIntro={animateIntro} />
@@ -66,12 +86,13 @@ export default function App() {
     setSwitching(true);
     const incoming = profile === "dev" ? "artist" : "dev";
     setSuppressIntroFor(incoming);
-    setTransitionData({ next: incoming, scrollY: window.scrollY });
+    setTransitionData({ from: profile, next: incoming });
     setTransitionRunId((c) => (c == null ? 1 : c + 1));
     setTransitionPhase("running");
     setTransitioning(true);
 
     transitionTimerRef.current = setTimeout(() => {
+      window.scrollTo(0, 0);
       setProfile(incoming);
       setTransitionPhase("releasing");
       releaseTimerRef.current = setTimeout(() => {
@@ -81,7 +102,7 @@ export default function App() {
         setSuppressIntroFor(null);
         setSwitching(false);
       }, OVERLAY_RELEASE_MS);
-    }, ICON_TRANSITION_MS);
+    }, COVER_MS);
   };
 
   const isDev = profile === "dev";
@@ -102,21 +123,6 @@ export default function App() {
         <div
           className={`${styles.scene} ${transitioning ? styles.sceneLocked : ""}`}
         >
-          <div
-            className={`${styles.shaderViewportLayer} ${
-              transitioning ? styles.shaderViewportLayerActive : ""
-            } ${transitionPhase === "releasing" ? styles.shaderViewportLayerReleasing : ""}`}
-          >
-            <Suspense fallback={null}>
-              <ThreeSwitchOverlay
-                theme={transitionData?.next || profile}
-                delayMs={BLACKOUT_MS}
-                durationMs={REVEAL_MS}
-                transitionKey={transitionRunId}
-              />
-            </Suspense>
-          </div>
-
           <div className={`${styles.page} ${styles.pageCurrent}`}>
             <div
               className={`${styles.pageContent} ${isDev ? styles.viewDev : styles.viewArtist}`}
@@ -124,53 +130,120 @@ export default function App() {
               {renderProfile(profile)}
             </div>
           </div>
-
-          {transitioning && transitionData && (
-            <motion.div
-              className={styles.viewportTransitionLayer}
-              initial={{ opacity: 1 }}
-              animate={{ opacity: transitionPhase === "releasing" ? 0 : 1 }}
-              transition={{
-                duration: OVERLAY_RELEASE_MS / 1000,
-                ease: [0.25, 1, 0.5, 1],
-              }}
-            >
-              <motion.div
-                className={styles.blackCurtain}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{
-                  duration: BLACKOUT_MS / 1000,
-                  ease: [0.33, 1, 0.68, 1],
-                }}
-              />
-              <motion.div
-                className={styles.transitionIncomingPage}
-                style={{
-                  transform: `translateY(-${transitionData.scrollY}px)`,
-                }}
-                initial={{ clipPath: "circle(0% at 50% 50%)", opacity: 0 }}
-                animate={{ clipPath: "circle(155% at 50% 50%)", opacity: 1 }}
-                transition={{
-                  delay: BLACKOUT_MS / 1000,
-                  duration: REVEAL_MS / 1000,
-                  ease: [0.2, 0.68, 0.2, 1],
-                }}
-              >
-                <div
-                  className={`${styles.pageContent} ${
-                    transitionData.next === "dev"
-                      ? styles.viewDev
-                      : styles.viewArtist
-                  }`}
-                >
-                  {renderProfile(transitionData.next, { forTransition: true })}
-                </div>
-              </motion.div>
-            </motion.div>
-          )}
         </div>
       </div>
+
+      {transitioning &&
+        transitionData &&
+        createPortal(
+          <motion.div
+            className={styles.transitionLayer}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+          >
+            <motion.div
+              className={styles.transitionShade}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: transitionPhase === "running" ? 0.9 : 0 }}
+              transition={{
+                duration: transitionPhase === "running" ? 0.2 : 0.38,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+            />
+            {transitionData.next === "dev" ? (
+              <div className={styles.pixelTransition} aria-hidden="true">
+                <motion.div
+                  className={styles.pixelLattice}
+                  initial={{ opacity: 0, scale: 1.08 }}
+                  animate={
+                    transitionPhase === "running"
+                      ? { opacity: 0.42, scale: 1 }
+                      : { opacity: 0, scale: 0.96 }
+                  }
+                  transition={{ duration: transitionPhase === "running" ? 0.24 : 0.3 }}
+                />
+                {pixelParticles.map((pixel) => (
+                  <motion.span
+                    key={`${transitionRunId}-${pixel.id}`}
+                    className={`${styles.pixelParticle} ${styles[`pixelTone${pixel.tone}`]}`}
+                    style={{ left: `${pixel.x}%`, top: `${pixel.y}%`, width: pixel.size, height: pixel.size }}
+                    initial={{ opacity: 0, scale: 0, x: pixel.enterX, y: pixel.enterY }}
+                    animate={
+                      transitionPhase === "running"
+                        ? { opacity: 1, scale: 1, x: 0, y: 0 }
+                        : { opacity: 0, scale: 0.2, x: pixel.exitX, y: pixel.exitY }
+                    }
+                    transition={{
+                      duration: transitionPhase === "running" ? 0.22 : 0.3,
+                      delay:
+                        transitionPhase === "running"
+                          ? pixel.delay
+                          : (1 - pixel.delay / 0.19) * 0.12,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                  />
+                ))}
+                <motion.p
+                  className={styles.transitionCaption}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={
+                    transitionPhase === "running"
+                      ? { opacity: 1, y: 0 }
+                      : { opacity: 0, y: -10 }
+                  }
+                  transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  Rendering developer view
+                </motion.p>
+              </div>
+            ) : (
+              <motion.div
+                key={transitionRunId}
+                className={styles.paperTransition}
+                initial={{
+                  clipPath:
+                    "polygon(0 0, 0 0, 0 18%, 0 36%, 0 55%, 0 74%, 0 100%, 0 100%)",
+                  x: "0vw",
+                }}
+                animate={
+                  transitionPhase === "running"
+                    ? {
+                        clipPath:
+                          "polygon(0 0, 96% 0, 100% 18%, 96.5% 36%, 100% 55%, 96% 74%, 100% 100%, 0 100%)",
+                        x: "0vw",
+                      }
+                    : {
+                        clipPath:
+                          "polygon(0 0, 96% 0, 100% 18%, 96.5% 36%, 100% 55%, 96% 74%, 100% 100%, 0 100%)",
+                        x: "112vw",
+                      }
+                }
+                transition={{
+                  duration: transitionPhase === "running" ? 0.38 : 0.52,
+                  ease:
+                    transitionPhase === "running"
+                      ? [0.76, 0, 0.24, 1]
+                      : [0.16, 1, 0.3, 1],
+                }}
+              >
+                <div className={styles.paperGrain} />
+                <motion.p
+                  className={styles.paperCaption}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={
+                    transitionPhase === "running"
+                      ? { opacity: 1, y: 0 }
+                      : { opacity: 0, y: -12 }
+                  }
+                  transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  Turning the page
+                </motion.p>
+              </motion.div>
+            )}
+          </motion.div>,
+          document.body,
+        )}
     </div>
   );
 }
