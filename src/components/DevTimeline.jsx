@@ -25,14 +25,16 @@ export default function DevTimeline() {
   return (
     <div className={styles.timelineSection}>
       {/* GSAP character-split heading */}
-      <BlurText
-        text="Experience Timeline"
-        as="h2"
-        animateBy="words"
-        delay={70}
-        duration={0.6}
-        className={styles.sectionLabel}
-      />
+      <div className={styles.headingWrap}>
+        <BlurText
+          text="Experience"
+          as="h2"
+          animateBy="words"
+          delay={70}
+          duration={0.6}
+          className={styles.sectionLabel}
+        />
+      </div>
 
       {/* GSAP ScrollTrigger stagger for all timeline rows */}
       <FadeContent blur delay={0} duration={0.75}>

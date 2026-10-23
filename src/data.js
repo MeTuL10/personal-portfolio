@@ -76,6 +76,23 @@ export const devTimeline = [
   },
 ];
 
+export const education = [
+  {
+    id: "EDU-01",
+    range: "Aug 2026 – Present",
+    institution: "National University of Singapore",
+    qualification: "Master of Computing in Artificial Intelligence",
+    status: "Current",
+  },
+  {
+    id: "EDU-02",
+    range: "Sep 2020 – Aug 2024",
+    institution: "VIT Chennai",
+    qualification: "Bachelor of Technology in CSE · AI & Robotics",
+    metric: "CGPA  9.38 / 10.00",
+  },
+];
+
 export const projects = [
   {
     id: 1,

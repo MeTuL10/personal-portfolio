@@ -1,0 +1,253 @@
+.education {
+  position: relative;
+  z-index: 1;
+  margin-top: 7rem;
+}
+
+.headingRow {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2.8rem;
+}
+
+.title {
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  font-size: 3.5rem;
+  font-weight: 800;
+}
+
+.title::after {
+  display: block;
+  width: 100%;
+  height: 3px;
+  margin-top: 0.6rem;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--dev-color), transparent);
+  content: "";
+}
+
+.period time,
+.status,
+.metric {
+  font-family: var(--font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.timeline {
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+.timeline :global(.MuiTimelineItem-root::before) {
+  flex: 0;
+  padding: 0;
+}
+
+.entry {
+  min-height: 18.6rem;
+  align-items: flex-start;
+  margin-bottom: 1.25rem;
+}
+
+.entry:last-child {
+  min-height: 0;
+  margin-bottom: 0;
+}
+
+.period {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-top: 0.45rem;
+  color: rgba(238, 220, 255, 0.52);
+}
+
+.period time {
+  font-family: var(--font-display) !important;
+  font-size: clamp(2.1rem, 2.8vw, 3.2rem);
+  font-weight: 900;
+  letter-spacing: 0.01em;
+  line-height: 1.02;
+  text-align: right;
+  text-shadow: 0 0 1rem rgba(163, 112, 255, 0.3), 0 0 2.2rem rgba(119, 58, 214, 0.22);
+}
+
+.separator {
+  position: relative;
+  margin: 0.55rem 1.3rem 0 0.5rem;
+}
+
+.dot {
+  width: 1.45rem;
+  height: 1.45rem;
+  margin: 0;
+  border: 2px solid rgba(187, 140, 255, 0.95);
+  background: radial-gradient(circle, #dfc4ff 0%, #a962ff 46%, #7b2de2 100%);
+  box-shadow: 0 0 0 0.5rem rgba(143, 90, 232, 0.18), 0 0 1.8rem rgba(164, 103, 255, 0.72);
+}
+
+.currentDot {
+  animation: currentPulse 1.7s ease-in-out infinite;
+}
+
+.connector {
+  width: 0.48rem;
+  min-height: 11.6rem;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(183, 135, 255, 0.95) 0%, rgba(126, 62, 223, 0.86) 55%, rgba(94, 42, 172, 0.2) 100%);
+  box-shadow: 0 0 1.1rem rgba(139, 74, 224, 0.58), 0 0 2.6rem rgba(124, 58, 214, 0.34);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: 0.95rem;
+  padding-top: 0.4rem;
+  padding-bottom: 4rem;
+  padding-left: 1.3rem;
+}
+
+.institutionRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.institutionRow h3 {
+  margin: 0;
+  color: rgba(239, 224, 255, 0.98);
+  font-family: var(--font-display) !important;
+  font-size: clamp(1.9rem, 2.35vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.12;
+  text-shadow: 0 0 1rem rgba(148, 93, 243, 0.34);
+}
+
+.content > p {
+  max-width: 48rem;
+  margin: 0;
+  color: rgba(232, 220, 246, 0.76);
+  font-size: 1.36rem;
+  line-height: 1.55;
+}
+
+.status,
+.metric {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  min-height: 2.25rem;
+  padding: 0.3rem 0.75rem;
+  border: 1px solid rgba(188, 144, 255, 0.68);
+  background: rgba(98, 45, 173, 0.34);
+  color: rgba(226, 201, 255, 0.98);
+  font-size: 1.1rem;
+  font-weight: 700;
+  box-shadow: inset 0 0 0 1px rgba(154, 98, 241, 0.15), 0 0 1rem rgba(137, 79, 229, 0.2);
+}
+
+.status::before {
+  width: 0.55rem;
+  height: 0.55rem;
+  margin-right: 0.55rem;
+  border-radius: 50%;
+  background: #dcc4ff;
+  box-shadow: 0 0 0.75rem #c28dff;
+  content: "";
+}
+
+.metric {
+  margin-top: 0.2rem;
+  border-color: rgba(185, 146, 255, 0.42);
+  background: rgba(185, 146, 255, 0.08);
+  color: rgba(225, 208, 250, 0.86);
+}
+
+@keyframes currentPulse {
+  50% {
+    filter: brightness(1.18);
+  }
+}
+
+@media (max-width: 900px) {
+  .entry {
+    min-height: 17.3rem;
+    margin-bottom: 1rem;
+  }
+
+  .connector {
+    min-height: 10.4rem;
+  }
+
+  .content {
+    row-gap: 0.82rem;
+    padding-bottom: 3.4rem;
+  }
+
+  .period time {
+    font-size: clamp(1.7rem, 2.8vw, 2.25rem);
+  }
+}
+
+@media (max-width: 560px) {
+  .headingRow {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .timeline :global(.MuiTimelineOppositeContent-root) {
+    display: none;
+  }
+
+  .entry {
+    min-height: 15.2rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .separator {
+    margin-left: 0;
+  }
+
+  .connector {
+    min-height: 9rem;
+  }
+
+  .content {
+    row-gap: 0.72rem;
+    padding-left: 0.9rem;
+    padding-bottom: 2.8rem;
+  }
+
+  .content::before {
+    display: block;
+    color: rgba(213, 183, 255, 0.84);
+    content: "Education record";
+    font-family: var(--font-mono);
+    font-size: 1.04rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .institutionRow h3 {
+    font-size: 1.58rem;
+  }
+
+  .content > p {
+    font-size: 1.16rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .currentDot {
+    animation: none;
+  }
+}

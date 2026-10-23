@@ -1,4 +1,5 @@
 import DevTimeline from "./DevTimeline";
+import Education from "./Education";
 import SkillsCarousel from "./SkillsCarousel";
 import BlurText from "../reactbits/BlurText.jsx";
 import FadeContent from "../reactbits/FadeContent.jsx";
@@ -73,6 +74,10 @@ export default function DevAbout() {
         </FadeContent>
       </div>
 
+      <SectionDivider theme="dev" />
+      <FadeContent blur delay={0} duration={0.7}>
+        <Education />
+      </FadeContent>
       <SectionDivider theme="dev" />
       <FadeContent blur delay={0} duration={0.7}>
         <DevTimeline />
