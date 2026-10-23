@@ -1,180 +1,180 @@
 .header {
   position: fixed;
+  z-index: 100;
   top: 0;
   left: 0;
   width: 100%;
-  padding: 1.4rem 5%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 100;
-  transition: background 0.4s ease;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  padding: 1.2rem 4vw;
+  border-bottom: 1px solid transparent;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
 }
 
 .dev {
-  background: rgba(13, 3, 29, 0.75);
-  box-shadow: 0 1px 0 rgba(104, 4, 186, 0.25);
+  --nav-accent: var(--dev-accent);
+  --nav-action: var(--dev-action);
+  --nav-surface: rgba(185, 146, 255, 0.13);
+  --nav-border: rgba(185, 146, 255, 0.3);
+  background: rgba(6, 1, 16, 0.68);
+  border-color: rgba(185, 146, 255, 0.16);
 }
 
 .artist {
-  background: rgba(3, 10, 29, 0.75);
-  box-shadow: 0 1px 0 rgba(24, 95, 165, 0.25);
+  --nav-accent: var(--art-bright);
+  --nav-action: #79b6ee;
+  --nav-surface: rgba(77, 150, 219, 0.14);
+  --nav-border: rgba(77, 150, 219, 0.3);
+  background: rgba(2, 8, 23, 0.68);
+  border-color: rgba(77, 150, 219, 0.16);
 }
 
 .navbar {
   display: flex;
-  gap: 0.4rem;
-  border-radius: 5rem;
-  padding: 0.7rem 1.4rem;
+  justify-content: center;
+  gap: 1.2rem;
   align-items: center;
+  width: 100%;
+  margin: 0 auto;
 }
 
-.dev .navbar {
-  background: rgba(21, 0, 80, 0.55);
-  border: 1px solid rgba(104, 4, 186, 0.3);
-}
-
-.artist .navbar {
-  background: rgba(3, 18, 60, 0.55);
-  border: 1px solid rgba(24, 95, 165, 0.3);
+.primaryNav {
+  display: flex;
+  gap: 0.35rem;
+  padding: 0.45rem;
+  border: 1px solid var(--nav-border);
+  border-radius: 999px;
+  background: rgba(1, 3, 12, 0.34);
 }
 
 .navLink {
-  display: flex;
+  position: relative;
+  display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-  padding: 0.7rem 1.6rem;
-  border-radius: 4rem;
+  gap: 0.65rem;
+  min-height: 3.7rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  color: rgba(242, 238, 255, 0.64);
   font-family: var(--font-display);
-  font-size: 1.4rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  transition: all 0.3s ease;
-  opacity: 0.65;
+  font-size: 1.3rem;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  transition: color 180ms ease;
 }
 
-.dev .navLink {
-  color: var(--dev-bright);
-}
-
-.artist .navLink {
-  color: var(--art-bright);
-}
-
-.navLink:hover {
-  opacity: 1;
+.navLink i,
+.navLinkText {
+  position: relative;
+  z-index: 1;
 }
 
 .navLink i {
-  font-size: 1.5rem;
+  color: var(--nav-accent);
+  font-size: 1.35rem;
+  opacity: 0.86;
 }
 
-/* Flip / switch button */
-.flipBtn {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.7rem 1.6rem;
-  border-radius: 4rem;
-  font-family: var(--font-display);
-  font-size: 1.4rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  background: transparent;
+.navLink[aria-current="page"],
+.navLink:hover,
+.navLink:focus-visible {
+  color: #fff;
   outline: none;
 }
 
-.dev .flipBtn {
-  color: var(--dev-color);
-  border: 1.5px solid var(--dev-color);
+.navActive {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  border: 1px solid var(--nav-border);
+  border-radius: inherit;
+  background: var(--nav-surface);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.08), 0 0 1.8rem rgba(185, 146, 255, 0.08);
 }
 
-.dev .flipBtn:hover {
-  background: var(--dev-color);
-  color: #fff;
-  box-shadow: 0 0 1.5rem var(--dev-color);
+.modeToggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-height: 4.4rem;
+  padding: 0.45rem;
+  border: 1px solid var(--nav-border);
+  border-radius: 999px;
+  background: rgba(1, 3, 12, 0.34);
+  color: rgba(242, 238, 255, 0.45);
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  transition: border-color 180ms ease, background 180ms ease;
 }
 
-.artist .flipBtn {
-  color: var(--art-color);
-  border: 1.5px solid var(--art-color);
+.modeToggle:hover,
+.modeToggle:focus-visible {
+  border-color: var(--nav-accent);
+  background: rgba(255, 255, 255, 0.035);
+  outline: none;
 }
 
-.artist .flipBtn:hover {
-  background: var(--art-color);
-  color: #fff;
-  box-shadow: 0 0 1.5rem var(--art-color);
+.modeToggle:disabled {
+  cursor: wait;
 }
 
-.flipBtn i {
-  font-size: 1.4rem;
-  transition: transform 0.5s ease;
+.modeOption {
+  padding: 0.75rem 0.95rem;
+  border-radius: 999px;
+  transition: background 180ms ease, color 180ms ease, box-shadow 180ms ease;
 }
 
-.flipBtn:hover i {
-  transform: rotate(180deg);
-}
-.flipBtn:disabled {
-  opacity: 0.65;
-  cursor: not-allowed;
+.modeOptionActive {
+  background: var(--nav-surface);
+  color: var(--nav-accent);
+  box-shadow: inset 0 0 0 1px var(--nav-border);
 }
 
-.flipBtnBusy i {
+.modeToggle > i {
+  color: var(--nav-action);
+  font-size: 1rem;
+}
+
+.modeToggleBusy > i {
   animation: spinSwitch 0.9s linear infinite;
 }
 
 @keyframes spinSwitch {
   to {
-    transform: rotate(360deg);
+    transform: rotate(180deg);
   }
 }
-.navLabel {
-  font-size: 1.3rem;
-}
 
-@media (max-width: 500px) {
-  .navLabel {
+@media (max-width: 620px) {
+  .header {
+    padding: 1rem 4vw;
+  }
+
+  .navbar {
+    gap: 0.65rem;
+  }
+
+  .navLink {
+    padding: 0.75rem 1rem;
+  }
+
+  .navLinkText {
     display: none;
   }
-  .navLink,
-  .flipBtn {
-    padding: 0.8rem 1.2rem;
+
+  .modeToggle {
+    gap: 0.45rem;
+    min-height: 4rem;
+  }
+
+  .modeOption {
+    display: none;
+  }
+
+  .modeOptionActive {
+    display: inline;
+    padding: 0.65rem 0.85rem;
   }
 }
 
-/* Glow pulse on the flip button while switching */
-.flipBtnBusy {
-  animation: flipBtnGlow 0.8s ease-in-out infinite alternate;
-}
-
-.dev .flipBtnBusy {
-  box-shadow: 0 0 0 0 rgba(104, 4, 186, 0);
-  animation-name: flipBtnGlowDev;
-}
-
-.artist .flipBtnBusy {
-  box-shadow: 0 0 0 0 rgba(24, 95, 165, 0);
-  animation-name: flipBtnGlowArt;
-}
-
-@keyframes flipBtnGlowDev {
-  from {
-    box-shadow: 0 0 0.6rem rgba(104, 4, 186, 0.3);
-  }
-  to {
-    box-shadow: 0 0 2rem rgba(155, 63, 255, 0.65);
-  }
-}
-
-@keyframes flipBtnGlowArt {
-  from {
-    box-shadow: 0 0 0.6rem rgba(24, 95, 165, 0.3);
-  }
-  to {
-    box-shadow: 0 0 2rem rgba(96, 170, 236, 0.65);
-  }
-}

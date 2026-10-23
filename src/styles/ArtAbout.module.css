@@ -130,11 +130,13 @@
   align-items: center;
   gap: 0.8rem;
   padding: 1.2rem 2.8rem;
-  border: 2px solid var(--art-color);
+  border: 2px solid #8cc8fa;
   border-radius: 5rem;
   font-size: 1.6rem;
   font-weight: 700;
-  color: var(--art-bright);
+  color: #c9e7ff;
+  background: rgba(2, 8, 23, 0.8);
+  backdrop-filter: blur(0.8rem);
   font-family: var(--font-display);
   transition:
     background 0.3s ease,
@@ -148,7 +150,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: var(--art-color);
+  background: #2876b6;
   border-radius: inherit;
   transform: scaleX(0);
   transform-origin: left;
@@ -160,7 +162,7 @@
 }
 .daBtn:hover {
   color: #fff;
-  box-shadow: 0 0 2.5rem var(--art-color);
+  box-shadow: 0 0 2.5rem rgba(140, 200, 250, 0.42);
 }
 .daBtn i {
   font-size: 1.8rem;

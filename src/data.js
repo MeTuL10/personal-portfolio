@@ -41,18 +41,18 @@ export const skills = {
 
 export const devTimeline = [
   {
-    range: "Mar 2026 - Present",
+    range: "Jan 2026 - Jun 2026",
     role: "Software Developer 1, ML",
     company: "Kinaxis",
     description:
-      "Contributing to development of multiple features in the Enterprise Demand Forecasting product",
+      "Contributed to the development of multiple features in the Enterprise Demand Forecasting product",
   },
   {
-    range: "Jul 2024 - Mar - 2026",
+    range: "Jul 2024 - Dec 2025",
     role: "Associate Software Developer, ML",
     company: "Kinaxis",
     description:
-      "Lead developer of multiple features in Enterprise Demand Forecasting. Contributing to development of the web application and enhancements to modules of the ML pipeline ",
+      "Lead developer of multiple features in Enterprise Demand Forecasting. Contributed to development of the web application and enhancements to modules of the ML pipeline ",
   },
   {
     range: "Jan 2024 - Jun 2024",
@@ -280,7 +280,7 @@ export const artworks = [
   },
   {
     id: 14,
-    date: "2023-08-025",
+    date: "2023-08-25",
     title: "Chainsaw Man",
     image:
       "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/6b2c4974-ca81-4587-b9c4-1f5fc20ca28f/dlrajyz-e439338e-702a-4c24-815c-c6977cd200d3.jpg/v1/fit/w_600,h_1800,q_70,strp/chainsaw_man_by_metalex10_dlrajyz-300w.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiIvZi82YjJjNDk3NC1jYTgxLTQ1ODctYjljNC0xZjVmYzIwY2EyOGYvZGxyYWp5ei1lNDM5MzM4ZS03MDJhLTRjMjQtODE1Yy1jNjk3N2NkMjAwZDMuanBnIiwiaGVpZ2h0IjoiPD0xNzA3Iiwid2lkdGgiOiI8PTEyODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uud2F0ZXJtYXJrIl0sIndtayI6eyJwYXRoIjoiL3dtLzZiMmM0OTc0LWNhODEtNDU4Ny1iOWM0LTFmNWZjMjBjYTI4Zi9tZXRhbGV4MTAtNC5wbmciLCJvcGFjaXR5Ijo5NSwicHJvcG9ydGlvbnMiOjAuNDUsImdyYXZpdHkiOiJjZW50ZXIifX0.6zsZBTRb1ZChu-aV2ERysvD1FcP1qx-ZZnW_a6cP3Wc",
