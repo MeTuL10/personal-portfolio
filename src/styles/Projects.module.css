@@ -40,8 +40,6 @@
 }
 
 .card {
-  --tilt-rotate-x: 0deg;
-  --tilt-rotate-y: 0deg;
   position: relative;
   min-height: 42rem;
   border-radius: 0 0 2.1rem 0;
@@ -58,15 +56,11 @@
     rgba(8, 7, 24, 0.96);
   overflow: hidden;
   isolation: isolate;
-  transform-style: preserve-3d;
-  will-change: transform, box-shadow, filter;
-  transform: perspective(1200px) rotateX(var(--tilt-rotate-x))
-    rotateY(var(--tilt-rotate-y));
+  will-change: transform, box-shadow;
   transition:
-    transform 500ms cubic-bezier(0.16, 0.85, 0.22, 1),
-    border-color 360ms ease,
-    box-shadow 500ms cubic-bezier(0.16, 0.85, 0.22, 1),
-    filter 500ms ease;
+    transform 280ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 280ms ease,
+    box-shadow 280ms ease;
 }
 
 .card::before {
@@ -106,31 +100,14 @@
   z-index: 3;
 }
 
-.card:hover {
-  transform: perspective(1200px) rotateX(var(--tilt-rotate-x))
-    rotateY(var(--tilt-rotate-y)) translateY(-10px) scale(1.012);
+.card:hover,
+.card:focus-within {
+  transform: translateY(-6px);
   border-color: rgba(195, 144, 255, 0.85);
   box-shadow:
-    0 1.8rem 3.6rem rgba(6, 4, 19, 0.78),
+    0 1.4rem 3rem rgba(6, 4, 19, 0.6),
     0 0 0 1px rgba(177, 121, 255, 0.26) inset,
-    0 0 2.6rem rgba(138, 96, 255, 0.48);
-  filter: saturate(1.08);
-}
-
-.cardTiltActive {
-  border-color: rgba(195, 144, 255, 0.85);
-  box-shadow:
-    0 1.8rem 3.6rem rgba(6, 4, 19, 0.78),
-    0 0 0 1px rgba(177, 121, 255, 0.26) inset,
-    0 0 2.6rem rgba(138, 96, 255, 0.48);
-  filter: saturate(1.08);
-}
-
-.cardFx {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
+    0 0 2rem rgba(138, 96, 255, 0.32);
 }
 
 .cardTab {
@@ -191,9 +168,9 @@
 }
 
 .card:hover .img,
-.cardTiltActive .img {
-  transform: scale(1.12);
-  filter: saturate(1.08) contrast(1.04);
+.card:focus-within .img {
+  transform: scale(1.065);
+  filter: brightness(1.1) saturate(1.04);
 }
 
 .mediaGrid {
@@ -225,7 +202,7 @@
   position: relative;
   z-index: 2;
   min-height: 42rem;
-  padding: 3.45rem 2.2rem 2rem;
+  padding: 3.45rem 2.2rem 6.5rem;
   display: grid;
   grid-template-rows: auto 1fr auto;
   gap: 1.4rem;
@@ -262,11 +239,13 @@
 }
 
 .tag {
+  display: inline-flex;
+  min-height: 2.25rem;
+  align-items: center;
   font-family: var(--font-mono);
   font-size: 1.06rem;
   letter-spacing: 0.03em;
-  padding: 0.38rem 0.9rem;
-  border-radius: 2rem;
+  padding: 0.3rem 0.75rem;
   border: 1px solid rgba(182, 130, 255, 0.56);
   background: rgba(66, 32, 117, 0.56);
   color: rgba(240, 227, 255, 0.98);
@@ -283,11 +262,20 @@
 }
 
 .cardFooter {
+  position: absolute;
+  right: 2.2rem;
+  bottom: 2rem;
+  z-index: 4;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  width: 100%;
-  gap: 1.2rem;
+}
+
+.projectActions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.65rem;
 }
 
 .githubLink {
@@ -299,10 +287,9 @@
   color: rgba(235, 222, 255, 0.96);
   border: 1px solid rgba(192, 143, 255, 0.62);
   padding: 0.62rem 1.25rem;
-  border-radius: 999px;
+  border-radius: 0;
   background: rgba(52, 25, 102, 0.66);
   width: fit-content;
-  margin-left: auto;
   transition:
     transform 260ms ease,
     background 260ms ease,
@@ -341,7 +328,7 @@
 
   .cardBody {
     min-height: 39rem;
-    padding: 3.2rem 1.7rem 1.7rem;
+    padding: 3.2rem 1.7rem 6.25rem;
   }
 
   .cardTitle {
@@ -349,15 +336,10 @@
   }
 
   .cardFooter {
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 1rem;
+    right: 1.7rem;
+    bottom: 1.7rem;
   }
 
-  .githubLink {
-    margin-left: auto;
-  }
 }
 
 .projectsHeader {

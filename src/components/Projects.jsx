@@ -1,11 +1,8 @@
-import { Suspense, lazy, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { projects } from "../data.js";
 import FadeContent from "../reactbits/FadeContent.jsx";
 import BlurText from "../reactbits/BlurText.jsx";
 import styles from "../styles/Projects.module.css";
-
-const ProjectHoverFx = lazy(() => import("../animations/ProjectHoverFx.jsx"));
 
 const CARD_VARIANTS = {
   hidden: { opacity: 0, y: 36, scale: 0.97 },
@@ -18,45 +15,12 @@ const CARD_VARIANTS = {
 };
 
 function ProjectCard({ project, index }) {
-  const [isHovered, setIsHovered] = useState(false);
-  const [pointer, setPointer] = useState({ x: 0.5, y: 0.5 });
-
-  const tiltStyle = useMemo(() => {
-    if (!isHovered)
-      return { "--tilt-rotate-x": "0deg", "--tilt-rotate-y": "0deg" };
-    return {
-      "--tilt-rotate-x": `${((0.5 - pointer.y) * 8.5).toFixed(2)}deg`,
-      "--tilt-rotate-y": `${((pointer.x - 0.5) * 11).toFixed(2)}deg`,
-    };
-  }, [isHovered, pointer.x, pointer.y]);
-
   return (
     <motion.article
-      className={`${styles.card} ${isHovered ? styles.cardTiltActive : ""}`}
-      style={tiltStyle}
+      className={styles.card}
       variants={CARD_VARIANTS}
       custom={index}
-      onPointerEnter={() => setIsHovered(true)}
-      onPointerMove={(e) => {
-        const r = e.currentTarget.getBoundingClientRect();
-        setPointer({
-          x: Math.min(Math.max((e.clientX - r.left) / r.width, 0), 1),
-          y: Math.min(Math.max((e.clientY - r.top) / r.height, 0), 1),
-        });
-      }}
-      onPointerLeave={() => {
-        setIsHovered(false);
-        setPointer({ x: 0.5, y: 0.5 });
-      }}
     >
-      {isHovered && (
-        <div className={styles.cardFx} aria-hidden="true">
-          <Suspense fallback={null}>
-            <ProjectHoverFx active={isHovered} pointer={pointer} />
-          </Suspense>
-        </div>
-      )}
-
       <div className={styles.mediaBackdrop} aria-hidden="true">
         <img src={project.image} alt="" className={styles.img} />
         <div className={styles.mediaGrid} />
@@ -87,13 +51,15 @@ function ProjectCard({ project, index }) {
           </div>
         </div>
         <p className={styles.cardDesc}>{project.description}</p>
-        <div className={styles.cardFooter}>
+      </div>
+      <div className={styles.cardFooter}>
+        <div className={styles.projectActions}>
           <motion.a
             href={project.github}
             target="_blank"
             rel="noreferrer"
             className={styles.githubLink}
-            whileHover={{ y: -2, scale: 1.04 }}
+            whileHover={{ y: -2 }}
             whileTap={{ scale: 0.97 }}
             transition={{ type: "spring", stiffness: 400, damping: 20 }}
           >
