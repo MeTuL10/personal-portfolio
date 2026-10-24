@@ -5,43 +5,50 @@ import natsuAnimation from "./files/natsu.mp4";
 const publicAsset = (path) => `${import.meta.env.BASE_URL}${path}`;
 
 export const skills = {
-  languages: {
-    label: "Programming Languages",
-    icon: "fa-solid fa-code",
-    items: ["Python", "Java", "C", "C++", "C#", "HTML", "CSS", "JS", "R"],
+  aiMachineLearning: {
+    label: "AI / Machine Learning",
+    shortLabel: "AI / ML",
+    icon: "fa-solid fa-brain",
+    description: "Models, agents, and conversational AI systems.",
+    items: ["Scikit-learn", "TensorFlow", "PyTorch", "Gymnasium", "Stable-Baselines", "Rasa"],
   },
-  frameworks: {
-    label: "Libraries & Frameworks",
-    icon: "fa-solid fa-cubes",
-    items: [
-      "Sklearn",
-      "TensorFlow",
-      "Gym",
-      "Pandas",
-      "Stable Baselines",
-      "Flask",
-      "Rasa",
-      "FastAPI",
-      "React",
-      "Hera",
-    ],
+  backendData: {
+    label: "Backend and Data",
+    shortLabel: "Backend",
+    icon: "fa-solid fa-database",
+    description: "APIs, distributed processing, and data stores.",
+    items: ["FastAPI", "Flask", "PySpark", "MySQL", "Redis"],
   },
-  tools: {
-    label: "Tools & Platforms",
-    icon: "fa-solid fa-gears",
+  cloudMlops: {
+    label: "Cloud and MLOps",
+    shortLabel: "Cloud / MLOps",
+    icon: "fa-solid fa-cloud-arrow-up",
+    description: "Automation, orchestration, cloud, and deployment tooling.",
     items: [
-      "MySQL",
-      "Unity",
+      "GitHub Actions",
+      "Git",
       "Docker",
       "Kubernetes",
-      "AWS",
-      "Azure",
-      "GitHub Actions",
-      "Redis",
-      "UIPath",
       "Databricks",
+      "Hera",
       "Argo",
+      "Azure",
+      "AWS",
     ],
+  },
+  programmingLanguages: {
+    label: "Programming Languages",
+    shortLabel: "Languages",
+    icon: "fa-solid fa-code",
+    description: "Core languages used across product and ML work.",
+    items: ["Python", "Java", "C++", "C", "JavaScript", "TypeScript", "R"],
+  },
+  frontendOtherTools: {
+    label: "Frontend and Other Tools",
+    shortLabel: "Frontend / Other",
+    icon: "fa-solid fa-window-maximize",
+    description: "Interfaces, prototyping, and workflow tools.",
+    items: ["React", "HTML", "CSS", "Unity", "UiPath"],
   },
 };
 

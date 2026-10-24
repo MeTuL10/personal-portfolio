@@ -110,7 +110,7 @@
   margin-bottom: 1.8rem;
   color: var(--art-ink);
   font-family: var(--font-art-display);
-  font-size: clamp(6.4rem, 11vw, 12.5rem);
+  font-size: clamp(4.6rem, 7.25vw, 9.2rem);
   font-weight: 600;
   letter-spacing: -0.065em;
   line-height: 0.8;
@@ -121,7 +121,7 @@
   margin-bottom: 3.3rem;
   color: var(--art-ink-soft);
   font-family: var(--font-art-display);
-  font-size: clamp(2.35rem, 3.3vw, 3.5rem);
+  font-size: 2.2rem;
   font-weight: 500;
   letter-spacing: -0.035em;
   line-height: 1.05;
@@ -149,7 +149,7 @@
   margin-bottom: 3.8rem;
   color: var(--art-ink-soft);
   font-family: var(--font-art-display);
-  font-size: clamp(1.7rem, 1.65vw, 2rem);
+  font-size: 1.6rem;
   font-weight: 500;
   line-height: 1.58;
 }
@@ -322,7 +322,7 @@
   }
 
   .name {
-    font-size: clamp(5.8rem, 19vw, 8.5rem);
+    font-size: clamp(4rem, 11.5vw, 6.6rem);
   }
 
   .socialRow {

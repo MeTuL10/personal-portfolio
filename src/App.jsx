@@ -340,20 +340,23 @@ export default function App() {
                 className={styles.paperTransition}
                 initial={{
                   clipPath:
-                    "polygon(0 0, 0 0, 0 18%, 0 36%, 0 55%, 0 74%, 0 100%, 0 100%)",
+                    "polygon(100% 0, 100% 0, 100% 18%, 100% 36%, 100% 55%, 100% 74%, 100% 100%, 100% 100%)",
                   x: "0vw",
+                  opacity: 1,
                 }}
                 animate={
                   transitionPhase === "running"
                     ? {
                         clipPath:
-                          "polygon(0 0, 96% 0, 100% 18%, 96.5% 36%, 100% 55%, 96% 74%, 100% 100%, 0 100%)",
+                          "polygon(0 0, 100% 0, 100% 100%, 0 100%, 4% 74%, 0 55%, 3.5% 36%, 0 18%)",
                         x: "0vw",
+                        opacity: 1,
                       }
                     : {
                         clipPath:
-                          "polygon(0 0, 96% 0, 100% 18%, 96.5% 36%, 100% 55%, 96% 74%, 100% 100%, 0 100%)",
-                        x: "112vw",
+                          "polygon(0 0, 100% 0, 100% 100%, 0 100%, 4% 74%, 0 55%, 3.5% 36%, 0 18%)",
+                        x: "0vw",
+                        opacity: 0,
                       }
                 }
                 transition={{

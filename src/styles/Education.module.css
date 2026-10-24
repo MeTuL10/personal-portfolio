@@ -139,6 +139,10 @@
   line-height: 1.55;
 }
 
+.mobilePeriod {
+  display: none;
+}
+
 .status,
 .metric {
   display: inline-flex;
@@ -227,12 +231,12 @@
     padding-bottom: 2.8rem;
   }
 
-  .content::before {
+  .mobilePeriod {
     display: block;
     color: rgba(213, 183, 255, 0.84);
-    content: "Education record";
     font-family: var(--font-mono);
     font-size: 1.04rem;
+    font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }

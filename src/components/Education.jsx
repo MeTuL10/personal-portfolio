@@ -47,6 +47,7 @@ export default function Education() {
             </TimelineSeparator>
 
             <TimelineContent className={styles.content}>
+              <time className={styles.mobilePeriod}>{entry.range}</time>
               <div className={styles.institutionRow}>
                 <h3>{entry.institution}</h3>
                 {entry.status && (
